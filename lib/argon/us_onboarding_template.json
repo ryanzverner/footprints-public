@@ -1,0 +1,347 @@
+[ "document", {
+  "page-size" : "letter",
+    "default-font-family" : "arvo",
+    "page-numbers" : "on",
+    "default-font-size" : 10,
+    "on-document-end" : [ [ "write-to-template", {
+      "name" : "8l-theme"
+    }, [ "draw-image", {
+      "location" : [ 15, 15 ],
+      "url" : "file:./resources/public/images/8l-watermark.png"
+    } ], [ "stroke-rectangle", {
+      "width" : 1,
+      "color" : [ 237, 237, 237 ],
+      "location" : [ 15, 15, 581, 761 ]
+    } ] ] ],
+    "default-color" : "dark-gray",
+    "templates" : [ {
+      "name" : "8l-theme"
+    } ],
+    "margins" : [ 40, 40, 40, 40 ],
+    "on-page-end" : [ [ "add-template", {
+      "name" : "8l-theme",
+      "level" : "bottom"
+    } ] ]
+}, [ [ "image", {
+  "location" : [ 515, 658 ],
+    "size" : [ 56, 134 ],
+    "url" : "file:./resources/public/images/8l-bookmark.png"
+} ], [ "paragraph", { }, [ "text", {
+  "font" : {
+    "color" : [ 38, 168, 224 ],
+      "family" : "frescosans-bold",
+      "size" : 16
+  }
+}, "ABC" ], [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "frescosans-bold",
+      "size" : 16
+  }
+}, " Inc." ] ], [ "paragraph", { }, [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "fresco",
+      "size" : 12
+  }
+}, "Software is our " ], [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "fresco-italic",
+      "size" : 12
+  }
+}, "craft. " ], [ "text", {
+  "rise" : 5,
+    "font" : {
+      "color" : "black",
+      "family" : "fresco",
+      "size" : 6
+    }
+}, "TM" ] ], [ "paragraph", {
+  "padding" : {
+    "top" : 4
+  },
+    "leading" : 12,
+    "font" : {
+      "color" : "black",
+      "family" : "fresco",
+      "size" : 10
+    }
+}, "1232 American Way\nLibertyville, IL 60048" ], [ "paragraph", {
+  "padding" : {
+    "bottom" : 20,
+      "top" : 4
+  },
+    "leading" : 12,
+    "font" : {
+      "color" : "black",
+      "family" : "fresco",
+      "size" : 10
+    }
+}, "877-407-4154\n847-573-1748", [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "fresco-italic",
+      "size" : 10
+  }
+}, " fax" ] ] ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "top" : 15,
+      "bottom" : 15
+    }
+      }, "ABC, Inc. believes that the most basic building block of a fruitful apprenticeship is mutual understanding. A mentor and apprentice relationship that is not built on a clear set of expectations will waste the time and energy of all parties involved. This contract sets forth what is expected of you as an apprentice and what is expected of your mentor. It is a reminder to both of you of the responsibilities inherent in entering into this relationship. It is a resource to be referred to when guidance is needed." ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+      "bottom" : 15
+    }
+  }, "The below statements contain both the responsibilities and expectations for the mentor and apprentice, covering the period of apprenticeship from <START DATE> to <END DATE>. Please read and carefully consider your roles in this relationship. If you agree to these responsibilities, please sign below." ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+      "bottom" : 25
+    }
+  }, "As an apprentice of ABC, Inc. you acknowledge and understand the following:" ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+  	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "1. The ABC, Inc. apprenticeship program is a difficult and challenging opportunity. Like all opportunities, it will require my hard work and preparation to achieve success. Anything less than my full dedication will lead to a failed apprenticeship. My mentor cannot force me to reach the next level of my craft. They can guide and assist me, but I am my own driving force. " ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "2. A completed apprenticeship is not a guarantee of employment at ABC, Inc.. I understand that this program is an educational opportunity similar to a graduate level program in other disciplines. The goal for ABC, Inc. is to hire all residents who succeed throughout their residency. Not being offered employment is not a sign of a failed apprenticeship, there are many external factors. If I succeed in my apprenticeship, I will have a honed set of skills that carry over to any work environment in my craft. " ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "3. ABC, Inc. is a business and seeks to maintain a professional environment. I will conduct myself in a professional manner in my apprenticeship. This includes proper attire in the work environment, courteousness to ABC, Inc. clients, and allowing ABC, Inc. employees space and time to deal with clients. We do not practice our craft in a vacuum. The client must always be in the front of our minds, as it is through their patronage that we are allowed to practice our craft. " ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "4. The attitude that I carry into the work environment is just as influential to my craft as my coding skills. Cynicism affects my approach to code. It closes of my mind to avenues that might contain unexpected solutions. Negativity affects how others collaborate with me. I will remain positive and focus on moving forward, especially in the face of adversity." ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "5. I will approach my apprenticeship from a place of respect. I will respect the dedication and work of my fellow apprentices. I will respect the time that my mentor spends guiding my journey and understand that they cannot watch over my every step. I will respect the time and effort that is demanded by my craft. When I approach this apprenticeship with respect, I am allowing myself the opportunity to grow as a craftsman. My code is but one tool in my craft, I must also hone my skills in working with others." ],    
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "alignment" : {
+      "horizontal": "right"
+    },
+    "padding" : {
+      "top" : 50,
+	  "bottom" : 500
+    }
+  }, "______________________________________________ Resident's Signature" ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+        "bottom" : 25
+      }
+    }, "As a mentor of an ABC, Inc. apprentice you acknowledge and understand he following: " ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "1. It is my responsibility to provide challenging work. I will consider the learning needs of the apprentice when assigning work" ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "2. It is my duty to provide clear and honest feedback to the apprentice. Without my feedback, there cannot be a successful apprenticeship." ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "3. My interactions with apprentices, clients, and other craftsman will be examples of how professionals conduct themselves. I will be a reflection of the culture we have created at ABC, Inc.." ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "4. The apprentice will be undergoing a challenging growth process, and in the face of that, they might be tempted to give into their frustration. I must approach their growth experience with patience, honesty, and positivity. " ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "5. The apprentice is making a serious investment of their time and energy. I must respect that investment by making time to provide the proper guidance. " ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "alignment" : {
+        "horizontal": "right"
+      },
+      "padding" : {
+        "top" : 50,
+  	    "bottom" : 250
+      }
+    }, "______________________________________________ Mentor's Signature" ],
+
+	[ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica",
+	      "style" : "bold"
+	    },
+	    "padding" : {
+	      "bottom" : 15
+	    },
+	    "alignment" : {
+	      "horizontal" : "center"
+	    }
+	  }, "CONFIDENTIALITY AND NONDISCLOSURE AGREEMENT" ],
+
+
+	[ "table",
+	  { "columns" : 3,
+	    "width-percentage" : 100,
+	    "relative-column-widths" : [45, 10, 45] },
+	  [ [ "cell",
+	        { "border-width" : {"top": 0, "right": 0, "bottom": 0, "left": 0},
+	          "padding" : {"top": 2, "bottom": 2},
+	          "embed" : ["phrase", {"font" : {"size" : 9, "family" : "helvetica"}}, "This Confidentiality and Nondisclosure Agreement (this “Agreement”), dated as of <TODAY'S DATE>, is by and between ABC, Inc., Inc, an Illinois corporation (“ABC, Inc.”), and <APPLICANT NAME> (“Company”). \n\n\n1. Confidential Information. “Confidential Information” means all information, currently existing or subsequently created, that either ABC, Inc. or the Company (“Disclosing Party”) and/or any of their affiliates owns or controls that is not generally known to the public, whether of a technical, business or other nature (including, without limitation, trade secrets, know-how, information relating to the technology, customers, strategic partners, business plans, promotional and marketing objectives, software, methodologies, processes, finances and other business affairs of Disclosing Party), that is disclosed by Disclosing Party to the other party (“Receiving Party”) or that is otherwise learned by the Receiving Party in the course of its discussions or business dealings with the Disclosing Party, and that has been identified as being proprietary and/or confidential or that by the nature of the circumstances surrounding the disclosure or receipt ought to be treated as proprietary and confidential. The parties agree that any Confidential Information disclosed prior to or after the date hereof shall be protected by the terms of this Agreement.\n\n\n2. Use and Ownership of Confidential Information.
+	Receiving Party will not disclose Confidential Information to anyone without Disclosing Party's prior, written consent. In addition, Receiving Party will not use, or permit others to use, Confidential Information for any purpose other than its evaluation of the Disclosing Party’s products and/or services and, if desired by the parties, negotiation and consummation of a business transaction between the parties pursuant to a definitive agreement. Receiving Party will take all reasonable measures to avoid disclosure or unauthorized use of Confidential Information, including, at a minimum, those measures it takes to protect its own confidential information of a similar nature. Receiving Party’s personnel, if applicable, will have access only to the Confidential Information they need for such purposes, and Receiving Party will ensure that its personnel comply with this Agreement.\n\n\n3. Exceptions. The provisions of Section 2 will not apply to any information that Receiving Party establishes by written documentation: (i) at the time of disclosure was or thereafter becomes publicly available without breach of this Agreement; (ii) is rightfully received from a third party that did not acquire or disclose such information by a wrongful or tortious act; (iii) was developed by Receiving Party without reference to any Confidential Information; or (iv) Receiving Party is legally obligated to disclose by court order (but only to the limited extent required by the court).\n\n\n4. Return of Confidential Information. In the event that the parties determine not to proceed with discussions with respect to the business opportunity or upon Disclosing Party’s written request, Receiving Party will promptly return all tangible material embodying Confidential Information and will destroy all other tangible material containing Confidential Information in its possession or under its control."]}
+	],
+	[ "cell",
+	  { "border-width" : {"top": 0, "right": 0, "bottom": 0, "left": 0} }
+	],
+	[ "cell",
+	  { "border-width" : {"top": 0, "right": 0, "bottom": 0, "left": 0},
+	    "padding" : {"top": 2, "bottom": 2},
+	    "embed" : ["phrase", {"font" : {"size" : 9, "family" : "helvetica"}}, "4. Return of Confidential Information. In the event that the parties determine not to proceed with discussions with respect to the business opportunity or upon Disclosing Party’s written request, Receiving Party will promptly return all tangible material embodying Confidential Information and will destroy all other tangible material containing Confidential Information in its possession or under its control.\n\n\n5. Injunctive Relief. Receiving Party acknowledges that disclosure or use of Confidential Information in violation of this Agreement could cause irreparable harm to Disclosing Party for which monetary damages may be difficult to ascertain. Receiving Party therefore agrees that Disclosing Party will have the right, in addition to its other rights and remedies, to seek injunctive relief for any violation of this Agreement.\n\n\n6. Miscellaneous. This Agreement constitutes the entire agreement between the parties relating to the matters discussed herein and supersedes all prior oral and written understandings with respect to any information disclosed or received under this Agreement. Nothing in this Agreement shall be construed as an obligation for Disclosing Party to disclose proprietary information or evaluation materials to Receiving Party. Disclosing Party shall not be considered to have made or make any representation or warranty as to the accuracy or completeness of any information provided hereunder. Receiving Party will be responsible for conducting and completing its own independent investigation, evaluation and due diligence relative to engaging in a transaction with Disclosing Party. This Agreement may be amended or modified only with the mutual written consent of the parties. Unless otherwise earlier terminated, this Agreement will automatically expire 3 years from the later of the date first written above and the date the particular Confidential Information at issue is disclosed. This Agreement will be governed by the internal laws of the State of Illinois (without regard to its rules regarding conflicts of laws), and may be executed in counterpart copies. The parties shall endeavor to resolve all disputes hereunder by good faith negotiations, failing which the parties shall submit the dispute to mediation in Chicago, Illinois under the rules of the American Arbitration Association and, if necessary, arbitration in Chicago, Illinois under the same rules. If a provision of this Agreement is held invalid under any applicable law or by any court, such invalidity will not affect any other provision of this Agreement.\n\n\nABC, Inc., Inc.\n\nBy:__________________________________\n\nPrint Name:__________________________\n\nTitle:________________________________\n\n[Company]\n\nBy:_________________________________\n\nPrint Name: <APPLICANT NAME>\n\nTitle:________________________________"]}
+			  ]]
+  ],
+	  
+	[ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica",
+	      "style" : "bold",
+				"style" : "underline"
+	    },
+	    "padding" : {	  "top" : 25,
+	      "bottom" : 15
+	    },
+	    "alignment" : {
+	      "horizontal" : "center"
+	    }
+	  }, "EMPLOYEE INFORMATION" ],
+	  
+  [ "paragraph", {
+ 		    "font" : {
+ 		      "family" : "helvetica"
+ 		    },
+ 		    "padding" : {
+ 		      "bottom" : 45
+ 		    }
+ 		  }, "DATE OF RESIDENT APPRENTICESHIP <START DATE>\n\nSOCIAL SECURITY NUMBER______________________________\n\nLAST NAME ______________________________FIRST______________________________MIDDLE_________\n\nADDRESS_______________________________________________________________________\n\nCITY ______________________________STATE_________ZIP CODE_________\n\nCELL PHONE #__________________________________\n\nE-MAIL________________________________________\n\nBIRTH DATE___________________________GENDER__________ETHNIC ORIGIN___________________" ],
+			  
+	["paragraph", {
+	 	    "font" : {
+	 	      "family" : "helvetica",
+					"style" : "bold"
+	 	    },
+	 	    "padding" : {
+	 	      "bottom" : 15
+	 	    }
+	 	  }, "EMPLOYEE INFORMATION:" ],
+
+	[ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica"
+	    },
+	    "padding" : {
+	      "bottom" : 45
+	    }
+	  }, "NAME______________________________________________PHONE #____________________________" ],
+		
+	["paragraph", {
+	 	    "font" : {
+	 	      "family" : "helvetica",
+					"style" : "bold"
+	 	    },
+	 	    "padding" : {
+	 	      "bottom" : 15
+	 	    }
+	 	  }, "FOR OFFICE USE ONLY:" ],
+					  
+	[ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica"
+	    },
+	    "padding" : {
+	      "bottom" : 15
+	    }
+	  }, "HIRE/REHIRE DATE_______________________________SALARY_________________________________\n\nFULL TIME________PART TIME___________TITLE_______________________________________________" ]
+
+]

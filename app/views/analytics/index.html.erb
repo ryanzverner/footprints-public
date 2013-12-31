@@ -1,0 +1,55 @@
+<div class="heading row">
+  <h1>Analytics</h1>
+  <h2>Summarizes application response times and applicant background data</h2>
+</div>
+
+<div class="row analytics">
+  <div class="column one-half">
+    <h3>Response summary</h3>
+    <h2>Average days between steps</h2>
+    <p>Between steps in the application process</p>
+    <p><strong>Applied -> Decision Made</strong>: <%= average_lapse_time("decision_made_on", "applied_on") %></p>
+    <p><strong>Applied -> Initial Reply</strong>: <%= average_lapse_time("initial_reply_on", "applied_on") %> </p>
+    <p><strong>Initial Reply -> Completed Challenge</strong>: <%= average_lapse_time("completed_challenge_on", "initial_reply_on") %> </p>
+    <p><strong>Completed Challenge -> Reviewed</strong>: <%= average_lapse_time("reviewed_on", "completed_challenge_on") %></p>
+    <p><strong>Reviewed -> Resubmitted</strong>: <%= average_lapse_time("resubmitted_challenge_on", "reviewed_on") %></p>
+    <p><strong>Resubmitted -> Decision Made</strong>: <%= average_lapse_time("decision_made_on", "resubmitted_challenge_on") %></p>
+  </div>
+
+  <div class="column one-half">
+    <h3>Fall off percentages</h3>
+    <form action="/analytics" method="GET">
+      <p>Applicants who don't respond after:</p>
+      <select name="falloff" id="falloff", onchange="this.form.submit()">
+        <% ['30', '60', '90', '120', '150', '180'].each_with_index do |val,i| %>
+          <% if @falloff == val.to_i %>
+            <option value="<%= val %>" selected><%= i + 1 %> month<%= "s" if i > 0 %></option>
+          <% else %>
+            <option value="<%= val %>"><%= i + 1 %> month<%= "s" if i > 0 %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </form>
+    <p><strong>After Initial Reply: </strong> <%= fall_off("initial_reply_on", @falloff) %></p>
+    <p><strong>After Review:</strong> <%= fall_off("reviewed_on", @falloff) %></p>
+  </div>
+</div>
+
+<div class="row analytics">
+  <div class="column one-half">
+    <h3>Applicant background summary</h3>
+    <h2>Code schools</h2>
+    <p>Applicants attended these code schools</p>
+    <% Applicant.code_schools.each do |school| %>
+         <p><strong><%= school %></strong>: <%= display_background_info(:codeschool, school) %></p>
+       <% end %>
+     </div>
+
+     <div class="column one-half">
+       <h3>Education and work experience</h3>
+       <p>Applicants' relevant experience and/or degree</p>
+       <p><strong>College Degree</strong>: <%= display_background_info(:college_degree, "Yes") %></p>
+       <p><strong>Computer Sci Degree</strong>: <%= display_background_info(:cs_degree, "Yes") %></p>
+       <p><strong>Worked as Developer</strong>: <%= display_background_info(:worked_as_dev, "Yes") %></p>
+     </div>
+   </div>

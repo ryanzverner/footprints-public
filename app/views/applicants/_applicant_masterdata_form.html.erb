@@ -1,0 +1,7 @@
+<div class='form-whole-width'>
+  <%= form.label :name, 'Applicant Name' %>
+  <%= form.text_field :name, id: 'applicant-name' %>
+
+  <%= form.label :applied_on, 'Applied On' %>
+  <%= form.text_field :applied_on, id: 'applied_on', disabled: local_assigns.has_key?(:disable_applied_on) ? disable_applied_on : false %>
+</div>

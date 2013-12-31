@@ -1,0 +1,31 @@
+<div class='form-whole-width'>
+  <%= form.label :location %>
+  <p>
+    <%= form.select :location, ["Chicago", "London", "Los Angeles"], {}, class: "dropdown", style:"width: 140px" %>
+  </p>
+
+  <%= form.label :discipline %>
+  <p>
+    <%= form.select :discipline, {"Developer" => "developer", "Designer" => "designer"}, {}, class: "dropdown", style: "width: 140px" %>
+  </p>
+
+  <%= form.label :skill %>
+  <p>
+    <%= form.select :skill, {"Craftsman" => "craftsman", "Resident" => "resident", "Student" => "student"}, {}, class: "dropdown", style: "width: 140px" %>
+  </p>
+
+  <%= form.label :about, 'Their Story' %>
+  <p>
+    <%= form.text_area :about, id: 'about_applicant' %>
+  </p>
+
+  <%= form.label :software_interest, 'Why They Love Creating Software:' %>
+  <p>
+    <%= form.text_area :software_interest, id: 'applicant_software_interest' %>
+  </p>
+
+  <%= form.label :reason, 'Why They Want To Be An Apprentice:' %>
+  <p>
+    <%= form.text_area :reason, id: 'applicant_reason' %>
+  </p>
+</div>

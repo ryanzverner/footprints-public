@@ -1,0 +1,9 @@
+<div class="send-email-form">
+  <div class="heading-row">
+    <h1>Send Email to <%= @applicant.name %></h1>
+  </div>
+  <%= form_tag('/messages/create') %>
+  <%= hidden_field_tag "mailer[applicant_id]", @applicant.id %>
+  <%= text_area_tag "mailer[email_body]", nil, {:required => true} %>
+  <p><%= submit_tag "Send Email", :class => "btn" %></p>
+</div>

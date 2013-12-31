@@ -1,0 +1,10 @@
+<div class="applicant-interactions">
+  <h2>Interactions</h2>
+  <% if @presenter.interactions == {} %>
+    <p>No Interactions Yet</p>
+  <% else %>
+    <% @presenter.interactions.each_pair do |label, date| %>
+      <p><span class="applicant-label"><%= label %></label>: <%= date %></p>
+    <% end %>
+  <% end %>
+</div>

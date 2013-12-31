@@ -1,0 +1,14 @@
+<% unless @presenter.url.empty? %>
+  <p><span class="applicant-label">URL</span>:
+  <% @presenter.url.each do |link| %>
+    <%= link_to link, link, :target => "_blank" %>
+  <% end %>
+  </p>
+<% end %>
+
+<% if @applicant.code_submission.nil? %>
+  <%= "" %>
+<% else %>
+  <h2>Code Submission</h2>
+  <p><%= link_to @applicant.code_submission, @applicant.code_submission, :target => "_blank" %></p>
+<% end %>

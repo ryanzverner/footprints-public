@@ -1,0 +1,51 @@
+<!-- Applicant Index Card -->
+
+<div data-applicant-id='<%= app.id %>' class="applicant-list applicant-data card">
+  <div class="card-header">
+    <%= link_to app.name, applicant_path(app), :class => "applicant-name" %>
+    <div class="card-sub-header">
+      <% if app.assigned_craftsman %>
+        Assigned to <%= app.assigned_craftsman %>
+      <% else %>
+        Needs Craftsman
+      <% end %>
+    </div>
+
+    <ul class="card-data-list applicant-data">
+      <li>
+      <span class="card-data"><%= presenter.skill(app) %></span>
+      <span class="card-label">Level</span>
+      </li>
+      <li>
+      <span class="card-data"><%= presenter.discipline(app) %></span>
+      <span class="card-label">Discipline</span>
+      </li>
+      <li>
+      <span class="card-data"><%= presenter.location(app) %></span>
+      <span class="card-label">Location</span>
+      </li>
+    </ul>
+
+    <span class="status-text">
+      <i class="status-icon fa fa-<%= presenter.waiting_state_class(app) %>"></i>
+      <span><%= presenter.waiting_state(app) %></span>
+    </span>
+    <span class="divider"> · </span>
+    <% if days_since_last_action(app).is_a?(Integer) && days_since_last_action(app) > 7 %>
+      <span class="card-sub-header alert alert-warning"><%= days_since_last_action(app) %> Days</span>
+    <% else %>
+      <span class="card-sub-header alert"><%= days_since_last_action(app) %> Days</span>
+    <% end %>
+  </div>
+
+  <div class="status">
+    <div class="state-holder">
+      <span class="applied_on state tooltip <%= presenter.tooltip_state(app, "applied_on") %>"><strong>Applied</strong></span>
+      <span class="initial_reply_on state tooltip <%= presenter.tooltip_state(app, "initial_reply_on") %>"><strong>Contacted</strong></span>
+      <span class="sent_challenge_on state tooltip <%= presenter.tooltip_state(app, "sent_challenge_on") %>"><strong>Requested Submission</strong></span>
+      <span class="completed_challenge_on state tooltip <%= presenter.tooltip_state(app, "completed_challenge_on") %>"><strong>Submitted Code</strong></span>
+      <span class="reviewed_on state tooltip <%= presenter.tooltip_state(app, "reviewed_on") %>"><strong>Completed Review</strong></span>
+      <span class="offered_on state tooltip <%= presenter.tooltip_state(app, "offered_on") %>"><strong> <%= presenter.offer_text(app) %> </strong></span>
+    </div>
+  </div>
+</div>

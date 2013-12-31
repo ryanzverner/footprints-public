@@ -1,0 +1,165 @@
+<div class="container">
+  <div class="column one-third table-of-contents">
+    <ol class="template-menu">
+      <li><a href="#contact">Initial Contact Email</a></li>
+      <li><a href="#ttt">TTT Code Requirements</a></li>
+      <li><a href="#mastermind">Mastermind Code Requirements</a></li>
+      <li><a href="#code_feedback">Code Feedback</a></li>
+      <li><a href="#rejection">Rejection Email</a></li>
+    </ol>
+  </div>
+
+  <div class="column two-thirds template-content">
+    <section id="contact">
+    <h1>Initial Contact Email</h1>
+    <p>Thanks for your interest in our company!  Would you be able to come by our office some time so we can talk about the next steps in the application process?</p>
+
+    <p>If you have any questions about this step or our company in general, please feel free to ask!
+    </p>
+    </section>
+
+    <section id="ttt">
+    <h1>TTT Code Requirements</h1>
+    <h2>General</h2>
+    <ul>
+      <li style="list-style-type: circle">You can use any language.</li>
+      <li style="list-style-type: circle">This can be playable in any form.  It can be a command line application, a web application, etc.</li>
+      <li style="list-style-type: circle">There isn't a deadline.</li>
+      <li style="list-style-type: circle">Send a link to the Github repo when you are finished.</li>
+    </ul>
+    <p>Your task is to create a game that allows a human to play against an unbeatable computer player.  The computer player must never lose and should win when possible.</p>
+    </section>
+
+    <section id="mastermind">
+    <h1>Mastermind Code Requirements</h1>
+    <h2>General</h2>
+    <ul>
+      <li style="list-style-type: circle">You can use any language.</li>
+      <li style="list-style-type: circle">This can be playable in any form.  It can be a command line application, a web application, etc.</li>
+      <li style="list-style-type: circle">There isn't a deadline.</li>
+      <li style="list-style-type: circle">Send a link to the Github repo when you are finished.</li>
+    </ul>
+    <p>Mastermind is a two-player code-breaking game where one player makes a code (in your program this will be the human player) and another player guesses the code (in your program this will be the computer player).  Your task is to create a game that allows a human to play against the computer.  The computer should be able to guess the correct code (created by the human player) within 10 turns.  The code is made up of four colors and can include duplicates.  There are six available colors from which to choose: red, green, orange, yellow, blue, purple.</p>
+    </section>
+
+    <section id="code_feedback">
+    <h1>Code Feedback</h1>
+    <p>Some craftsmen take the approach of first sending an email with some questions to get an idea of how the applicant thinks, how they approached the problem, and why they made the decisions they made.</p>
+    <p>Follow up with more specific, detailed feedback after you hear back from the applicant.</p>
+    <h2>Initial Feedback</h2>
+    <p>I reviewed your code and prepared my feedback, but first I would like to ask you a few questions to get an idea of how you approached this problem and why you made the decisions you made.</p>
+    <ul>
+      <li>How do you feel about the code between lines 70 and 900? Can you think of some other ways of accomplishing the same thing?</li>
+      <li>How easy do you think it would be to change the rules so that, say the computer never blocks me if I am about to win diagonally? How confident would you be that you didn't break anything else after you made this change? Similarly, how easy would it be to make the changes below?</li>
+      <ul>
+        <li>How would your design have to change to swap the player order?</li>
+        <li>How would your design have to change to allow two human players?</li>
+        <li>How would your design have to change to allow a choice between a 3x3 or a 4x4 board?</li>
+      </ul>
+      <li>It looks like there isn't really any "user error" checking. For example, I can type in anything I want into those boxes or populate several boxes at once and the computer will still accept it. What was your reason for not handling these scenarios?</li>
+      <li>How do you know your code works if there aren’t any tests?</li>
+      <li>How hard would it be to add/convert your application to have a different UI?</li>
+    </ul>
+    <p>Let me know your thoughts and then I will share my specific feedback.</p>
+    <h2>Feedback after they've answered your questions</h2>
+    <p>Things that were good:</p>
+    <ul>
+      <li>Good organization of classes and methods.</li>
+      <li>I enjoyed playing the game.</li>
+      <li>Good user experience.</li>
+      <li>Appears to be unbeatable.</li>
+    </ul>
+    </section>
+
+    <section>
+    <h1>General Comments</h1>
+    <h2>Quality of the code</h2>
+    <p>I would say that this code definitely needs some work. You seem to have a decent grasp of the basic concepts of "coding", but need a good amount of work on algorithms and data structures.</p>
+    <p>The reason I say algorithms is because, although your code solves the problem of "what's the next best move", it really isn't maintainable in the long term. It's good that you are interested in seeing better ways of doing this -- and I can assure you that there are better ways of doing this. Data structures help you organize your data (and concepts) in a much more manageable way; this would avoid all the copying and pasting of those arrays. Algorithms help you organize flow of control to avoid copying and pasting those if/else statements. With a little bit of training, you can probably cut those 800 lines of code down to about 30~100 (I'm not kidding), depending on which language you use to code it.</p>
+    <h2>Confidence in the code</h2>
+    <p>The reason I ask about this is because code tends to "rot" very quickly. When code rots, it is tedious and very hard to make any sort of changes (even the slightest changes in logic take forever). I noticed that you don't have any automated tests backing up your code. On any projects of slighter larger scale than this, tests become the foundation of your project that give you not only the confidence you need to make changes, but also catch bugs before you ever make them.</p>
+    <p>Although you may be confident now that small changes like the one I asked would be easy to do, they will not be so easy 3-4 months down the road.</p>
+    <h2>ReadMe</h2>
+    <ul>
+      <li>A specific command to run the app would have been nice.</li>
+      <li>I could not find the referenced jar file.</li>
+      <li>Overall, pretty good.</li>
+    </ul>
+    <h2>User experience/Gameplay</h2>
+    <p>Developers tend to forget who they are coding for; in most cases, they're writing for someone that is not a developer. What this means is that clients will use your products in ways you can't even imagine. Therefore, putting yourself in the shoes of your users is a integral part of developing software. I understand that you were in a rush to get this done, but an annoying and hard-to-use product is probably worse than no product at all.</p>
+    <p>Now, I'm not talking about visual aspects like 3D X's and O's that I can click and they do some cool animations. I'm talking about cases when I make a legitimate mistake (i.e. typo) the product should be able to handle that gracefully.</p>
+    <ul>
+      <li>Main menu</li>
+      <ul>
+        <li>Correctly handles the input of "5" or "-1"</li>
+        <li>Does not handle non-integer input - crashes</li>
+      </ul>
+      <li>Making a move</li>
+      <ul>
+        <li>It again fails with non-input input</li>
+      </ul>
+      <li>Showing the empty board would be nice</li>
+      <ul>
+        <li>At the beginning of the game</li>
+        <li>After an invalid move</li>
+      </ul>
+      <li>I like the fact that it asks you to play again at the end of a game</li>
+      <ul>
+        <li>"Exit" doesn't actually exit the game for me.</li>
+      </ul>
+    </ul>
+    <h2>Structure of the files</h2>
+    <p>The general idea is, if it serves no purpose, delete it. This is true for files, folders, and code. If you leave stuff around "just in case" you will end up with 50% code and 50% clutter. When you come back to add or change a feature, you have twice as much stuff to dig through to find something then you would had you been removing useless stuff from the beginning.</p>
+    <p>Perfect example is your current codebase and my review. When I wanted to look at your code, I knew it's a rails app so I knew to go to the controllers folder. But I wanted to make sure I reviewed all the work you did so I went to look through all the other folder just in case you have something interesting there. The same thing happens to developers (and yourself) that come back to your codebase a few months down the road. They don't know the project inside out, so they'll look through all the folders to see what they have (only to find that they have … nothing).</p>
+    <p>The same thing applies to code. If a line of code serves no purpose, then dump it.Out of all the folders in this project, there are only about 3 or 4 folders that have useful code in them. Why did you decide to include all folders in your submission? Developers often feel tied to code they wrote because it's so "pretty" or "elegant". Furthermore, when they spend 3 days writing a couple of functions that turn out to not have been necessary, they feel really tied to that code as if it was their own baby. Deleting code you've written is very hard for some developers to get used to -- but you have to do it. If you wrote it once, you can write it again. (There is also the idea of source control, but that's a different topic).</p>
+    <h2>Code</h2>
+    <ul>
+      <li>Main</li>
+      <ul>
+        <li>You should probably extract the outputting of the menu into a method</li>
+        <ul><li>Does not handle non-integer input - crashes</li></ul>
+        <li>What is 'cont'? Is there potentially a more descriptive name?</li>
+      </ul>
+      <li>Game World</li>
+      <ul>
+        <li>It is very long.</li>
+        <li>There is a typo in your comment. "grib"</li>
+        <li>Too many comments</li>
+        <ul>
+          <li>I almost never use comments</li>
+          <li>Instead I make sure the methods have descriptive names</li>
+          <li>Some of your comments are probably already redundant. (e.g. `updateGameState(currentPlayer);` does not need a comment)</li>
+        </ul>
+        <li>The constructor and `playerMove` are both very long methods</li>
+      </ul>
+      <li>Grid</li>
+      <ul>
+        <li>Are you familiar with the Single Responsibility Principle?</li>
+        <ul>
+          <li>`Grid` seems to have a lot of responsibilities</li>
+          <ul>
+            <li>Keeps track of the moves that have been made</li>
+            <li>Contains the rules of the game</li>
+            <li>Knows how to display itself on the console</li>
+          </ul>
+        </ul>
+      </ul>
+    </ul>
+    <h2>Things that could use improvement</h2>
+    <ul>
+      <li>Lots of mixing of the backend game logic with the IO</li>
+      <li>Lots of comments</li>
+      <ul><li>Also, there are typos in multiple comments</li></ul>
+      <li>Very long methods</li>
+      <li>No automated unit tests</li>
+    </ul>
+    <h2>Follow-up</h2>
+    <p>How would you feel about refactoring your code based on my feedback?  Let me know when you’re ready for me to review it again and I will take a look.</p>
+    </section>
+
+    <section id="rejection">
+    <h1>Rejection Email</h1>
+    <p>Thanks again for applying for our apprenticeship program.  I appreciate the effort you put into your application, but we are unable to offer you an apprenticeship at this time.  I wish you the best of luck in your future endeavors.</p>
+    </section>
+  </div>
+</div>

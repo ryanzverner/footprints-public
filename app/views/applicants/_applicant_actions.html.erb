@@ -1,0 +1,12 @@
+<div class="applicant-actions" data-applicant-id='<%= app.id %>'>
+  <% if presenter.can_be_unarchived? %>
+    <%= form_for app, :url => unarchive_applicant_path(app), :method => :patch do |f| %>
+      <%= f.hidden_field :archived, :value => true %>
+      <%= f.submit "Unarchive", :class => "button primary unarchive" %>
+    <% end %>
+  <% end %>
+  <%= raw(presenter.hire_action) if admin? %>
+  <% if presenter.can_be_denied? %>
+  <%= link_to "Deny", deny_application_path(app), :class => "button secondary", data: {confirm: "Are you sure you want to deny this applicant? This action will archive all information about this applicant, but discontinue his/her progress through the application process."} %>
+  <% end %>
+</div>

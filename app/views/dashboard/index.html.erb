@@ -1,0 +1,48 @@
+<section class="dashboard-header">
+<div class="container">
+  <h5>Hello</h5>
+  <h1><%= @craftsman.name %></h1>
+  <span class="divide"></span>
+</div>
+</section>
+
+<div class="dashboard container">
+  <div class="current-applicants column one-third">
+    <h5>Assigned Applicants</h5>
+    <% if @not_yet_responded_applicants.present? %>
+      <div class="row">
+        <p><a href="#" id="decline_all_link" class="button secondary small">Decline All</a></p>
+      </div>
+      <ul>
+        <% @not_yet_responded_applicants.each do |app| %>
+          <li class="card">
+          <%= link_to app.name, applicant_path(app.id), :class => "applicant-name" %>
+          <span class="applicant-actions">
+            <%= link_to "Decline", {:controller => 'dashboard', :action => 'decline_applicant_assignment', :id => app.id }, {:class => "button secondary small", data: { confirm: "Do you really want to decline to be #{app.name}'s steward through the application process?" }} %>
+            <%= link_to "Confirm", {:controller => 'dashboard', :action => 'confirm_applicant_assignment', :id => app.id }, {:class => "button primary small", data: { :confirm => "You're confirming that you will be #{app.name}'s steward through the application process." }} %>
+          </span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h6>No assigned applicants.</h6>
+    <% end %>
+  </div>
+  <div class="column two-thirds">
+    <% if @confirmed_applicants.present? %>
+      <h5>Confirmed Applicants</h5>
+      <div class="applicants-list">
+        <% @confirmed_applicants.each do |app| %>
+          <%= render :partial => 'applicants/applicant_card_dashboard', :locals => {:app => app} %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div id='decline-form-dialog' title='Decline Applicants'>
+  <p> Are you sure you want to decline all applicants? </p>
+  <%= form_tag({controller: :dashboard, action: :decline_all_applicants}, method: :post, id: 'decline-form') do |form| %>
+    <%= label_tag(:unavailable_until, "Set me unavailable until (optional)") %>
+    <%= text_field_tag(:unavailable_until) %>
+  <% end %>
+</div>

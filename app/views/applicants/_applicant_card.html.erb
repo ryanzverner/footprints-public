@@ -1,0 +1,72 @@
+<!-- Applicant Profile Card -->
+
+<div class="applicant-profile applicant-data">
+
+  <div class="card-header">
+    <div class="actions">
+      <%= link_to "Edit", controller: "applicants", action: "edit", id: app %>
+      <span class="divider"> &middot; </span>
+      <%= link_to "Delete", applicant_path(app), method: :delete, data: {confirm: "Are you sure you want to delete this applicant profile? This action will permanently delete all data associated with this applicant."} if admin? %>
+    </div>
+
+    <%= link_to app.name, applicant_path(app), :class => "applicant-name" %>
+
+    <div class="actions">
+      <%= mail_to app.email, "Email" %>
+      <span class="divider"> &middot; </span>
+      <span class="card-sub-header">Applied <%= display_date(app.applied_on) %></span>
+      <span class="divider"> &middot; </span>
+      <span class="card-sub-header">
+        <% if app.assigned_craftsman %>
+          Assigned to <%= app.assigned_craftsman %>
+        <% else %>
+          Needs Craftsman
+        <% end %>
+      </span>
+    </div>
+
+    <ul class="card-data-list applicant-data">
+      <li>
+      <span class="card-data"><%= presenter.skill(app) %></span>
+      <span class="card-label">Level</span>
+      </li>
+      <li>
+        <span class="card-data"><%= presenter.discipline(app) %></span>
+        <span class="card-label">Discipline</span>
+      </li>
+      <li>
+        <span class="card-data"><%= presenter.location(app) %></span>
+        <span class="card-label">Location</span>
+      </li>
+      <li>
+        <span class="card-data"><%= presenter.current_state(app) %></span>
+        <span class="card-label">Status</span>
+      </li>
+      <li>
+        <% if days_since_last_action(app).is_a?(Integer) && days_since_last_action(app) > 7 %>
+          <p class="card-data alert alert-warning"><%= days_since_last_action(app) %> days ago</p>
+        <% else %>
+          <p class="card-data alert"><%= days_since_last_action(app) %> days ago</p>
+        <% end %>
+      <span class="card-label">Contacted</span>
+      </li>
+    </ul>
+
+    <h5>Process Timeline</h5>
+    <div class="status card" data-applicant-id="<%= @applicant.id %>">
+      <div class="state-holder">
+        <span class="applied_on state tooltip <%= presenter.tooltip_state(app, "applied_on") %>"><strong>Applied</strong></span>
+        <span class="initial_reply_on state tooltip <%= presenter.tooltip_state(app, "initial_reply_on") %>"><strong>Contacted</strong></span>
+        <span class="sent_challenge_on state tooltip <%= presenter.tooltip_state(app, "sent_challenge_on") %>"><strong>Requested Submission</strong></span>
+        <span class="completed_challenge_on state tooltip <%= presenter.tooltip_state(app, "completed_challenge_on") %>"><strong>Submitted Code</strong></span>
+        <span class="reviewed_on state tooltip <%= presenter.tooltip_state(app, "reviewed_on") %>"><strong>Completed Review</strong></span>
+        <span class="offered_on state tooltip <%= presenter.tooltip_state(app, "offered_on") %>"><strong><%= presenter.offer_text %></strong></span>
+      </div>
+    </div>
+
+    <p class="status-text">
+      <i class="status-icon fa fa-<%= presenter.waiting_state_class(app) %>"></i>
+      <span><%= presenter.waiting_state(app) %></span>
+    </p>
+  </div>
+</div>

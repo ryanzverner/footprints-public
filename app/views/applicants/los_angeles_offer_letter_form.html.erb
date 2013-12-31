@@ -1,0 +1,21 @@
+<div id='offer-letter-form'>
+  <div id='dialog-form' title='Generate Offer Letter' autofocus>
+    <div id='modal-errors'></div>
+    <form id='employment-dates' class="form">
+      <label for='applicant[:start_date]'>Start Date: </label>
+      <input data-id='start_date' name='applicant[:start_date]' class='start_date' />
+      <br>
+      <label for='duration'>Duration (in months) </label>
+      <select data-id='duration'>
+        <% @duration_options.each do |duration| %>
+          <option value="<%= duration %>"><%= duration %></option>
+        <% end %>
+      </select>
+      <div id='admin_confirmation'>
+        <p>Confirmed with admin</p>
+        <input id='confirmed_with_admin' type='checkbox' value='confirmed_with_admin' name='confirmed_with_admin' />
+        <label for='confirmed_with_admin'>I have confirmed with Clare Heyward that an offer letter can be extended to this applicant</label>
+      </div>
+    </form>
+  </div>
+</div>

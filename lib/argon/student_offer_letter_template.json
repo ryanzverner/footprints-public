@@ -1,0 +1,97 @@
+[ "document", {
+  "page-size" : "letter",
+    "default-font-family" : "arvo",
+    "default-font-size" : 10,
+    "on-document-end" : [ [ "write-to-template", {
+      "name" : "8l-theme"
+    }, [ "stroke-rectangle", {
+      "width" : 0,
+      "color" : "white",
+      "location" : [ 15, 15, 581, 761 ]
+    } ] ] ],
+    "default-color" : "dark-gray",
+    "templates" : [ {
+      "name" : "8l-theme"
+    } ],
+    "margins" : [ 40, 40, 40, 40 ],
+    "on-page-end" : [ [ "add-template", {
+      "name" : "8l-theme",
+      "level" : "bottom"
+    } ] ]
+}, [ [ "image", {
+  "location" : [ 515, 658 ],
+    "size" : [ 56, 134 ],
+    "url" : "file:./resources/public/images/8l-bookmark.png"
+} ], [ "paragraph", { }, [ "text", {
+  "font" : {
+    "color" : [ 38, 168, 224 ],
+      "family" : "frescosans-bold",
+      "size" : 16
+  }
+}, "ABC" ], [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "frescosans-bold",
+      "size" : 16
+  }
+}, " Inc." ] ], [ "paragraph", { }, [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "fresco",
+      "size" : 12
+  }
+}, "Software is our " ], [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "fresco-italic",
+      "size" : 12
+  }
+}, "craft. " ], [ "text", {
+  "rise" : 5,
+    "font" : {
+      "color" : "black",
+      "family" : "fresco",
+      "size" : 6
+    }
+}, "TM" ] ], [ "paragraph", {
+  "padding" : {
+    "top" : 4
+  },
+    "leading" : 12,
+    "font" : {
+      "color" : "black",
+      "family" : "fresco",
+      "size" : 10
+    }
+}, "1232 American Way\nLibertyville, IL 60048" ], [ "paragraph", {
+  "padding" : {
+    "bottom" : 20,
+      "top" : 4
+  },
+    "leading" : 12,
+    "font" : {
+      "color" : "black",
+      "family" : "fresco",
+      "size" : 10
+    }
+}, "877-407-4154\n847-573-1748", [ "text", {
+  "font" : {
+    "color" : "black",
+      "family" : "fresco-italic",
+      "size" : 10
+  }
+}, " fax" ] ] ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "helvetica",
+			"size" : 13
+    },
+    "padding" : {
+	  	"top" : 50,
+			"right" : 15,
+			"left" : 15
+    }
+      }, "<TODAY'S DATE>\n\nDear <APPLICANT NAME>,\n\nCongratulations on beginning your student apprenticeship at ABC, Inc., Inc.! This is an exciting first step in a lifelong pursuit of mastery in the craft of software.\n\nThe term of your apprenticeship shall be from <START DATE> until <END DATE>. During this time, your mentor will be <MENTOR NAME>. You will work alongside other student apprentices, as well as our team of resident apprentices. You will also share resources with other apprentices, including our workspace at 412 S. Wells St.\n\nThe goals of the student apprenticeship are to learn about the fundamentals of writing good software, and to gain experience writing software.\n\nAs a reminder, there is no guarantee of employment at the end of the student apprenticeship. Students that are interested in a residency will be given feedback through the apprenticeship regarding whether or not they are on track to meet the requirements for residency.\n\n \n\n\n\nDate:____/____/20____\n\n\n\n\n\nDate:____/____/20____" ]
+
+]

@@ -1,0 +1,316 @@
+[ "document", {
+  "page-size" : "letter",
+    "default-font-family" : "arvo",
+    "page-numbers" : "on",
+    "default-font-size" : 10,
+    "on-document-end" : [ [ "write-to-template", {
+      "name" : "8l-theme"
+    }, [ "draw-image", {
+      "location" : [ 15, 15 ],
+      "url" : "file:./resources/public/images/8l-watermark.png"
+    } ], [ "stroke-rectangle", {
+      "width" : 1,
+      "color" : [ 237, 237, 237 ],
+      "location" : [ 15, 15, 581, 761 ]
+    } ] ] ],
+    "default-color" : "dark-gray",
+    "templates" : [ {
+      "name" : "8l-theme"
+    } ],
+    "margins" : [ 40, 40, 40, 40 ],
+    "on-page-end" : [ [ "add-template", {
+      "name" : "8l-theme",
+      "level" : "bottom"
+    } ] ]
+}, [ [ "image", {
+  "location" : [ 515, 658 ],
+    "size" : [ 56, 134 ],
+    "url" : "file:./resources/public/images/8l-bookmark.png"
+} ], [ "paragraph", { }, [ "text", {
+  "font" : {
+    "color" : [ 38, 168, 224 ],
+      "family" : "frescosans-bold",
+      "size" : 16
+  }
+	}, "ABC" ], [ "text", {
+	  "font" : {
+	    "color" : "black",
+	      "family" : "frescosans-bold",
+	      "size" : 16
+	  }
+	}, " Light, Ltd." ] ], [ "paragraph", { }, [ "text", {
+	  "font" : {
+	    "color" : "black",
+	      "family" : "fresco",
+	      "size" : 12
+	  }
+	}, "Software is our " ], [ "text", {
+	  "font" : {
+	    "color" : "black",
+	      "family" : "fresco-italic",
+	      "size" : 12
+	  }
+	}, "craft. " ], [ "text", {
+	  "rise" : 5,
+	    "font" : {
+	      "color" : "black",
+	      "family" : "fresco",
+	      "size" : 6
+	    }
+	}, "TM" ] ],
+
+	[ "paragraph", {
+	  "padding" : {
+	    "top" : 4
+	  },
+	    "leading" : 12,
+	    "font" : {
+	      "color" : "black",
+	      "family" : "fresco",
+	      "size" : 10
+	    }
+	}, "14 Rosebery Avenue\nLondon, EC1R 4TD" ],
+
+	  [ "paragraph", {
+	    "padding" : {
+	      "bottom" : 20,
+	      "top" : 4
+	  },
+	    "leading" : 12,
+	    "font" : {
+	      "color" : "black",
+	      "family" : "fresco",
+	      "size" : 10
+	    }
+	  }, "tel+44 (0)75 8662 4621" ] ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "top" : 15,
+      "bottom" : 15
+    }
+      }, "ABC, Inc. believes that the most basic building block of a fruitful apprenticeship is mutual understanding. A mentor and apprentice relationship that is not built on a clear set of expectations will waste the time and energy of all parties involved. This contract sets forth what is expected of you as an apprentice and what is expected of your mentor. It is a reminder to both of you of the responsibilities inherent in entering into this relationship. It is a resource to be referred to when guidance is needed." ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+      "bottom" : 15
+    }
+  }, "The below statements contain both the responsibilities and expectations for the mentor and apprentice, covering the period of apprenticeship from <START DATE> to <END DATE>. Please read and carefully consider your roles in this relationship. If you agree to these responsibilities, please sign below." ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+      "bottom" : 25
+    }
+  }, "As an apprentice of ABC, Inc. you acknowledge and understand the following:" ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+  	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "1. The ABC, Inc. apprenticeship program is a difficult and challenging opportunity. Like all opportunities, it will require my hard work and preparation to achieve success. Anything less than my full dedication will lead to a failed apprenticeship. My mentor cannot force me to reach the next level of my craft. They can guide and assist me, but I am my own driving force. " ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "2. A completed apprenticeship is not a guarantee of employment at ABC, Inc.. I understand that this program is an educational opportunity similar to a graduate level program in other disciplines. The goal for ABC, Inc. is to hire all residents who succeed throughout their residency. Not being offered employment is not a sign of a failed apprenticeship, there are many external factors. If I succeed in my apprenticeship, I will have a honed set of skills that carry over to any work environment in my craft. " ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "3. ABC, Inc. is a business and seeks to maintain a professional environment. I will conduct myself in a professional manner in my apprenticeship. This includes proper attire in the work environment, courteousness to ABC, Inc. clients, and allowing ABC, Inc. employees space and time to deal with clients. We do not practice our craft in a vacuum. The client must always be in the front of our minds, as it is through their patronage that we are allowed to practice our craft. " ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "4. The attitude that I carry into the work environment is just as influential to my craft as my coding skills. Cynicism affects my approach to code. It closes of my mind to avenues that might contain unexpected solutions. Negativity affects how others collaborate with me. I will remain positive and focus on moving forward, especially in the face of adversity." ],
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "padding" : {
+	  "left" : 25,
+      "bottom" : 15
+    }
+  }, "5. I will approach my apprenticeship from a place of respect. I will respect the dedication and work of my fellow apprentices. I will respect the time that my mentor spends guiding my journey and understand that they cannot watch over my every step. I will respect the time and effort that is demanded by my craft. When I approach this apprenticeship with respect, I am allowing myself the opportunity to grow as a craftsman. My code is but one tool in my craft, I must also hone my skills in working with others." ],    
+
+  [ "paragraph", {
+    "font" : {
+      "family" : "arvo"
+    },
+    "alignment" : {
+      "horizontal": "right"
+    },
+    "padding" : {
+      "top" : 50,
+	  "bottom" : 500
+    }
+  }, "______________________________________________ Resident's Signature" ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+        "bottom" : 25
+      }
+    }, "As a mentor of an ABC, Inc. apprentice you acknowledge and understand he following: " ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "1. It is my responsibility to provide challenging work. I will consider the learning needs of the apprentice when assigning work" ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "2. It is my duty to provide clear and honest feedback to the apprentice. Without my feedback, there cannot be a successful apprenticeship." ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "3. My interactions with apprentices, clients, and other craftsman will be examples of how professionals conduct themselves. I will be a reflection of the culture we have created at ABC, Inc.." ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "4. The apprentice will be undergoing a challenging growth process, and in the face of that, they might be tempted to give into their frustration. I must approach their growth experience with patience, honesty, and positivity. " ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "padding" : {
+  	    "left" : 25,
+        "bottom" : 15
+      }
+    }, "5. The apprentice is making a serious investment of their time and energy. I must respect that investment by making time to provide the proper guidance. " ],
+
+  [ "paragraph", {
+      "font" : {
+        "family" : "arvo"
+      },
+      "alignment" : {
+        "horizontal": "right"
+      },
+      "padding" : {
+        "top" : 50,
+  	    "bottom" : 250
+      }
+    }, "______________________________________________ Mentor's Signature" ],
+	  
+	[ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica",
+	      "style" : "bold",
+				"style" : "underline"
+	    },
+	    "padding" : {	  "top" : 25,
+	      "bottom" : 15
+	    },
+	    "alignment" : {
+	      "horizontal" : "center"
+	    }
+	  }, "EMPLOYEE INFORMATION" ],
+	  
+  [ "paragraph", {
+ 		    "font" : {
+ 		      "family" : "helvetica",
+					"size" : 9
+ 		    },
+ 		    "padding" : {
+ 		      "bottom" : 10
+ 		    }
+ 		  }, "LAST NAME______________________________FIRST______________________________MIDDLE_________\n\nADDRESS_______________________________________________________________________\n\nCITY ______________________________POSTAL CODE_________\n\nMOBILE PHONE #__________________________________\n\nE-MAIL________________________________________\n\nBIRTH DATE___________________________GENDER__________ETHNIC ORIGIN___________________\n\nDATE OF HIRE________________START DATE <START DATE> END DATE <END DATE>\n\nEMERGENCY CONTACT/NEXT OF KIN:\n\nLAST NAME______________________________FIRST______________________________MIDDLE_________\n\nADDRESS_______________________________________________________________________\n\nCITY ______________________________POSTAL CODE_________\n\nMOBILE PHONE #__________________________________\n\nE-MAIL________________________________________\n\nRELATIONSHIP_____________________________________________________\n\nDo you have a P45?         YES ___     NO ___\n\nIf no, please fill out a P46 and attach.\n\n What is your proof of entitlement to work in UK___________________________________________________" ],
+			  
+	["paragraph", {
+	 	    "font" : {
+	 	      "family" : "helvetica",
+					"style" : "bold",
+					"size" : 9
+	 	    },
+	 	    "padding" : {
+	 	      "bottom" : 10
+	 	    }
+	 	  }, "*We will need to make copies of your identification" ],
+
+	[ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica",
+				"size" : 9
+	    },
+	    "padding" : {
+	      "bottom" : 10
+	    }
+	  }, "Please declare any criminal record, bankruptcy proceedings or county court judgements filed against you in the past ten years." ],
+		
+	["paragraph", {
+	 	    "font" : {
+	 	      "family" : "helvetica",
+					"style" : "bold",
+					"size" : 9
+	 	    },
+	 	    "padding" : {
+	 	      "bottom" : 15
+	 	    }
+	 	  }, "FOR OFFICE USE ONLY:" ],
+					  
+	[ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica",
+				"size" : 9
+	    },
+	    "padding" : {
+	      "bottom" : 15
+	    }
+	  }, "HIRE/REHIRE DATE_______________________________SALARY_________________________________\n\nFULL TIME________PART TIME___________TITLE_______________________________________________" ]
+
+]

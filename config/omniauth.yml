@@ -1,0 +1,15 @@
+development:
+  client_id: '642418695852-047s1945p35h5o9j2n917jlo0bkc41ut.apps.googleusercontent.com'
+  client_secret: 'AVh6DH8ycC_m1QAQ4ux7xqvu'
+
+local:
+  client_id: '642418695852-047s1945p35h5o9j2n917jlo0bkc41ut.apps.googleusercontent.com'
+  client_secret: 'AVh6DH8ycC_m1QAQ4ux7xqvu'
+
+staging:
+  client_id: '603953965445-tvg88rdm70lkab340cj5oqeejtq04f63.apps.googleusercontent.com'
+  client_secret: 'DhrLMnxoEEPSaCeCF5jJP6jp'
+
+production:
+  client_id: '603953965445-q1rjisr25u1q0hmbgn431gc0h6ufjor0.apps.googleusercontent.com'
+  client_secret: 'UgjIiRrfFz_AT5p0Dk_S6IdV'

@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="heading row">
+    <h1>Add an Applicant</h1>
+  </div>
+
+  <%= form_for :applicant, url: new_applicant_path, method: :post do |form| %>
+    <%= render partial: "applicant_masterdata_form", locals: { form: form } %>
+    <%= render partial: "applicant_question_form", locals: { form: form } %>
+    <%= render partial: "applicant_form", locals: { form: form } %>
+    <div class="row">
+      <%= form.submit value: 'Add Applicant', id: 'add_applicant', class: 'button primary' %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,4 @@
+<%= form_for @note, :url => {:controller => 'notes', :action => "update"} do |f| %>
+  <%= f.text_area :body, :placeholder => "Leave a note about this applicant...", :class => "applicant-note-form-text-area update-note" %>
+  <%= f.submit "Submit", :class => "update-note button primary" %>
+<% end %>

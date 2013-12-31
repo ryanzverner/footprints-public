@@ -1,0 +1,14 @@
+<p>Mike,</p>
+
+<p><%= pluralize(@applicant_presenter.applicant_count, 'applicant', 'applicants') %> <%= link_to 'ready to be assigned', unassigned_applicants_url %>.</p>
+
+<% if @applicant_presenter.has_applicants? %>
+  <ul>
+    <% @applicant_presenter.applicants.each do |applicant| %>
+      <li><%= applicant.name %>, applied <%= pluralize(@applicant_presenter.days_since_last_applied(applicant.applied_on), 'day', 'days') %> ago</li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p>Thanks!</p>
+<p>The Footprints Team</p>

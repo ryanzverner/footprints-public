@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= "Footprints" %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.png">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1><a href="/">Footprints</a></h1>
+        <div class="toggle-nav"></div>
+        <%= link_to "Log out", sessions_destroy_path, {:class => "nav-link", :method => :delete} %>
+      </div>
+      <nav class="hidden">
+        <div class="container">
+          <ul>
+            <a href="/applicants">
+              <li><span class="nav-icon applicants"></span><p>Applicants</p></li>
+            </a>
+            <a href="/profile">
+              <li><span class="nav-icon profile"></span><p>Profile</p></li>
+            </a>
+            <a href="/craftsmen/seeking">
+              <li><span class="nav-icon craftsmen"></span><p>Craftsmen</p></li>
+            </a>
+            <a href="/templates">
+              <li><span class="nav-icon templates"></span><p>Templates</p></li>
+            </a>
+
+            <% if admin? %>
+              <a href="/salaries/edit">
+                <li><span class="nav-icon salaries"></span><p>Salaries</p></li>
+              </a>
+              <a href="/applicants/unassigned">
+                <li><span class="nav-icon new-applicants"></span><p>Unassigned Applicants</p></li>
+              </a>
+              <a href="/reporting">
+                <li><span class="nav-icon reporting"></span><p>Reporting</p></li>
+              </a>
+
+              <a href="/apprentices">
+                <li><span class="nav-icon craftsmen"></span><p>Apprentices</p></li>
+              </a>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <% if flash[:notice] %>
+      <div id="flash-notices">
+        <p class="flash notice"><%= flash[:notice].titleize %></p>
+      <% end %>
+      <% if flash[:error] %>
+        <% flash[:error].each do |e| %>
+          <p class="flash warning"><%= e.titleize.gsub('Url', 'URL') + "." %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  </body>
+</html>

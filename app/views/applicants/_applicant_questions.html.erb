@@ -1,0 +1,21 @@
+<% if @presenter.has_application_questions? %>
+  <% if @applicant.about != nil %>
+    <h2>What's your story?</h2>
+    <p><%= @applicant.about.gsub(/\n/, '<br/>').delete("\\").delete("---").html_safe %></p>
+  <% end %>
+
+  <% if @applicant.software_interest != nil %>
+    <h2>Why do you love creating software?</h2>
+    <p><%= @applicant.software_interest.gsub(/\n/, '<br/>').delete("\\").delete("---").html_safe  %></p>
+  <% end %>
+
+  <% if @applicant.reason != nil %>
+    <h2>Why do you want to be an apprentice?</h2>
+    <p><%= @applicant.reason.gsub(/\n/, '<br/>').delete("\\").delete("---").html_safe %></p>
+  <% end %>
+
+<% else %>
+  <div class="heading row">
+    <h2>No Answers to Application Questions</h2>
+  </div>
+<% end %>

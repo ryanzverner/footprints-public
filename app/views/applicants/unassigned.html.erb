@@ -1,0 +1,22 @@
+<div class="container unassigned">
+  <h1 class="center">Unassigned Applicants</h1>
+  <% if @applicants.present? %>
+    <div class="row">
+      <div class="column middle">
+        <% @applicants.each do |app| %>
+          <div class="card">
+            <%= link_to app.name, applicant_path(app.id), :class => "applicant-name column one-third" %>
+            <div class="column one-third applicant-details">
+              <p><%= app.location %></p>
+              <p>Applied <%= pluralize(@applicant_presenter.days_since_last_applied(app.applied_on), "day", "days") %> ago</p>
+            </div>
+            <span class="applicant-actions">
+              <%= link_to "Auto-Assign", {:controller => 'applicants', :action => 'assign_craftsman', :id => app.id }, {:class => "button primary"} %>
+              <%= link_to "Deny", {:controller => 'applicants', :action => 'deny_application', :id => app.id }, {:class => "button secondary", data: { confirm: "Are you sure you want to deny #{app.name}?" }} %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,17 @@
+<div class="container">
+  <h1><%= @resident.name %></h1>
+  <p>
+    <label>Start Date:</label>
+    <%= display_date(@resident.start_date) %></br></br>
+    <label>End Date:</label>
+    <%= display_end_date(@resident.end_date) %></br></br>
+  </p>
+
+  <form action="/apprentices/<%= @resident.employment_id %>" method="post">
+    <label>Edit End Date:</label>
+    <input type="hidden" name="_method" value="put">
+    <input data-id='end_date' name='apprentice[end_date]' id='end_date' />
+    <input type="submit" class="button primary" value="Update End Date">
+  </form>
+
+</div>

@@ -1,0 +1,32 @@
+<div class="container applicants-list">
+  <div class="actions">
+    <%= form_tag applicants_path, method: :get do %>
+      <%= text_field_tag 'term', params[:term], {:class => "form-narrow left", :placeholder => "Search Applicants by Name"} %>
+    <% end %>
+
+    <%= form_for :applicants, url: applicants_path, method: :get, html: {} do |f| %>
+      <div class="form-narrow left margin-left">
+      <%= select_tag(:status, options_for_select([['Filter By Current State'], ['All', 'all'], ['Needs Reply', 'applied_on'], ['Sent Initial Contact', 'initial_reply_on'], ['Challenge Sent', 'sent_challenge_on'], ['Needs Review', 'completed_challenge_on'], ['Needs Decision', 'reviewed_on'], ["Archived", "archived"]], selected: "Choose Filter", disabled: "Choose Filter"), { :class => "dropdown", :onchange => "this.form.submit();"}) %>
+      </div>
+    <% end %>
+
+    <%= link_to 'Add Applicant', new_applicant_path, :class => "new-applicant-link button primary" if admin? %>
+  </div>
+
+  <% @applicants.each_slice(3) do |slice| %>
+    <div class="row">
+      <% slice.each do |app| %>
+        <div class="column one-third">
+          <%= render :partial => 'applicant_card_index', :locals => {:app => app, :presenter => @presenter} %>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <section id="pagination">
+    <%= will_paginate @applicants %>
+    </section>
+  </div>
+</div>

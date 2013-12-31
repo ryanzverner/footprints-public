@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title || "Footprints" %></title>
+    <link href='https://fonts.googleapis.com/css?family=Lato|Gentium+Basic' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.png">
+    <%= stylesheet_link_tag "https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %>
+    <%= stylesheet_link_tag  "application", media: "all", "data-turbolinks-track" => true %>
+    <script type="text/javascript" src="//use.typekit.net/meo7wuo.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="sessions">
+    <div id="flash-notices">
+      <% if flash[:notice] %>
+        <p class="flash notice"><%= flash[:notice].titleize %></p>
+      <% end %>
+      <% if flash[:error] %>
+        <% flash[:error].each do |e| %>
+          <p class="flash warning"><%= e.titleize.gsub('Url', 'URL') + "." %></p>
+        <% end %>
+    <% end %>
+    </div>
+
+    <%= yield %>
+
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+  </body>
+</html>

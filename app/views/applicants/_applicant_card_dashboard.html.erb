@@ -1,0 +1,41 @@
+<!-- Dashboard Applicant Card -->
+
+<div data-applicant-id='<%= app.id %>' class="card">
+  <div class="card-header">
+    <%= link_to app.name, applicant_path(app), :class => "applicant-name" %>
+
+    <ul class="card-data-list">
+      <li>
+        <span class="card-data"><%= @presenter.skill(app) %></span>
+        <span class="card-label">Level</span>
+      </li>
+      <li>
+        <span class="card-data"><%= @presenter.current_state(app) %></span>
+        <span class="card-label">Status</span>
+      </li>
+      <li>
+        <% if days_since_last_action(app).is_a?(Integer) && days_since_last_action(app) > 7 %>
+          <p class="card-data alert alert-warning"><%= days_since_last_action(app) %> days ago</p>
+        <% else %>
+          <p class="card-data alert"><%= days_since_last_action(app) %> days ago</p>
+        <% end %>
+        <span class="card-label">Contacted</span>
+      </li>
+    </ul>
+    <p class="status-text">
+    <i class="status-icon fa fa-<%= @presenter.waiting_state_class(app) %>"></i>
+    <span><%= @presenter.waiting_state(app) %></span>
+    </p>
+  </div>
+
+  <div class="status">
+    <div class="state-holder">
+      <span class="applied_on state tooltip <%= @presenter.tooltip_state(app, "applied_on") %>"><strong>Applied</strong></span>
+      <span class="initial_reply_on state tooltip <%= @presenter.tooltip_state(app, "initial_reply_on") %>"><strong>Contacted</strong></span>
+      <span class="sent_challenge_on state tooltip <%= @presenter.tooltip_state(app, "sent_challenge_on") %>"><strong>Requested Submission</strong></span>
+      <span class="completed_challenge_on state tooltip <%= @presenter.tooltip_state(app, "completed_challenge_on") %>"><strong>Submitted Code</strong></span>
+      <span class="reviewed_on state tooltip <%= @presenter.tooltip_state(app, "reviewed_on") %>"><strong>Completed Review</strong></span>
+      <span class="offered_on state tooltip <%= @presenter.tooltip_state(app, "offered_on") %>"><strong>Extended Offer</strong></span>
+    </div>
+  </div>
+</div>

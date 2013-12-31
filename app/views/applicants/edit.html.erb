@@ -1,0 +1,15 @@
+<div class="container">
+  <p><%= link_to "← Back to Profile", applicant_path(@applicant) %></p>
+  <div class="heading row">
+    <h1>Edit <%= @applicant.name %></h1>
+  </div>
+
+  <%= form_for :applicant, url: applicant_path(@applicant.id), method: :post, class: 'form' do |form| %>
+    <%= render partial: "applicant_masterdata_form", locals: { form: form, disable_applied_on: true } %>
+    <%= render partial: "applicant_question_form", locals: { form: form } %>
+    <%= render partial: "applicant_form", locals: { form: form } %>
+    <div class="row">
+      <%= form.submit value: 'Update Profile', class: 'button primary' %>
+    </div>
+  <% end %>
+</div>

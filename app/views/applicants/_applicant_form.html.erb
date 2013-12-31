@@ -1,0 +1,19 @@
+<div class="form-column">
+  <%= form.label :assigned_craftsman, 'Assigned Craftsman' %>
+  <p><%= form.text_field :assigned_craftsman, id: 'assigned_craftsman', class: 'ui-autocomplete-input', value: @applicant.assigned_craftsman %></p>
+
+  <%= form.label :code_submission, 'Code Submission' %>
+  <p><%= form.text_field :code_submission, :placeholder => 'None', id: 'code_submission', value: @applicant.code_submission %></p>
+
+  <%= form.label :codeschool, 'Code School' %>
+  <p>
+    <%= form.select :codeschool, Applicant.code_schools, { selected: @applicant.codeschool }, { id: 'codeschool-select', class: "dropdown cs-select", style: "width: 140px"} %>
+  </p>
+
+  <% [:college_degree, :cs_degree, :worked_as_dev].each do |field| %>
+    <%= form.label field, format_label(field) %>
+    <p>
+      <%= form.select field.to_s, ["None", 'Yes', 'No'], { selected: @applicant.send(field) }, { id: field.to_s, class: "dropdown", style: "width: 140px"} %>
+    </p>
+  <% end %>
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="applicant-actions">
+    <%= render :partial => 'applicant_actions', :locals => { :app => @applicant, :presenter => @presenter } %>
+  </div>
+  <div>
+    <%= render :partial => 'applicant_card', :locals => {:app => @applicant, :presenter => @presenter} %>
+  </div>
+  <div class="row">
+    <div class="applicant-app column half" id="applicants">
+      <div class="applicant-background">
+        <div class="application-header">
+          <h5>Application Answers</h5>
+        </div>
+        <%= render :partial => 'applicant_basic_info' %>
+        <%= render :partial => 'applicant_questions' %>
+        <div class="row">
+          <%= link_to "Post Offer Instructions", 'https://github.com/abcinc/mentorship_manual' if @presenter.applicant_hired? %>
+        </div>
+      </div>
+    </div>
+    <div id="applicant-notes" class="applicant-notes column half">
+      <%= render :partial => 'notes' %>
+      <%= render :partial => 'note_form' %>
+    </div>
+  </div>
+</div>

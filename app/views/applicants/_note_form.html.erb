@@ -1,0 +1,5 @@
+<%= form_for @note do |f| %>
+  <%= f.text_area :body, :placeholder => "Leave a note about this applicant...", :class => "applicant-note-form-text-area" %>
+  <%= f.hidden_field :applicant_id, :value => @note.applicant_id %>
+  <%= f.submit "Submit", :class => "button primary" %>
+<% end %>

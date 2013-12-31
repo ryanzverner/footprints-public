@@ -1,0 +1,52 @@
+<div class="container reporting">
+  <h1>Reporting</h1>
+
+  <div class="row" id="reporting-graph-container">
+    <canvas id="reporting-graph" height="200"></canvas>
+    <div id="reporting-graph-legend"></div>
+  </div>
+
+  <div class="row">
+    <div class="column full">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Total Craftsmen</th>
+            <th>Software Craftsmen</th>
+            <th>UX Craftsmen</th>
+            <th>Software Residents</th>
+            <th>UX Residents</th>
+            <th>Software Residents Finishing</th>
+            <th>UX Residents Finishing</th>
+            <th>Student Apprentices</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reporting_data.each do |month, data| %>
+          <tr>
+            <th><%= month.sub(/[ ]/, '&nbsp;').html_safe %></th>
+            <td><%= data["Software Craftsmen"] + data["UX Craftsmen"] %></td>
+            <td><%= data["Software Craftsmen"] %></td>
+            <td><%= data["UX Craftsmen"] %></td>
+            <td><%= data["Software Residents"] %></td>
+            <td><%= data["UX Residents"] %></td>
+            <td><%= data["Finishing Software Residents"] %></td>
+            <td><%= data["Finishing UX Residents"] %></td>
+            <td><%= data["Student Apprentices"] %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.reportingData = {
+    "labels" : <%= @reporting_data.keys.to_json.html_safe %>,
+    "total craftsmen": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Software Craftsmen"] + value["UX Craftsmen"]) }.to_json %>,
+    "total residents": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Software Residents"] + value["UX Residents"]) }.to_json %>,
+    "total finishing residents": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Finishing Software Residents"] + value["Finishing UX Residents"]) }.to_json %>,
+  };
+</script>

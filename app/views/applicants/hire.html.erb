@@ -1,0 +1,9 @@
+<div id='confirm-hire'>
+<%= form_for @applicant, url: make_decision_path(@applicant.id), method: :post, class: 'form' do |form| %>
+  <h4>Clicking submit will post this applicant to warehouse with the information below. Please double check all information relating to this applicant before submitting.</h4>
+  <%= form.label :mentor, 'Mentor' %>
+  <p><%= form.text_field :mentor, id: 'mentor', class: 'ui-autocomplete-input', value: @applicant.assigned_craftsman %></p>
+  <p>Start Date:  <%= @presenter.display_date(@applicant.start_date) %></p>
+  <p>End Date:  <%= @presenter.display_date(@applicant.end_date) %></p>
+<% end %>
+</div>

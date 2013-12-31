@@ -1,0 +1,43 @@
+<div class="container profile">
+  <div class="row">
+    <div class="column one-third">
+      <h1><%= @craftsman.name %></h1>
+      <h4><%= @craftsman.email %></h4>
+    </div>
+
+    <div class="column two-thirds">
+      <%= form_for @craftsman, :url => craftsman_update_path, :method => "PUT" do |f| %>
+        <ul class="profile-list">
+          <li>
+            <%= f.check_box :has_apprentice, :class => "inline-input"  %>
+            <%= f.label :has_apprentice, "Currently have an apprentice", :class => "inline-input" %>
+          </li>
+          <li>
+            <%= f.check_box :seeking, :class => "inline-input" %>
+            <%= f.label :seeking, "Interested in mentoring an apprentice", :class => "inline-input"  %>
+          </li>
+          <li>
+            <%= f.label :skill_level %>
+            <% Skills.available_skills.each do |skill_level, skill_key| %>
+              <div class="actions">
+                <%= f.radio_button :skill, skill_key, :checked => @craftsman.is_seeking_for?(skill_key), :class => "inline-input" %>
+                <%= f.label :skill, skill_level, :value => skill_key, :class => "inline-input" %>
+              </div>
+            <% end %>
+          </li>
+          <li>
+            <%= f.label :location %>
+            <%= f.select :location, ["Chicago", "London", "Los Angeles"], {}, :class => "dropdown", :style => "width: 140px" %>
+          </li>
+          <li>
+            <%= f.label :unavailable_until, "Unavailable until:" %>
+            <%= f.text_field :unavailable_until, :placeholder => "I'm Available", :style => "width: 140px" %>
+          </li>
+          <li>
+            <%= f.submit "Save", :class => "button primary" %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>

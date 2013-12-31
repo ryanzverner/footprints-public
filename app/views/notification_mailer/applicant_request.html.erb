@@ -1,0 +1,18 @@
+<body style="margin: 0; padding: 0;">
+  <table>
+    <tr>
+      <td style="color: #333; font-family: Arial, sans-serif; font-size: 14px;">
+        Hi <%= @craftsman.first_name %>,
+
+        <p><%= link_to @applicant.name, applicant_url(@applicant), {:style => "color: #45ada8"} %> applied for a <%= @applicant.skill %> apprenticeship at the <%= @applicant.location %> office and we are requesting that you be their steward through the application process. <b>As soon as possible</b>, please visit your <%= link_to "Dashboard", root_url, {:style => "color: #45ada8"} %> to respond to this request.</p>
+
+            <p>Footprints has several <%= link_to "email templates", templates_url, {:style => "color: #45ada8"} %> to give you an idea of how to explain the application process.</p>
+
+            <p>Please be sure to update Footprints as <%= @applicant.first_name %> moves through the process.</p>
+
+            <p>Thanks! <br><br> The Footprints Team</p>
+
+          </td>
+        </tr>
+      </table>
+    </body>

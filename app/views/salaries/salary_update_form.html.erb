@@ -1,0 +1,66 @@
+<div class="container salaries">
+  <div class="row">
+    <div class="column one-third">
+      <h1>Add New Monthly Salary</h1>
+      <form action="/salaries/create_monthly" method="POST" class="salary-form">
+        <div class="form-column">
+          <p>
+          <label for="salary[duration]">Duration</label>
+          <input type="text" name="salary[duration]" />
+          </p>
+          <p>
+          <label for="salary[location]">Location</label>
+          <select name="salary[location]" class="dropdown">
+            <% @salary_presenter.locations.each do |location| %>
+              <option value="<%= @salary_presenter.current_city %>"><%= location %></option>
+            <% end %>
+          </select>
+          </p>
+          <p>
+          <label for="salary[amount]" >Amount</label>
+          <input type="text" name="salary[amount]" />
+          </p>
+          <div class="row">
+            <input type="submit" id="add-monthly-salary" class="button primary" value="Add Monthly Salary">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="column two-thirds">
+      <%= form_for :salary_presenter, url: salaries_path, method: :get, html: { :class => 'drop-down-filter' } do |f| %>
+        <%= select_tag(:city, options_for_select([['Filter By City'], ['Chicago'], ['London'], ['Los Angeles']], selected: "Choose Filter", disabled: "Choose Filter"), {:class => "dropdown", :onchange => "this.form.submit();"}) %>
+      <% end %>
+      <% if params[:city] %>
+        <form action="/salaries/update" method="POST" class="salary-form">
+          <h2><%= @salary_presenter.current_city %></h2>
+          <table>
+            <thead>
+              <td><h5>Apprenticeship Length</h5></td>
+              <td><h5>Monthly Salary</h5></td>
+            </thead>
+            <tbody>
+              <% @salary_presenter.monthly_salaries_by_location(params["city"]).each do |id, duration, amount| %>
+                <tr>
+                  <td><label for="<%= duration %>months"><%= duration %> Months</label></td>
+                  <td><%= @salary_presenter.current_city_currency_symbol  %> <input type="text" name="monthly[<%= params["city"] %>][<%= duration %>]" value="<%= amount %>"/></td>
+                  <td><%= link_to "Delete", destroy_salary_path(id), :class => "button secondary", method: :delete, data: {confirm: "Are you sure you want to delete this salary?"}  %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <div class="row">
+            <p>
+              <label for="<%= @salary_presenter.current_city %>-annual-starting">Annual Starting Craftsman Salary</label>
+            </p>
+            <%= @salary_presenter.current_city_currency_symbol  %> <input type="text" name="annual[<%= @salary_presenter.current_city %>]" value="<%= @salary_presenter.annual_salaries_by_location[params["city"]] %>" />
+          </div>
+          <div class="row">
+            <input type="submit" id="update-salaries" class="button primary" value="Update Salaries">
+          </div>
+        <% end %>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

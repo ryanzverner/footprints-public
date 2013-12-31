@@ -1,0 +1,16 @@
+.DS_Store
+tmp/
+log/
+*.swp
+*.swo
+.bundle/
+.bash_profile
+config/omniauth-vals.txt
+coverage/
+db/footprints_test.db
+.ruby-version
+.ruby-gemset
+.sass-cache
+sinatra/
+.rspec-local
+db/*.db3

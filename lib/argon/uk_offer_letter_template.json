@@ -1,0 +1,95 @@
+[ "document", {
+  "page-size" : "letter",
+    "default-font-family" : "arvo",
+    "default-font-size" : 10,
+    "on-document-end" : [ [ "write-to-template", {
+      "name" : "8l-theme"
+    }, [ "stroke-rectangle", {
+      "width" : 1,
+      "color" : "white",
+      "location" : [ 15, 15, 581, 761 ]
+    } ] ] ],
+    "default-color" : "dark-gray",
+    "templates" : [ {
+      "name" : "8l-theme"
+    } ],
+    "margins" : [ 40, 40, 40, 40 ],
+    "on-page-end" : [ [ "add-template", {
+      "name" : "8l-theme",
+      "level" : "bottom"
+    } ] ]
+}, [ [ "image", {
+  "location" : [ 515, 658 ],
+    "size" : [ 56, 134 ],
+    "url" : "file:./resources/public/images/8l-bookmark.png"
+} ], [ "paragraph", { }, [ "text", {
+  "font" : {
+    "color" : [ 38, 168, 224 ],
+      "family" : "frescosans-bold",
+      "size" : 16
+  }
+	}, "ABC" ], [ "text", {
+	  "font" : {
+	    "color" : "black",
+	      "family" : "frescosans-bold",
+	      "size" : 16
+	  }
+	}, " Light, Ltd." ] ], [ "paragraph", { }, [ "text", {
+	  "font" : {
+	    "color" : "black",
+	      "family" : "fresco",
+	      "size" : 12
+	  }
+	}, "Software is our " ], [ "text", {
+	  "font" : {
+	    "color" : "black",
+	      "family" : "fresco-italic",
+	      "size" : 12
+	  }
+	}, "craft. " ], [ "text", {
+	  "rise" : 5,
+	    "font" : {
+	      "color" : "black",
+	      "family" : "fresco",
+	      "size" : 6
+	    }
+	}, "TM" ] ],
+
+	[ "paragraph", {
+	  "padding" : {
+	    "top" : 4
+	  },
+	    "leading" : 12,
+	    "font" : {
+	      "color" : "black",
+	      "family" : "fresco",
+	      "size" : 10
+	    }
+	}, "14 Rosebery Avenue\nLondon, EC1R 4TD" ],
+
+	  [ "paragraph", {
+	    "padding" : {
+	      "bottom" : 20,
+	      "top" : 4
+	  },
+	    "leading" : 12,
+	    "font" : {
+	      "color" : "black",
+	      "family" : "fresco",
+	      "size" : 10
+	    }
+	  }, "tel+44 (0)75 8662 4621" ] ],
+
+	  [ "paragraph", {
+	    "font" : {
+	      "family" : "helvetica",
+				"size" : 13
+	    },
+	    "padding" : {
+		  	"top" : 50,
+				"right" : 15,
+				"left" : 15
+	    }
+	      }, "<TODAY'S DATE>\n\nDear <APPLICANT NAME>,\nI would like to formally offer you a residency at ABC, Inc., Ltd. under <MENTOR NAME>'s mentorship. The term of your residency shall be up to <DURATION> months, starting <START DATE>, at a salary of <APPRENTICE SALARY> per month, with partial benefits including health insurance.\n\nUpon successful completion of your residency, you will be eligible to be promoted to join the ranks of craftsmen at ABC, Inc.. As a craftsman you may receive full benefits and a salary of <CRAFTSMAN ANNUAL SALARY> per year.\n\nPlease note that all employees of ABC, Inc. shall be governed by the ABC, Inc. employee handbook.\n\n\n\nDate:____/____/20____\n\n\n\n\n\nDate:____/____/20____" ]
+
+]
