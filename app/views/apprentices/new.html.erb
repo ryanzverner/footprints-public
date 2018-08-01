@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="heading row">
+    <h1>Add an Apprentice</h1>
+  </div>
+
+  <%= form_for :apprentice, url: new_apprentice_path, method: :post do |form| %>
+    <%= render partial: "apprentice_masterdata_form", locals: { form: form } %>
+    <div class="row">
+      <%= form.submit value: 'Add Apprentice', id: 'add_apprentice', class: 'button primary' %>
+    </div>
+  <% end %>
+</div>
