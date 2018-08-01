@@ -87,7 +87,7 @@ GEM
     multi_json (1.7.9)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.3.21)
+    mysql2 (0.4.10)
     nilify_blanks (1.0.3)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -208,7 +208,7 @@ DEPENDENCIES
   jquery-rails (~> 3.1.0)
   jquery-ui-rails (~> 4.2.0)
   mail (~> 2.5.4)
-  mysql2 (~> 0.3.15)
+  mysql2 (~> 0.4.10)
   nilify_blanks (~> 1.0.3)
   omniauth-google-oauth2 (~> 0.2.2)
   rails (= 4.0.2)
@@ -229,4 +229,4 @@ DEPENDENCIES
   will_paginate (~> 3.0.5)
 
 BUNDLED WITH
-   1.16.1
+   1.16.3
