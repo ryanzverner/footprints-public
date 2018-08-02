@@ -872,6 +872,10 @@ form, .form-column {
   float: left;
 }
 
+.inline-label {
+  display: inline;
+}
+
 label {
   display: block;
   color: $gray;

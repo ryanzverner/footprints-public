@@ -4,6 +4,12 @@ require 'apprentices/apprentice_list_presenter'
 require 'apprentices/student_list_presenter'
 require 'warehouse/identifiers'
 
+# require 'date'
+
+# require 'applicant_dispatch/dispatcher'
+# require 'repository'
+
+
 class ApprenticesController < ApplicationController
   before_filter :require_admin
 
@@ -60,4 +66,25 @@ class ApprenticesController < ApplicationController
   def next_monday(date)
     date.next_week.at_beginning_of_week 
   end
+
+  # EDITED Below
+
+  #  def new
+  #   @residents = repo.apprentices.new
+  # end
+
+  # def create
+  #   @applicant = repo.applicant.new(applicant_params)
+  #   @applicant.save!
+  #   redirect_to(applicant_path(@applicant), :notice => "Successfully created #{@applicant.name}")
+  # rescue StandardError => e
+  #   flash.now[:error] = [e.message]
+  #   render :new
+  # end
+
 end
+
+
+
+
+
