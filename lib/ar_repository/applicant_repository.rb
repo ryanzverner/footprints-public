@@ -58,5 +58,13 @@ module ArRepository
         ApplicantStateMachine.determine_state(applicant) == state
       end
     end
+
+    def get_all_hired_students
+      model_class.select{ |applicant| applicant.hired == "yes" && applicant.skill == "student"}
+    end
+
+    def get_all_hired_residents
+      model_class.select{ |applicant| applicant.hired == "yes" && applicant.skill == "resident"}
+    end
   end
 end

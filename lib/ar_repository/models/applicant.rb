@@ -87,10 +87,6 @@ class Applicant < ActiveRecord::Base
     end
   end
 
-  def first_name
-    name.split(" ")[0]
-  end
-
   def outstanding?(how_many)
     first_notification = Notification.where(:applicant_id => self.id,
                                             :craftsman_id => self.craftsman_id).first

@@ -61,6 +61,7 @@ module MemoryRepository
       end
     end
 
+
     private
     def exisiting_email?(email)
       !find_by_email(email).nil?

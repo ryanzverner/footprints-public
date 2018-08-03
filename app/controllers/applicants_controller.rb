@@ -83,6 +83,11 @@ class ApplicantsController < ApplicationController
     redirect_to path_for_redirect, :notice => "Successfully denied and archived applicant"
   end
 
+  def update_end_date
+    @applicant = repo.applicant.find(params[:id])
+    params[:applicant][:end_date] = params[:end_date]
+  end
+
   def update_employment_dates
     @applicant = repo.applicant.find(params[:id])
     end_date = calculate_end_date(params[:applicant][:start_date], params[:applicant][:duration])
