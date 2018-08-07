@@ -125,6 +125,7 @@ class ApplicantsController < ApplicationController
 
   def submit
     status, body = EighthlightApplicantsInteractor.apply(eighthlight_applicant_params)
+    binding.pry
     render :status => status, :text => body, :layout => false
   end
 

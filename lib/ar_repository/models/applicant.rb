@@ -21,7 +21,7 @@ class Applicant < ActiveRecord::Base
   validates_with ApplicantValidator
   validates :code_submission, uniqueness: true, allow_nil: true
   validates :name, presence: true
-  validates :applied_on, presence: true
+  validates :applied_on, presence: true, allow_nil: true
   validates :email, uniqueness: true, allow_nil: true
   validate :valid_hiring_decision
   validate :end_date_after_start_date

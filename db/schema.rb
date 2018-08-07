@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140904131223) do
 
   create_table "applicants", force: true do |t|
     t.string   "name"
-    t.date     "applied_on"
+    t.date     "applied_on"                          default: Time.zone.now.to_date
     t.string   "email"
     t.date     "initial_reply_on"
     t.date     "completed_challenge_on"

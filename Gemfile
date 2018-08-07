@@ -32,6 +32,7 @@ group :test, :development do
   gem "teaspoon-jasmine"
   gem "awesome_print"
   gem "better_errors", '1.1.0'
+  gem "pry-rails"
 end
 
 gem 'simplecov', :require => false, :group => :test
