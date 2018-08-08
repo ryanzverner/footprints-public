@@ -25,6 +25,10 @@ module Footprints
       repo.applicant
     end
 
+    def self.apprentice
+      repo.apprentice
+    end
+
     def self.craftsman
       repo.craftsman
     end

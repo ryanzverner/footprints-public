@@ -57,15 +57,9 @@ Footprints::Application.routes.draw do
   delete "salaries/:id" => "salaries#destroy", as: "destroy_salary"
 
   get "reporting" => "reporting#index", as: "reporting"
-
-  get "apprentices" => "apprentices#index", as: "apprentices"
-  get "apprentices/new" => 'apprentices#new', as: 'new_apprentice'
-  post "apprentices/new" => 'apprentices#create'
-  post "apprentices/submit" => 'apprentices#submit'
-  # get "apprentices/:id/deny_apprentice" => "apprentices#deny_apprentice", as: "deny_apprentice"
-  get "apprentices/:id" => "apprentices#edit"
-  put "apprentices/:id" => "apprentices#update"
-
+  
+  resources :apprentices
+  post "apprentices/new" => 'apprentices#new'
 
   root :to => "dashboard#index"
 end

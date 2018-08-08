@@ -33,6 +33,7 @@ group :test, :development do
   gem "awesome_print"
   gem "better_errors", '1.1.0'
   gem "pry-rails"
+  gem "pry-byebug"
 end
 
 gem 'simplecov', :require => false, :group => :test

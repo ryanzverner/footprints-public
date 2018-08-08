@@ -26,6 +26,10 @@ module ArRepository
     @craftsman_repo ||= CraftsmanRepository.new
   end
 
+  def self.apprentice
+    @apprentice_repo ||= ApprenticeRepository.new
+  end
+
   def self.message
     @message_repo ||= MessageRepository.new
   end

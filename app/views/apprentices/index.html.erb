@@ -7,34 +7,9 @@
 
   <div class="row apprentices">
     <div class="column full">
-      <table>
-        <h2>Residents</h2>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @residents.each do |resident| %>
-            <tr>
-              <td><%= resident.name %></td>
-              <td><%= resident.email %></td>
-              <td><%= display_date(resident.start_date) %></td>
-              <td>
-                <a href="/apprentices/<%= resident.id %>">
-                  <%= display_date(resident.end_date) %>
-                </a>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
 
       <table>
-        <h2>Students</h2>
+        <h2>Apprentices</h2>
         <thead>
           <tr>
             <th>Name</th>
@@ -45,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @students.each do |student| %>
+          <% @apprentices.each do |student| %>
             <tr>
               <td><%= student.name %></td>
               <td><%= student.email %></td>
