@@ -128,6 +128,7 @@ class ApplicantsController < ApplicationController
     @applicant_presenter = ApplicantPresenter.new
     applicants = repo.applicant.get_unassigned_unarchived_applicants
     @applicants = @applicant_presenter.sort_by_date(applicants)
+    @craftsmen = Footprints::Repository.craftsman.all
   end
 
   def assign_craftsman

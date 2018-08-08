@@ -13,7 +13,7 @@
             <span class="applicant-actions">
               <%= link_to "Auto-Assign", {:controller => 'applicants', :action => 'assign_craftsman', :id => app.id }, {:class => "button primary"} %>
               <%= form_for :applicant_to_assign, url: specify_craftsman_path, method: :post do |f| %>
-                <%= f.select(:chosen_crafter, options_for_select(Footprints::Repository.craftsman.all.map { |crafter| [crafter['name'], crafter['name']] }), :include_blank => true) %>
+                <%= f.select(:chosen_crafter, options_for_select(@craftsmen.map { |crafter| [crafter['name'], crafter['name']] }), :include_blank => true) %>
                 <%= f.hidden_field(:id, :value => app.id) %>
                 <%= f.submit "Assign to Crafter", class: "button primary" %>
               <% end %>
