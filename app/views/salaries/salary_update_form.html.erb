@@ -51,7 +51,7 @@
           </table>
           <div class="row">
             <p>
-              <label for="<%= @salary_presenter.current_city %>-annual-starting">Annual Starting Craftsman Salary</label>
+              <label for="<%= @salary_presenter.current_city %>-annual-starting">Annual Starting Crafter Salary</label>
             </p>
             <%= @salary_presenter.current_city_currency_symbol  %> <input type="text" name="annual[<%= @salary_presenter.current_city %>]" value="<%= @salary_presenter.annual_salaries_by_location[params["city"]] %>" />
           </div>
