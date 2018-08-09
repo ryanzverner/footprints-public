@@ -1,0 +1,41 @@
+<div class='form-whole-width'>
+  <%= form.label :name, 'Apprentice Name' %>
+  <%= form.text_field :name, id: 'apprentice-name' %>
+
+  <%= form.label :email, 'Apprentice Email' %>
+  <%= form.text_field :email, id: 'apprentice-email' %>
+
+  <%= form.label :skill_level, 'Skill Level' %>
+  	<div class="actions">
+	  <%= form.radio_button :skill_level, :checked => false %>
+	  <%= form.label :skill, 'Student', :value => 1, :class => 'inline-label' %><br/>
+
+	  <%= form.radio_button :skill_level, :checked => false %>
+	  <%= form.label :skill,  'Resident', :value => 2,:class => 'inline-label' %>
+	</div>
+
+	<br />
+    <%= form.label :discipline, 'Discipline' %>
+    <div class="actions">
+    <%= form.radio_button :discipline, :checked => false %>
+    <%= form.label :discipline, 'Developer', :value => 1, :class => 'inline-label' %><br/>
+
+    <%= form.radio_button :discipline, :checked => false %>
+    <%= form.label :discipline,  'Designer', :value => 2,:class => 'inline-label' %>
+  </div>
+  
+  <p>
+    <%= form.label :location, 'Location' %>
+    <%= form.select :location, ["Chicago", "London", "Los Angeles"], {}, class: "dropdown", style:"width: 140px" %>
+  </p>
+
+  <br />
+  <%= form.label :start_date, 'Start Date' %>
+  <%= form.text_field :start_date, id: 'start_date'%>
+
+  <%= form.label :end_date, 'End Date' %>
+  <%= form.text_field :end_date, id: 'end_date' %>
+
+  <%= form.label :mentor, 'Mentor' %>
+  <%= form.text_field :mentor, id: 'mentor' %>
+</div>

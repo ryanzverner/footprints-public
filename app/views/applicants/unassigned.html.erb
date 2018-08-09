@@ -12,6 +12,11 @@
             </div>
             <span class="applicant-actions">
               <%= link_to "Auto-Assign", {:controller => 'applicants', :action => 'assign_craftsman', :id => app.id }, {:class => "button primary"} %>
+              <%= form_for :applicant_to_assign, url: specify_craftsman_path, method: :post do |f| %>
+                <%= f.select(:chosen_crafter, options_for_select(@craftsmen.map { |crafter| [crafter['name'], crafter['name']] })) %>
+                <%= f.hidden_field(:id, :value => app.id) %>
+                <%= f.submit "Assign to Crafter", class: "button primary" %>
+              <% end %>
               <%= link_to "Deny", {:controller => 'applicants', :action => 'deny_application', :id => app.id }, {:class => "button secondary", data: { confirm: "Are you sure you want to deny #{app.name}?" }} %>
             </span>
           </div>

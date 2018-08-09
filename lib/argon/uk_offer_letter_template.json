@@ -90,6 +90,6 @@
 				"right" : 15,
 				"left" : 15
 	    }
-	      }, "<TODAY'S DATE>\n\nDear <APPLICANT NAME>,\nI would like to formally offer you a residency at ABC, Inc., Ltd. under <MENTOR NAME>'s mentorship. The term of your residency shall be up to <DURATION> months, starting <START DATE>, at a salary of <APPRENTICE SALARY> per month, with partial benefits including health insurance.\n\nUpon successful completion of your residency, you will be eligible to be promoted to join the ranks of craftsmen at ABC, Inc.. As a craftsman you may receive full benefits and a salary of <CRAFTSMAN ANNUAL SALARY> per year.\n\nPlease note that all employees of ABC, Inc. shall be governed by the ABC, Inc. employee handbook.\n\n\n\nDate:____/____/20____\n\n\n\n\n\nDate:____/____/20____" ]
+	      }, "<TODAY'S DATE>\n\nDear <APPLICANT NAME>,\nI would like to formally offer you a residency at ABC, Inc., Ltd. under <MENTOR NAME>'s mentorship. The term of your residency shall be up to <DURATION> months, starting <START DATE>, at a salary of <APPRENTICE SALARY> per month, with partial benefits including health insurance.\n\nUpon successful completion of your residency, you will be eligible to be promoted to join the ranks of crafter at ABC, Inc.. As a crafter you may receive full benefits and a salary of <CRAFTSMAN ANNUAL SALARY> per year.\n\nPlease note that all employees of ABC, Inc. shall be governed by the ABC, Inc. employee handbook.\n\n\n\nDate:____/____/20____\n\n\n\n\n\nDate:____/____/20____" ]
 
 ]

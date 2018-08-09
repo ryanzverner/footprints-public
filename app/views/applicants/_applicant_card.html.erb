@@ -20,7 +20,7 @@
         <% if app.assigned_craftsman %>
           Assigned to <%= app.assigned_craftsman %>
         <% else %>
-          Needs Craftsman
+          Needs Crafter
         <% end %>
       </span>
     </div>
@@ -53,14 +53,99 @@
     </ul>
 
     <h5>Process Timeline</h5>
-    <div class="status card" data-applicant-id="<%= @applicant.id %>">
+    <!-- <div class="status card" data-applicant-id="<%= @applicant.id %>">
       <div class="state-holder">
-        <span class="applied_on state tooltip <%= presenter.tooltip_state(app, "applied_on") %>"><strong>Applied</strong></span>
-        <span class="initial_reply_on state tooltip <%= presenter.tooltip_state(app, "initial_reply_on") %>"><strong>Contacted</strong></span>
-        <span class="sent_challenge_on state tooltip <%= presenter.tooltip_state(app, "sent_challenge_on") %>"><strong>Requested Submission</strong></span>
-        <span class="completed_challenge_on state tooltip <%= presenter.tooltip_state(app, "completed_challenge_on") %>"><strong>Submitted Code</strong></span>
-        <span class="reviewed_on state tooltip <%= presenter.tooltip_state(app, "reviewed_on") %>"><strong>Completed Review</strong></span>
+        <span class="applied_on state tooltip <%= presenter.tooltip_state(app, "applied_on") %>"><strong>Applied (<%= app.applied_on %>)</strong></span>
+        <span class="initial_reply_on state tooltip <%= presenter.tooltip_state(app, "initial_reply_on") %>"><strong>Contacted (<%= app.initial_reply_on %>)</strong></span>
+        <span class="sent_challenge_on state tooltip <%= presenter.tooltip_state(app, "sent_challenge_on") %>"><strong>Requested Submission (<%= app.sent_challenge_on %>)</strong></span>
+        <span class="completed_challenge_on state tooltip <%= presenter.tooltip_state(app, "completed_challenge_on") %>">
+          <strong>
+          Submitted Code
+          <% if app.completed_challenge_on %>
+            (<%= display_date(app.completed_challenge_on) %>)
+          <% else %>
+          <% end %>
+          </strong>
+        </span>
+        <span class="reviewed_on state tooltip <%= presenter.tooltip_state(app, "reviewed_on") %>"><strong>Completed Review (<%= app.reviewed_on %>)</strong></span>
         <span class="offered_on state tooltip <%= presenter.tooltip_state(app, "offered_on") %>"><strong><%= presenter.offer_text %></strong></span>
+      </div>
+    </div> -->
+
+    <div class="new-status card" data-applicant-id="<%= @applicant.id %>">
+      <div class="status-flex">
+        <div class="status-holder">
+          <% if app.applied_on %>
+            <span class="status-title"><strong>Applied</strong></span>
+          <% else %>
+            <span class="status-title status-incomplete"><strong>Applied</strong></span>
+          <% end %>
+          <div class="applied_on state status-main <%= presenter.tooltip_state(app, "applied_on") %>">
+            <% if app.applied_on %>
+            <%= display_date(app.applied_on) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="status-holder">
+          <% if app.initial_reply_on %>
+            <span class="status-title"><strong>Contacted</strong></span>
+          <% else %>
+            <span class="status-title status-incomplete"><strong>Contacted</strong></span>
+          <% end %>
+          <div class="initial_reply_on state status-main <%= presenter.tooltip_state(app, "initial_reply_on") %>">
+            <% if app.initial_reply_on %>
+            <%= display_date(app.initial_reply_on) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="status-holder">
+          <% if app.sent_challenge_on %>
+            <span class="status-title"><strong>Requested Submission</strong></span>
+          <% else %>
+            <span class="status-title status-incomplete"><strong>Requested Submission</strong></span>
+          <% end %>
+          <div class="sent_challenge_on state status-main <%= presenter.tooltip_state(app, "sent_challenge_on") %>">
+            <% if app.sent_challenge_on %>
+            <%= display_date(app.sent_challenge_on) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="status-holder">
+          <% if app.completed_challenge_on %>
+            <span class="status-title"><strong>Submitted Code</strong></span>
+          <% else %>
+            <span class="status-title status-incomplete"><strong>Submitted Code</strong></span>
+          <% end %>
+          <div class="completed_challenge_on state status-main <%= presenter.tooltip_state(app, "completed_challenge_on") %>">
+            <% if app.completed_challenge_on %>
+            <%= display_date(app.completed_challenge_on) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="status-holder">
+          <% if app.reviewed_on %>
+            <span class="status-title"><strong>Completed Review</strong></span>
+          <% else %>
+            <span class="status-title status-incomplete"><strong>Completed Review</strong></span>
+          <% end %>
+          <div class="reviewed_on state status-main <%= presenter.tooltip_state(app, "reviewed_on") %>">
+            <% if app.reviewed_on %>
+            <%= display_date(app.reviewed_on) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="status-holder">
+          <% if app.offered_on %>
+            <span class="status-title"><strong><%= presenter.offer_text %></strong></span>
+          <% else %>
+            <span class="status-title status-incomplete"><strong><%= presenter.offer_text %></strong></span>
+          <% end %>
+          <div class="offered_on state status-main <%= presenter.tooltip_state(app, "offered_on") %>">
+            <% if app.offered_on %>
+            <%= display_date(app.offered_on) %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -13,4 +13,4 @@ db/footprints_test.db
 .sass-cache
 sinatra/
 .rspec-local
-db/*.db3
+db/*.sqlite3
