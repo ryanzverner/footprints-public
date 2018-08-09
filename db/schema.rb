@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140904131223) do
+ActiveRecord::Schema.define(version: 20180809194835) do
 
   create_table "annual_starting_craftsman_salaries", force: true do |t|
     t.string "location", null: false
@@ -59,6 +59,21 @@ ActiveRecord::Schema.define(version: 20140904131223) do
   add_index "applicants", ["craftsman_id"], name: "index_applicants_on_craftsman_id"
   add_index "applicants", ["name"], name: "index_applicants_on_name"
   add_index "applicants", ["slug"], name: "index_applicants_on_slug", unique: true
+
+  create_table "apprentices", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.date     "applied_on"
+    t.string   "email"
+    t.string   "hired"
+    t.string   "location"
+    t.boolean  "archived"
+    t.string   "position"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "mentor"
+  end
 
   create_table "assigned_craftsman_records", force: true do |t|
     t.integer  "applicant_id"
