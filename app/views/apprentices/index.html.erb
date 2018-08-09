@@ -1,6 +1,10 @@
 <div class="container reporting">
   <h1>Current Apprentices</h1>
 
+  <div class="actions">
+    <%= link_to 'Add Apprentice', new_apprentice_path, :class => "new-applicant-link button primary" if admin? %>
+  </div>
+
   <div class="row apprentices">
     <div class="column full">
       <table>
@@ -20,8 +24,8 @@
               <td><%= resident.email %></td>
               <td><%= display_date(resident.start_date) %></td>
               <td>
-                <a href="/apprentices/<%= resident.employment_id %>">
-                  <%= display_end_date(resident.end_date) %>
+                <a href="/apprentices/<%= resident.id %>">
+                  <%= display_date(resident.end_date) %>
                 </a>
               </td>
             </tr>
@@ -46,8 +50,8 @@
               <td><%= student.name %></td>
               <td><%= student.email %></td>
               <td><%= display_date(student.start_date) %></td>
-              <td><%= display_end_date(student.end_date) %></td>
-              <td><%= student.mentor_names %></td>
+              <td><%= display_date(student.end_date) %></td>
+              <td><%= student.mentor %></td>
             </tr>
           <% end %>
         </tbody>

@@ -10,15 +10,11 @@ module ApplicantsHelper
     return (Date.today - current_state_date).to_i
   end
 
-  def display_end_date(date)
+  def display_date(date)
     date ? format_date(date) : "N/A"
   end
 
   def format_date(date)
-    date.strftime(month_day_year)
-  end
-
-  def display_date(date)
     date.strftime(month_day_year)
   end
 

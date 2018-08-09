@@ -40,4 +40,3 @@ group :production do
   gem 'unicorn', '~> 4.8.2'
   gem 'mysql2', '~> 0.4.10'
 end
-

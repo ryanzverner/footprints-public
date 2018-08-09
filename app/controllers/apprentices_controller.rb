@@ -4,16 +4,20 @@ require 'apprentices/apprentice_list_presenter'
 require 'apprentices/student_list_presenter'
 require 'warehouse/identifiers'
 
+# require 'date'
+
+# require 'applicant_dispatch/dispatcher'
+# require 'repository'
+
+
 class ApprenticesController < ApplicationController
   before_filter :require_admin
 
   def index
     begin
-      raw_residents = interactor.fetch_all_residents
-      raw_students = interactor.fetch_all_students
 
-      @residents = ApprenticeListPresenter.new(raw_residents).residents
-      @students = StudentListPresenter.new(raw_students).students
+      @residents = Footprints::Repository.applicant.get_all_hired_residents
+      @students =  Footprints::Repository.applicant.get_all_hired_students
     rescue ApprenticesInteractor::AuthenticationError => e
       error_message = "You are not authorized through warehouse to use this feature"
       Rails.logger.error(e.message)
@@ -23,8 +27,7 @@ class ApprenticesController < ApplicationController
   end
 
   def edit
-    raw_resident = interactor.fetch_resident_by_id(id)
-    @resident = ApprenticeListPresenter::PresentedApprentice.new(raw_resident)
+    @resident = Footprints::Repository.applicant.find_by_id(id)
   end
 
   def update
@@ -60,4 +63,25 @@ class ApprenticesController < ApplicationController
   def next_monday(date)
     date.next_week.at_beginning_of_week 
   end
+
+  # EDITED Below
+
+  #  def new
+  #   @residents = repo.apprentices.new
+  # end
+
+  # def create
+  #   @applicant = repo.applicant.new(applicant_params)
+  #   @applicant.save!
+  #   redirect_to(applicant_path(@applicant), :notice => "Successfully created #{@applicant.name}")
+  # rescue StandardError => e
+  #   flash.now[:error] = [e.message]
+  #   render :new
+  # endf
+
 end
+
+
+
+
+

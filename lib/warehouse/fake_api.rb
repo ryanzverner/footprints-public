@@ -49,8 +49,8 @@ module Warehouse
             :last_name => "doe",
             :email => "johndoe@footprints.com"
           },
-          :start => DateTime.parse("December 1 2014"),
-          :end => DateTime.parse("December 30 2014"),
+          :start => DateTime.parse("December 1 2017"),
+          :end => DateTime.parse("December 30 2019"),
           :skill_level => "student",
           :mentorships => [
             {
