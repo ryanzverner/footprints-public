@@ -20,6 +20,7 @@ class ApplicantsController < ApplicationController
   before_filter :require_admin, :only => [:destroy, :new, :create, :hire, :make_decision, :unassigned, :assign_craftsman]
 
   def index
+    @crafters      = Footprints::Repository.craftsman
     @applicants    = Footprints::ApplicantFinder.new.get_applicants(params).paginate(:page => params[:page], :per_page => 12)
     @presenter     = ApplicantIndexPresenter.new(@applicants)
   end
@@ -132,12 +133,22 @@ class ApplicantsController < ApplicationController
     @applicant_presenter = ApplicantPresenter.new
     applicants = repo.applicant.get_unassigned_unarchived_applicants
     @applicants = @applicant_presenter.sort_by_date(applicants)
+    @craftsmen = Footprints::Repository.craftsman.all
   end
 
   def assign_craftsman
     applicant = repo.applicant.find_by_id(params[:id])
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
     ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
+    redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
+  end
+
+  def assign_specific_craftsman
+    applicant_id = params[:applicant_to_assign]["id"]
+    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
+    applicant = repo.applicant.find_by_id(applicant_id)
+    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+    ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
     redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
   end
 
