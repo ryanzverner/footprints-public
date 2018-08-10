@@ -1,13 +1,14 @@
+require 'repository'
 require 'reporting/data_parser'
 require 'apprentices/apprentices_interactor'
 require 'apprentices/apprentice_list_presenter'
 require 'apprentices/student_list_presenter'
 require 'warehouse/identifiers'
+require 'ar_repository/apprentice_repository'
 
 # require 'date'
 
 # require 'applicant_dispatch/dispatcher'
-# require 'repository'
 
 
 class ApprenticesController < ApplicationController
@@ -15,15 +16,23 @@ class ApprenticesController < ApplicationController
 
   def index
     begin
-
-      @residents = Footprints::Repository.applicant.get_all_hired_residents
-      @students =  Footprints::Repository.applicant.get_all_hired_students
+      @apprentices = Footprints::Repository.apprentice.all
     rescue ApprenticesInteractor::AuthenticationError => e
       error_message = "You are not authorized through warehouse to use this feature"
       Rails.logger.error(e.message)
       Rails.logger.error(e.backtrace)
       redirect_to root_path, :flash => { :error => [error_message] }
     end  
+  end
+
+  def new
+    @apprentice = repo.apprentice.new
+  end
+
+  def create
+    @apprentice = repo.apprentice.new(apprentice_params)
+    @apprentice.save!
+    redirect_to(apprentices_path, :notice => "Successfully created #{@applicant.name}")
   end
 
   def edit
@@ -49,7 +58,7 @@ class ApprenticesController < ApplicationController
   end
 
   def apprentice_params
-    params.require(:apprentice).permit(:end_date)
+    params.require(:apprentice).permit(:name, :email, :applied_on, :position, :location, :start_date, :end_date, :mentor)
   end
 
   def id

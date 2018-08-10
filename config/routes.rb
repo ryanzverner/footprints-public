@@ -61,7 +61,7 @@ Footprints::Application.routes.draw do
   
   get "apprentices" => "apprentices#index", as: "apprentices"
   get "apprentices/new" => 'apprentices#new', as: 'new_apprentice'
-  # post "apprentices/new" => 'apprentices#create'
+  post "apprentices/new" => 'apprentices#create'
   # post "apprentices/submit" => 'apprentices#submit'
   # get "apprentices/:id/deny_apprentice" => "apprentices#deny_apprentice", as: "deny_apprentice"
   get "apprentices/:id" => "apprentices#edit"

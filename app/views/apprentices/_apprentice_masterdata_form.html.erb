@@ -5,23 +5,13 @@
   <%= form.label :email, 'Apprentice Email' %>
   <%= form.text_field :email, id: 'apprentice-email' %>
 
-  <%= form.label :skill_level, 'Skill Level' %>
-  	<div class="actions">
-	  <%= form.radio_button :skill_level, :checked => false %>
-	  <%= form.label :skill, 'Student', :value => 1, :class => 'inline-label' %><br/>
-
-	  <%= form.radio_button :skill_level, :checked => false %>
-	  <%= form.label :skill,  'Resident', :value => 2,:class => 'inline-label' %>
-	</div>
-
-	<br />
-    <%= form.label :discipline, 'Discipline' %>
+    <%= form.label :position, 'Position' %>
     <div class="actions">
-    <%= form.radio_button :discipline, :checked => false %>
-    <%= form.label :discipline, 'Developer', :value => 1, :class => 'inline-label' %><br/>
+    <%= form.radio_button :position, :checked => false %>
+    <%= form.label :position, 'Developer', :value => 1, :class => 'inline-label' %><br/>
 
-    <%= form.radio_button :discipline, :checked => false %>
-    <%= form.label :discipline,  'Designer', :value => 2,:class => 'inline-label' %>
+    <%= form.radio_button :position, :checked => false %>
+    <%= form.label :position,  'Designer', :value => 2,:class => 'inline-label' %>
   </div>
   
   <p>
