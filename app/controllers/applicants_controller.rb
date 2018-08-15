@@ -142,6 +142,10 @@ class ApplicantsController < ApplicationController
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
 
+    current_uri = request.env['PATH_INFO']
+    puts '*************** THIS IS A TEST ***************'
+    puts current_uri
+
     if params[:applicant_to_assign]["chosen_crafter"] == "auto"
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
     else
@@ -155,6 +159,10 @@ class ApplicantsController < ApplicationController
     chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+
+    current_uri = request.env['PATH_INFO']
+    puts '*************** THIS IS A TEST ***************'
+    puts current_uri
 
     if params[:applicant_to_assign]["chosen_crafter"] == "auto"
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
