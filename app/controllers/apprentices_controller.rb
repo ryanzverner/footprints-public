@@ -30,9 +30,14 @@ class ApprenticesController < ApplicationController
   end
 
   def create
-    @apprentice = repo.apprentice.new(apprentice_params)
-    @apprentice.save!
-    redirect_to(apprentices_path, :notice => "Successfully created #{@apprentice.name}")
+    begin
+      @apprentice = repo.apprentice.new(apprentice_params)
+      @apprentice.save!
+      redirect_to(apprentices_path, :notice => "Successfully created #{@apprentice.name}")
+    rescue Exception => e
+      error_message = "Name is required"
+      redirect_to "/apprentices/new", :flash => { :error => [error_message] }
+    end
   end
 
   def edit
@@ -46,7 +51,7 @@ class ApprenticesController < ApplicationController
       @apprentice.save!
       redirect_to "/apprentices/"
 
-    rescue ArgumentError => e
+    rescue Exception => e
       error_message = "Please provide a valid date"
       redirect_to "/apprentices/#{id}", :flash => { :error => [error_message] }
     end
