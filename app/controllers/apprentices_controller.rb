@@ -32,7 +32,7 @@ class ApprenticesController < ApplicationController
   def create
     @apprentice = repo.apprentice.new(apprentice_params)
     @apprentice.save!
-    redirect_to(apprentices_path, :notice => "Successfully created #{@applicant.name}")
+    redirect_to(apprentices_path, :notice => "Successfully created #{@apprentice.name}")
   end
 
   def edit
