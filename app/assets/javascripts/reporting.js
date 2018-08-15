@@ -36,7 +36,7 @@ $(function() {
     var data = {
       labels: window.reportingData["labels"],
       datasets: [{
-        label: "Total Craftsmen",
+        label: "Total Crafters",
         fillColor: "rgba(29,177,129,1.0)",
         highlightFill: "rgba(29,177,129,0.5)",
         data: window.reportingData["total craftsmen"],
