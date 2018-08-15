@@ -9,6 +9,7 @@ ActiveRecord::Base.establish_connection(dbconfig[Rails.env])
 require './lib/repository'
 require 'ar_repository/applicant_repository'
 require 'ar_repository/craftsman_repository'
+require 'ar_repository/apprentice_repository'
 require 'ar_repository/message_repository'
 require 'ar_repository/user_repository'
 require 'ar_repository/note_repository'
@@ -20,6 +21,10 @@ require 'ar_repository/annual_starting_craftsman_salary_repository'
 module ArRepository
   def self.applicant
     @applicant_repo ||= ApplicantRepository.new
+  end
+
+  def self.apprentice
+    @apprentice_repo ||= ApprenticeRepository.new
   end
 
   def self.craftsman
