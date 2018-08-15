@@ -36,15 +36,16 @@ class ApprenticesController < ApplicationController
   end
 
   def edit
-    @resident = Footprints::Repository.applicant.find_by_id(id)
+    @apprentice = Footprints::Repository.apprentice.find(params[:id])
   end
 
   def update
     begin
-      raw_resident = interactor.fetch_resident_by_id(id)
-      interactor.modify_resident_end_date!(raw_resident, end_date)
-      interactor.modify_corresponding_craftsman_start_date!(raw_resident, next_monday(end_date))
+      @apprentice = repo.apprentice.find(params[:id])
+      @apprentice.end_date = params[:apprentice][:end_date]
+      @apprentice.save!
       redirect_to "/apprentices/"
+
     rescue ArgumentError => e
       error_message = "Please provide a valid date"
       redirect_to "/apprentices/#{id}", :flash => { :error => [error_message] }
