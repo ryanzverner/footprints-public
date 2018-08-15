@@ -18,7 +18,7 @@
       <span class="divider"> &middot; </span>
       <span class="card-sub-header">
         <% if app.assigned_craftsman %>
-          <%= form_for :applicant_to_assign, url: specify_craftsman_path, method: :post do |f| %>
+          <%= form_for :applicant_to_assign, url: assign_craftsman_new_path, method: :post do |f| %>
             <label class="dropdown-label">Assigned to:</label>
             <%= f.select(:chosen_crafter, options_for_select(Footprints::Repository.craftsman.all.map { |crafter| [crafter['name'], crafter['name']] }.unshift([app.assigned_craftsman,"current"])), {}, class: "dropdown-height dropdown") %>
              <%= f.submit "Submit", class: "button primary" %>
