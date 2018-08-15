@@ -24,7 +24,11 @@
               <td><%= apprentice.name %></td>
               <td><%= apprentice.email %></td>
               <td><%= display_date(apprentice.start_date) %></td>
-              <td><%= display_date(apprentice.end_date) %></td>
+              <td>
+                <a href="/apprentices/<%= apprentice.id %>">
+                  <%= display_date(apprentice.end_date) %>
+                </a>
+              </td>
               <td><%= apprentice.mentor %></td>
             </tr>
           <% end %>
