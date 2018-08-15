@@ -136,6 +136,34 @@ class ApplicantsController < ApplicationController
     @craftsmen = Footprints::Repository.craftsman.all
   end
 
+#   def default_assign_craftsmen
+#   applicant = repo.applicant.find_by_id(params[:applicant_to_assign]["id"])
+#   steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+#   ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
+# end
+#
+# def specific_asssign_crafsmen
+#   applicant_id = params[:applicant_to_assign]["id"]
+#   chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
+#   applicant = repo.applicant.find_by_id(applicant_id)
+#   steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+#   ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+# end
+#
+# def assign_craftsman
+#   if params[:applicant_to_assign]["chosen_crafter"] == "auto"
+#     default_assign
+#   else
+#     specific_asssign
+#   end
+#
+#   if current_page?(controller: 'applicants', action: 'show')
+#     redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
+#   elsif current_page?('/applicant/unassigned')
+#     redirect_to unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
+#   end
+# end
+
   def assign_craftsman
     if params[:applicant_to_assign]["chosen_crafter"] == "auto"
       applicant = repo.applicant.find_by_id(params[:applicant_to_assign]["id"])
