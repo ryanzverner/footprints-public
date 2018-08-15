@@ -112,8 +112,21 @@ class ApplicantsController < ApplicationController
 
   def make_decision
     applicant = repo.applicant.find(params[:id])
+    apprentice = repo.apprentice.new
     ApplicantInteractor.new(applicant, hiring_decision_params, session[:id_token]).update_applicant_for_hiring
-    redirect_to applicant_path(applicant), :flash => { :notice => "Applicant hired" }
+
+    apprentice.name = applicant.name
+    apprentice.email = applicant.email
+    apprentice.location = applicant.location
+    apprentice.position = applicant.discipline
+    apprentice.mentor = applicant.mentor
+    apprentice.start_date = applicant.start_date
+    apprentice.end_date = applicant.end_date
+    apprentice.save!
+
+    applicant.destroy
+
+    redirect_to apprentices_path, :flash => { :notice => "Applicant hired" }
   rescue StandardError => e
     flash[:error] = [e.message]
     redirect_to applicant_path(applicant)
@@ -236,6 +249,10 @@ class ApplicantsController < ApplicationController
 
   def applicant_params_for_update
     params.require(:applicant).permit(:name, :email, :initial_reply_on, :sent_challenge_on, :completed_challenge_on, :reviewed_on, :resubmitted_challenge_on, :decision_made_on, :assigned_craftsman, :code_submission, :codeschool, :college_degree, :cs_degree, :worked_as_dev, :additional_notes, :url, :craftsman_id, :has_steward, :skill, :discipline, :archived, :hired, :about, :software_interest, :reason, :start_date, :end_date, :location, :offered_on)
+  end
+
+  def apprentice_params
+    params.require(:apprentice).permit(:name, :email, :applied_on, :position, :location, :start_date, :end_date, :mentor)
   end
 
   def determine_redirect_path_for_denial(applicant)

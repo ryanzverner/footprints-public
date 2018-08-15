@@ -1,13 +1,14 @@
+require 'repository'
 require 'reporting/data_parser'
 require 'apprentices/apprentices_interactor'
 require 'apprentices/apprentice_list_presenter'
 require 'apprentices/student_list_presenter'
 require 'warehouse/identifiers'
+require 'ar_repository/apprentice_repository'
 
 # require 'date'
 
 # require 'applicant_dispatch/dispatcher'
-# require 'repository'
 
 
 class ApprenticesController < ApplicationController
@@ -15,9 +16,7 @@ class ApprenticesController < ApplicationController
 
   def index
     begin
-
-      @residents = Footprints::Repository.applicant.get_all_hired_residents
-      @students =  Footprints::Repository.applicant.get_all_hired_students
+      @apprentices = Footprints::Repository.apprentice.all
     rescue ApprenticesInteractor::AuthenticationError => e
       error_message = "You are not authorized through warehouse to use this feature"
       Rails.logger.error(e.message)
@@ -26,17 +25,33 @@ class ApprenticesController < ApplicationController
     end  
   end
 
+  def new
+    @apprentice = repo.apprentice.new
+  end
+
+  def create
+    begin
+      @apprentice = repo.apprentice.new(apprentice_params)
+      @apprentice.save!
+      redirect_to(apprentices_path, :notice => "Successfully created #{@apprentice.name}")
+    rescue Exception => e
+      error_message = "Name is required"
+      redirect_to "/apprentices/new", :flash => { :error => [error_message] }
+    end
+  end
+
   def edit
-    @resident = Footprints::Repository.applicant.find_by_id(id)
+    @apprentice = Footprints::Repository.apprentice.find(params[:id])
   end
 
   def update
     begin
-      raw_resident = interactor.fetch_resident_by_id(id)
-      interactor.modify_resident_end_date!(raw_resident, end_date)
-      interactor.modify_corresponding_craftsman_start_date!(raw_resident, next_monday(end_date))
+      @apprentice = repo.apprentice.find(params[:id])
+      @apprentice.end_date = params[:apprentice][:end_date]
+      @apprentice.save!
       redirect_to "/apprentices/"
-    rescue ArgumentError => e
+
+    rescue Exception => e
       error_message = "Please provide a valid date"
       redirect_to "/apprentices/#{id}", :flash => { :error => [error_message] }
     end
@@ -49,7 +64,7 @@ class ApprenticesController < ApplicationController
   end
 
   def apprentice_params
-    params.require(:apprentice).permit(:end_date)
+    params.require(:apprentice).permit(:name, :email, :applied_on, :position, :location, :start_date, :end_date, :mentor)
   end
 
   def id
