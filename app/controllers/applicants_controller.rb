@@ -142,11 +142,7 @@ class ApplicantsController < ApplicationController
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
 
-    current_uri = request.env['PATH_INFO']
-    puts '*************** THIS IS A TEST ***************'
-    puts current_uri
-
-    if params[:applicant_to_assign]["chosen_crafter"] == "auto"
+    if automatically_assigned?
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
     else
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
@@ -160,15 +156,7 @@ class ApplicantsController < ApplicationController
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
 
-    current_uri = request.env['PATH_INFO']
-    puts '*************** THIS IS A TEST ***************'
-    puts current_uri
-
-    if params[:applicant_to_assign]["chosen_crafter"] == "auto"
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
-    else
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
-    end
+    ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
     redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
   end
 
@@ -198,6 +186,10 @@ class ApplicantsController < ApplicationController
   end
 
   private
+
+  def automatically_assigned?
+    params[:applicant_to_assign]["chosen_crafter"] == "auto"
+  end
 
   def render_offer_letter_form(location)
     if location_is_unknown(location)
