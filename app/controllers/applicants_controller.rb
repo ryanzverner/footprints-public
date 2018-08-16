@@ -156,7 +156,11 @@ class ApplicantsController < ApplicationController
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
 
-    ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+    if automatically_assigned?
+      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
+    else
+      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+    end
     redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
   end
 
