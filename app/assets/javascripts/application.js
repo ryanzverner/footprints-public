@@ -22,7 +22,6 @@
 //= require form_helper
 //= require state_helper
 //= require toggle-nav
-//= require easydropdown
 //= require_tree
 //= require dashboard
 //= require Chart.min
