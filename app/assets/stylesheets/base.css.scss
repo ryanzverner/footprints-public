@@ -805,6 +805,9 @@ nav.visible {
     padding: 1em 0;
     text-align: center;
   }
+  .dropdown-label{
+    display: inline !important;
+  }
   .card-header {
     padding: 0;
     .applicant-name {
@@ -942,7 +945,7 @@ form, .form-column {
 }
 
 label {
-  display: block;
+  display: block;  
   color: $gray;
   margin-bottom: 0.5em;
 }
@@ -1105,6 +1108,9 @@ input.required {
 /* --- EASYDROPDOWN DEFAULT THEME --- */
 
 /* PREFIXED CSS */
+.dropdown-height {
+  max-height: 200px;
+}
 
 .dropdown,
 .dropdown div,
@@ -1122,6 +1128,7 @@ input.required {
   -moz-pointer-events: none;
   -ms-pointer-events: none;
   pointer-events: none;
+  overflow-y: scroll;
 }
 
 /* WRAPPER */
@@ -1358,10 +1365,13 @@ input.required {
   }
   .applicant-actions {
     background: $white;
-    display: block;
+    display: block; 
     float: right;
     margin: 0;
     padding: 0.7em 0.8em;
+    label {
+      display: inline;
+    }
     @media (max-width: 640px) {
       float: none;
     }

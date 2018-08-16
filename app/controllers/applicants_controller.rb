@@ -150,19 +150,27 @@ class ApplicantsController < ApplicationController
   end
 
   def assign_craftsman
-    applicant = repo.applicant.find_by_id(params[:id])
-    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
-    ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
-    redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
-  end
-
-  def assign_specific_craftsman
     applicant_id = params[:applicant_to_assign]["id"]
     chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
-    ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+
+    if automatically_assigned?
+      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
+    else
+      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+    end
     redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
+  end
+
+  def assign_craftsman_from_applicant
+    applicant_id = params[:applicant_to_assign]["id"]
+    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
+    applicant = repo.applicant.find_by_id(applicant_id)
+    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+
+    ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+    redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
   end
 
   def offer_letter_form
@@ -191,6 +199,10 @@ class ApplicantsController < ApplicationController
   end
 
   private
+
+  def automatically_assigned?
+    params[:applicant_to_assign]["chosen_crafter"] == "auto"
+  end
 
   def render_offer_letter_form(location)
     if location_is_unknown(location)

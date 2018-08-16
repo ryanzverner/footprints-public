@@ -12,7 +12,8 @@ Footprints::Application.routes.draw do
   post "applicants/submit" => 'applicants#submit'
   get "applicants/:id/deny_application" => "applicants#deny_application", as: "deny_application"
   get "applicants/:id/assign_craftsman" => "applicants#assign_craftsman", as: "assign_craftsman"
-  post "applicants/assign_craftsman" => "applicants#assign_specific_craftsman", as: "specify_craftsman"
+  post "applicants/assign_craftsman" => "applicants#assign_craftsman", as: "specify_craftsman"
+  post "applicants/assign_craftsman_from_applicant" => "applicants#assign_craftsman_from_applicant", as: "assign_craftsman_new"
   get "applicants/:id/hire" => 'applicants#hire', as: "hire_applicant"
   post "update_state/:id" => 'applicants#update_state', :as => 'update_state'
   post "make_decision/:id" => 'applicants#make_decision', :as => 'make_decision'
@@ -58,7 +59,7 @@ Footprints::Application.routes.draw do
   delete "salaries/:id" => "salaries#destroy", as: "destroy_salary"
 
   get "reporting" => "reporting#index", as: "reporting"
-  
+
   get "apprentices" => "apprentices#index", as: "apprentices"
   get "apprentices/new" => 'apprentices#new', as: 'new_apprentice'
   post "apprentices/new" => 'apprentices#create'
@@ -66,7 +67,7 @@ Footprints::Application.routes.draw do
   # get "apprentices/:id/deny_apprentice" => "apprentices#deny_apprentice", as: "deny_apprentice"
   get "apprentices/:id" => "apprentices#edit"
   put "apprentices/:id" => "apprentices#update"
- 
-  
+
+
   root :to => "dashboard#index"
 end
