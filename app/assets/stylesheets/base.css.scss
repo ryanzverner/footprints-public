@@ -688,6 +688,17 @@ nav.visible {
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    height: auto;
+    .status-flex {
+      flex-direction: column;
+      .status-holder {
+        height: 100px;
+        width: 100%;
+        flex-direction: column;
+      }
+    }
+  }
 }
 
 .alert {
