@@ -69,6 +69,36 @@ describe RealDataParser do
       end
     end
 
+    context "#all_apprentices" do
+      it 'returns empty hashes if there are no apprentices' do
+        parser = RealDataParser.new([],[])
 
+        expect(parser.all_apprentices).to eq("Software Apprentices" => [], "UX Apprentices" => [] )
+      end
+    
+      it 'returns only the apprentices from the data' do
+        parser = RealDataParser.new([], apprentice_mock_data)
+
+        expect(parser.all_apprentices).to eq(
+          {"Software Apprentices" => apprentice_mock_data[0,2], "UX Apprentices" => apprentice_mock_data[2,1]})
+      end
+    end
+
+    context '#active_apprentices_for(month, year)' do
+      it 'returns hash of 0s if there are no active apprentices for given month' do
+        parser = RealDataParser.new([], apprentice_mock_data)
+
+        expect(parser.active_apprentices_for(7, 2018)).to eq(
+          {"Software Apprentices" => 0, "UX Apprentices" => 0}
+        )
+      end 
+    
+      it 'returns hash with the count for active apprentices for a given month' do
+
+        parser = RealDataParser.new([], apprentice_mock_data)
+
+        expect(parser.active_apprentices_for(9, 2018)).to eq({"Software Apprentices" => 2, "UX Apprentices" => 1})
+      end
+    end
   end
 end
