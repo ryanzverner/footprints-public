@@ -21,23 +21,6 @@ describe RealDataParser do
       Apprentice.new(id: 4, created_at: "2018-08-10 21:22:24", updated_at: "2018-08-10 21:22:24", name: "Bill Evans", applied_on: nil, email: "bill.evans@gmail.com", hired: nil, location: "Los Angeles", archived: nil, position: "designer", start_date: Date.parse("2018-08-10"), end_date: Date.parse("2018-11-11"), mentor: "Russell Baker (London Director)")
     ]}
 
-    context '#software_apprentices_for(month, year)' do
-      it 'returns 0 when there are no apprentices for the given month' do
-        parser = RealDataParser.new(craftsmen_mock_data, apprentice_mock_data)
-
-        result = {"Software Apprentices" => 0}
-
-        expect(parser.software_apprentices_for(8, 2014)).to eq(result)
-      end
-    
-      it "returns the number of software apprentices for a given month" do
-        parser = RealDataParser.new(craftsmen_mock_data, apprentice_mock_data)
-
-        result = {"Software Apprentices" => 2}
-        expect(parser.software_apprentices_for(9, 2018)).to eq(result)
-      end
-    end
-
     context '#all_crafters' do
       it 'returns empty list if there are no crafters' do
         parser = RealDataParser.new([], [])
@@ -67,5 +50,26 @@ describe RealDataParser do
         expect(parser.active_crafters_for(9, 2018)).to eq({"Software Crafters" => 2, "UX Crafters" => 1})
       end
     end
+  end
+
+  context 'apprentices' do
+    context '#software_apprentices_for(month, year)' do
+      it 'returns 0 when there are no apprentices for the given month' do
+        parser = RealDataParser.new(craftsmen_mock_data, apprentice_mock_data)
+
+        result = {"Software Apprentices" => 0}
+
+        expect(parser.software_apprentices_for(8, 2014)).to eq(result)
+      end
+    
+      it "returns the number of software apprentices for a given month" do
+        parser = RealDataParser.new(craftsmen_mock_data, apprentice_mock_data)
+
+        result = {"Software Apprentices" => 2}
+        expect(parser.software_apprentices_for(9, 2018)).to eq(result)
+      end
+    end
+
+    
   end
 end
