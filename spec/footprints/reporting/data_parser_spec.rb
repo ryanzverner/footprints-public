@@ -30,7 +30,7 @@ describe DataParser do
         expect(parser.student_apprentices_for(9, 2014)).to eq(result)
 
         result = {"Student Apprentices" => 1}
-        expect(parser.student_apprentices_for(12, 2014)).to eq(result)
+        expect(parser.student_apprentices_for(12, 2017)).to eq(result)
       end
     end
 
