@@ -37,7 +37,7 @@ module DefaultSeed
         "Ryan Jerner Jr.",
         "Ryan Jerner"
       ].each do |apprentice|
-        start_date = Time.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}")
+        start_date = Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}")
         Footprints::Repository.apprentice.create({
           :name => apprentice,
           :email => "#{apprentice.downcase.gsub(" ", ".")}@abcinc.com",
@@ -238,6 +238,8 @@ module DefaultSeed
           :location       => "Chicago",
           :employment_id  => i,
           :email          => "#{name.downcase.gsub(' ', '.')}@abcinc.com",
+          :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
+          :end_date       => nil,
           :seeking        => true,
           :has_apprentice => [true, false].sample,
           :skill          => [1, 2].sample
