@@ -4,10 +4,7 @@ require './lib/reporting/real_data_parser'
 describe RealDataParser do 
   let(:now)              { Time.now.utc }
   let(:start_date)       { Time.parse("2014-08-01") }
-
-  context 'crafters' do
-
-    let(:craftsmen_mock_data) { [
+  let(:craftsmen_mock_data) { [
       Craftsman.new(id: 1, name: "Tom Johannsen", status: nil, employment_id: 0, uid: nil, email: "tom.johannsen@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 2, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil,unavailable_until: nil),
       Craftsman.new(id: 2, name: "Douglas Kles", status: nil, employment_id: 1, uid: nil, email: "douglas.kles@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 2, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil,unavailable_until:nil),
       Craftsman.new(id: 3, name: "Alan Abernathy", status: nil, employment_id: 2, uid: nil, email: "alan.abernathy@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 1, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil, unavailable_until: nil),
@@ -20,6 +17,8 @@ describe RealDataParser do
 
       Apprentice.new(id: 4, created_at: "2018-08-10 21:22:24", updated_at: "2018-08-10 21:22:24", name: "Bill Evans", applied_on: nil, email: "bill.evans@gmail.com", hired: nil, location: "Los Angeles", archived: nil, position: "designer", start_date: Date.parse("2018-08-10"), end_date: Date.parse("2018-11-11"), mentor: "Russell Baker (London Director)")
     ]}
+
+  context 'crafters' do
 
     context '#all_crafters' do
       it 'returns empty list if there are no crafters' do
@@ -70,6 +69,6 @@ describe RealDataParser do
       end
     end
 
-    
+
   end
 end
