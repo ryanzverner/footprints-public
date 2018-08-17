@@ -5,7 +5,7 @@ describe RealDataParser do
   let(:now)              { Time.now.utc }
   let(:start_date)       { Time.parse("2014-08-01") }
 
-  context 'craftsmen' do
+  context 'crafters' do
 
     let(:craftsmen_mock_data) { [
       Craftsman.new(id: 1, name: "Tom Johannsen", status: nil, employment_id: 0, uid: nil, email: "tom.johannsen@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 2, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil,unavailable_until: nil),
