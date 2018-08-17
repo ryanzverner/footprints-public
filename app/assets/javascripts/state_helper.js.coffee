@@ -79,7 +79,7 @@ class StateHelper.GenerateOfferLetterForm
       $(card).find(".current-state").removeClass("current-state")
       $(card).find(".offered_on").addClass("current-state")
       $("#offer-letter-form").remove()
-      window.location.replace("/applicants/#{response.applicantId}/offer_letter.pdf?duration=#{response.duration}&pt_ft=#{response.pt_ft}&hours_per_week=#{response.hours_per_week}&withdraw_offer_date=#{response.withdraw_offer_date}")
+      #window.location.replace("/applicants/#{response.applicantId}/offer_letter.pdf?duration=#{response.duration}&pt_ft=#{response.pt_ft}&hours_per_week=#{response.hours_per_week}&withdraw_offer_date=#{response.withdraw_offer_date}")
     else
       $('#modal-errors').text(response.message)
 
