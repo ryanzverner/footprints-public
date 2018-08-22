@@ -100,5 +100,17 @@ describe RealDataParser do
         expect(parser.active_apprentices_for(9, 2018)).to eq({"Software Apprentices" => 2, "UX Apprentices" => 1})
       end
     end
+
+    context '#apprentices_finishing_in(month,year)' do
+      it 'returns 0 if there are no apprentices finishing in the given month' do
+        parser = RealDataParser.new([],[])
+        expect(parser.apprentices_finishing_in(11,2018)).to eq( {"Software Apprentices" => 0, "UX Apprentices" => 0})
+      end
+
+      it 'returns all apprentices finishing in the given month' do
+        parser = RealDataParser.new([], apprentice_mock_data)
+        expect(parser.apprentices_finishing_in(11, 2018)).to eq( {"Software Apprentices" => 2, "UX Apprentices" => 1})
+      end
+    end
   end
 end

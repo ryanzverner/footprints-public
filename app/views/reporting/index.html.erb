@@ -1,10 +1,17 @@
 <div class="container reporting">
   <h1>Reporting</h1>
 
+  <%= form_for :reporting, url: reporting_path, method: :get, html: {} do |f| %>
+      <div class="form-narrow left margin-left">
+      <%= select_tag(:location, options_for_select([['Filter By Location'], ['All', 'all'], ['Chicago', 'Chicago'], ['London', 'London'], ['Los Angeles', 'Los Angeles']], selected: params[:location], disabled: "Filter By Location"), { :class => "dropdown", :onchange => "this.form.submit();"}) %>
+      </div>
+    <% end %>
+
   <div class="row" id="reporting-graph-container">
     <canvas id="reporting-graph" height="200"></canvas>
     <div id="reporting-graph-legend"></div>
   </div>
+
 
   <div class="row">
     <div class="column full">
@@ -15,25 +22,23 @@
             <th>Total Crafters</th>
             <th>Software Crafters</th>
             <th>UX Crafters</th>
-            <th>Software Residents</th>
-            <th>UX Residents</th>
-            <th>Software Residents Finishing</th>
-            <th>UX Residents Finishing</th>
-            <th>Student Apprentices</th>
+            <th>Software Apprentices</th>
+            <th>UX Apprentices</th>
+            <th>Software Apprentices Finishing</th>
+            <th>UX Apprentices Finishing</th>
           </tr>
         </thead>
         <tbody>
           <% @reporting_data.each do |month, data| %>
           <tr>
             <th><%= month.sub(/[ ]/, '&nbsp;').html_safe %></th>
-            <td><%= data["Software Craftsmen"] + data["UX Craftsmen"] %></td>
-            <td><%= data["Software Craftsmen"] %></td>
-            <td><%= data["UX Craftsmen"] %></td>
-            <td><%= data["Software Residents"] %></td>
-            <td><%= data["UX Residents"] %></td>
-            <td><%= data["Finishing Software Residents"] %></td>
-            <td><%= data["Finishing UX Residents"] %></td>
-            <td><%= data["Student Apprentices"] %></td>
+            <td><%= data["Software Crafters"] + data["UX Crafters"] %></td>
+            <td><%= data["Software Crafters"] %></td>
+            <td><%= data["UX Crafters"] %></td>
+            <td><%= data["Software Apprentices"] %></td>
+            <td><%= data["UX Apprentices"] %></td>
+            <td><%= data["Finishing Software Apprentices"] %></td>
+            <td><%= data["Finishing UX Apprentices"] %></td>
           </tr>
           <% end %>
         </tbody>
@@ -45,8 +50,8 @@
 <script>
   window.reportingData = {
     "labels" : <%= @reporting_data.keys.to_json.html_safe %>,
-    "total craftsmen": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Software Craftsmen"] + value["UX Craftsmen"]) }.to_json %>,
-    "total residents": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Software Residents"] + value["UX Residents"]) }.to_json %>,
-    "total finishing residents": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Finishing Software Residents"] + value["Finishing UX Residents"]) }.to_json %>,
+    "total crafters": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Software Crafters"] + value["UX Crafters"]) }.to_json %>,
+    "total apprentices": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Software Apprentices"] + value["UX Apprentices"]) }.to_json %>,
+    "total finishing apprentices": <%= @reporting_data.reduce([]) { | acc, (key, value)| acc << (value["Finishing Software Apprentices"] + value["Finishing UX Apprentices"]) }.to_json %>,
   };
 </script>

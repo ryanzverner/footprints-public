@@ -5,15 +5,11 @@ class ReportingController < ApplicationController
 
   def index
     interactor = ReportingInteractor.new(session[:id_token])
-    @reporting_data = interactor.fetch_projection_data(Date.today.month, Date.today.year)
-    puts @reporting_data
-    @reporting_data = { "Aug 2018" => { "Software Craftsmen" => repo.craftsman.where("skill = 2", 0).count,
-                                              "UX Craftsmen" => repo.craftsman.where("skill = 1", 0).count,
-                                              "Software Residents" => 99,
-                                              "UX Residents" => 99,
-                                              "Finishing Software Residents" => 99,
-                                              "Finishing UX Residents" => 99,
-                                              "Student Apprentices" => 99 } }
+    if params[:location]
+      @reporting_data = interactor.fetch_projection_data(params[:location], Date.today.month, Date.today.year)
+    else
+      @reporting_data = interactor.fetch_projection_data("all", Date.today.month, Date.today.year)
+    end
   # rescue ReportingInteractor::AuthenticationError => e
   #   error_message = "You are not authorized through warehouse to use this feature"
 

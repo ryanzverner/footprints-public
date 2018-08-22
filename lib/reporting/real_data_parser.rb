@@ -75,7 +75,22 @@ class RealDataParser
         result["UX Apprentices"] += 1
       end
     end
-
     result
+  end
+
+  def apprentices_finishing_in(month, year)
+    all_apprentices.reduce({}) do |resulting_hash, (position, employments)| 
+      resulting_hash[position] = number_of_finishing_employments(month, year, employments)
+      resulting_hash
+    end
+  end
+
+  def number_of_finishing_employments(month, year, employments)
+    employments.select { |employment| finishing_in?(month, year, employment) }.count
+  end
+  
+  def finishing_in?(month, year, employment)
+    date = end_of_employment(employment)
+    date.month == month && date.year == year
   end
 end

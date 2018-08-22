@@ -1,9 +1,11 @@
 require 'warehouse/json_api'
 require 'warehouse/token_http_client'
 require './lib/reporting/data_parser'
-require './lib/reporting/employment_data_generator'
+require './lib/reporting/real_data_parser'
+require './lib/reporting/real_employment_data_generator'
 require './lib/warehouse/api_factory'
 require './lib/warehouse/fake_api'
+require 'repository'
 
 class ReportingInteractor
 
@@ -16,9 +18,27 @@ class ReportingInteractor
     @auth_token = auth_token
   end
 
-  def fetch_projection_data(month, year, months = 12)
-    parser = DataParser.new(fetch_all_employments, fetch_all_apprenticeships)
+  def fetch_projection_data(location, month, year, months = 12)
+    parser = RealDataParser.new(fetch_crafters_from(location), fetch_apprentices_from(location))
     projection_data(parser, projection_range(month, year, months))
+  end
+
+  def fetch_crafters_from(location)
+    case location
+    when 'all'
+      Footprints::Repository.craftsman.all
+    else
+      Footprints::Repository.craftsman.where("location = '#{location}'", 0)
+    end
+  end
+
+  def fetch_apprentices_from(location)
+    case location
+    when 'all'
+      Footprints::Repository.apprentice.all
+    else
+      Footprints::Repository.apprentice.where("location = '#{location}'", 0)
+    end
   end
 
   def fetch_all_employments
@@ -39,7 +59,7 @@ class ReportingInteractor
   end
 
   def projection_data(parser, range)
-    generator = EmploymentDataGenerator.new(parser)
+    generator = RealEmploymentDataGenerator.new(parser)
 
     range.reduce({}) do |resulting_hash, month|
       resulting_hash[month] = generator.generate_data_for(month)

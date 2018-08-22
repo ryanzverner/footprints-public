@@ -254,6 +254,7 @@ module DefaultSeed
         :employment_id  => 103,
         :email          => ApplicantDispatch::Strategies::DefaultAllLondonApplicants::LONDON_DIRECTOR_EMAIL,
         :seeking        => true,
+        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -265,6 +266,7 @@ module DefaultSeed
         :employment_id  => 104,
         :email          => ApplicantDispatch::Strategies::DefaultAllLosAngelesApplicants::LOS_ANGELES_DIRECTOR_EMAIL,
         :seeking        => true,
+        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -276,6 +278,7 @@ module DefaultSeed
         :employment_id  => 105,
         :email          => ApplicantDispatch::Strategies::DefaultAllDesignApplicants::LEAD_DESIGNER_EMAIL,
         :seeking        => true,
+        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -287,6 +290,7 @@ module DefaultSeed
         :employment_id  => 100,
         :email          => ENV['STEWARD'],
         :seeking        => true,
+        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -298,6 +302,7 @@ module DefaultSeed
         :employment_id  => 102,
         :email          => "you@abcinc.com",
         :seeking        => true,
+        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
       puts "#{new_craftsman.name} added to the #{Rails.env} environment"
