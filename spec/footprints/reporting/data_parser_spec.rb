@@ -15,7 +15,7 @@ describe DataParser do
     }
 
     context '#student_apprentices_for' do
-      it "returns 0 when there are no student apprentices for a givem month" do
+      it "returns 0 when there are no student apprentices for a given month" do
         parser = DataParser.new([], apprenticeships)
 
         result = {"Student Apprentices" => 0}
@@ -30,7 +30,7 @@ describe DataParser do
         expect(parser.student_apprentices_for(9, 2014)).to eq(result)
 
         result = {"Student Apprentices" => 1}
-        expect(parser.student_apprentices_for(12, 2014)).to eq(result)
+        expect(parser.student_apprentices_for(12, 2017)).to eq(result)
       end
     end
 
