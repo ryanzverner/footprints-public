@@ -39,17 +39,17 @@ $(function() {
         label: "Total Crafters",
         fillColor: "rgba(29,177,129,1.0)",
         highlightFill: "rgba(29,177,129,0.5)",
-        data: window.reportingData["total craftsmen"],
+        data: window.reportingData["total crafters"],
       }, {
-        label: "Total Residents",
+        label: "Total Apprentices",
         fillColor: "rgba(83,242,174,1)",
         highlightFill: "rgba(83,242,174,0.5)",
-        data: window.reportingData["total residents"],
+        data: window.reportingData["total apprentices"],
       }, {
-        label: "Total Finishing Residents",
+        label: "Total Finishing Apprentices",
         fillColor: "rgba(21,94,73,1.0)",
         highlightFill: "rgba(21,94,73,0.5)",
-        data: window.reportingData["total finishing residents"],
+        data: window.reportingData["total finishing apprentices"],
       }]
     };
 

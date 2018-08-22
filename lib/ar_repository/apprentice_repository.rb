@@ -19,5 +19,9 @@ module ArRepository
       end
     end
 
+    def where(query_string, query)
+      model_class.where(query_string, query)
+    end
+
   end
 end
