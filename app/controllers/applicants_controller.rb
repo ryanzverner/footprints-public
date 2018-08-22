@@ -205,7 +205,7 @@ class ApplicantsController < ApplicationController
   private
 
   def automatically_assigned?
-    params[:applicant_to_assign]["chosen_crafter"] == "auto"
+    params[:applicant_to_assign]["chosen_crafter"] == "Available Crafter"
   end
 
   def render_offer_letter_form(location)

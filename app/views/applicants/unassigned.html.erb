@@ -12,12 +12,19 @@
             </div>
             <span class="applicant-actions">
               <%= form_for :applicant_to_assign, url: specify_craftsman_path, method: :post do |f| %>
-                <label class="dropdown-label">Assign to:</label>
-                <%= f.select(:chosen_crafter, options_for_select(@craftsmen.map { |crafter| [crafter['name'], crafter['name']] }.unshift(["Available Crafter","auto"])), {}, class: "dropdown-height dropdown") %>
-                 <%= f.submit "Submit", class: "button primary" %>
-                 <%= f.hidden_field(:id, :value => app.id) %>
-              <% end %>
-              <%= link_to "Deny", {:controller => 'applicants', :action => 'deny_application', :id => app.id }, {:class => "button secondary", data: { confirm: "Are you sure you want to deny #{app.name}?" }} %>
+                <div class="top_section">
+                  <label class="dropdown-label">Assign to:</label>
+                  <%= f.text_field :chosen_crafter, list: "crafters-list", value: "Available Crafter", class: "textbox-dropdown"%>
+                  <datalist id="crafters-list">
+                    <%= options_for_select(@craftsmen.map { |crafter| [crafter['name'], crafter['name']] }.unshift(["Available Crafter"])) %>
+                  </datalist>
+                  <%= f.hidden_field(:id, :value => app.id) %>
+                </div>
+                <div class="bottom_section">
+                  <%= f.submit "Submit", class: "button primary" %>
+                  <%= link_to "Deny", {:controller => 'applicants', :action => 'deny_application', :id => app.id }, {:class => "button secondary", data: { confirm: "Are you sure you want to deny #{app.name}?" }} %>
+                </div>
+                <% end %>
             </span>
           </div>
         <% end %>
