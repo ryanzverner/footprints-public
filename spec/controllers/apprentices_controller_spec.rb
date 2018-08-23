@@ -17,22 +17,12 @@ describe ApprenticesController do
       expect(response).to render_template :index
     end
 
-    it "fetches all resident apprentices" do
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_all_residents).and_return(:raw_residents)
-      allow_any_instance_of(ApprenticeListPresenter).to receive(:residents).and_return(:presented_residents)
+    it "fetches all apprentices" do
+      allow(Footprints::Repository.apprentice).to receive(:all).and_return(:fake_return)
 
       get :index
-
-      expect(assigns(:residents)).to eq(:presented_residents)
-    end
-
-    it "fetches all student apprentices" do
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_all_students).and_return(:raw_students)
-      allow_any_instance_of(StudentListPresenter).to receive(:students).and_return(:presented_students)
-
-      get :index
-
-      expect(assigns(:students)).to eq(:presented_students)
+      
+      expect(assigns(:apprentices)).to eq(:fake_return)
     end
   end
 
