@@ -9,12 +9,6 @@ describe ApprenticesController do
   end
 
   context "GET #index" do
-    it 'displays an error message' do
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_all_residents).and_raise(ApprenticesInteractor::AuthenticationError.new)
-
-      get :index
-      expect(flash[:error]).to eq ["You are not authorized through warehouse to use this feature"]
-    end
 
     it "renders the index view" do
       get :index
