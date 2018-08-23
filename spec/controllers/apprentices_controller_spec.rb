@@ -28,18 +28,20 @@ describe ApprenticesController do
 
   context "GET #edit" do
     it "renders the edit view" do
-      get :edit, :id => 208
+      allow(Footprints::Repository.apprentice).to receive(:find)
+
+      get :edit, :id => 1
 
       expect(response.status).to eq(200)
       expect(response).to render_template :edit
     end
 
     it "sets the current apprentice being edited" do
+      allow(Footprints::Repository.apprentice).to receive(:find).and_return(Apprentice.new)
+
       get :edit, :id => 208
 
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_resident_by_id)
-
-      expect(assigns[:resident]).to be_a(ApprenticeListPresenter::PresentedApprentice)
+      expect(assigns[:apprentice]).to be_a(Apprentice)
     end
   end
 
