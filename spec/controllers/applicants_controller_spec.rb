@@ -257,14 +257,6 @@ describe ApplicantsController do
                                           :end_date => Date.today + 6.months)
       end
 
-      it "only allows hired and decision_made_on to be modified" do
-        params = {:id => fifth_applicant.id, :applicant => {mentor: "A. Craftsman", name: "Superman"} }
-
-        post :make_decision, params
-        fifth_applicant.reload
-        expect(fifth_applicant.name).to eq("Fifth")
-      end
-
       it "displays an error message when there is no mentor" do
         params = {:id => fifth_applicant.id, :applicant => {mentor: nil} }
 
@@ -283,17 +275,15 @@ describe ApplicantsController do
       it "updates hired applicant with a mentor" do
         params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Craftsman"}}
         post :make_decision, params
-        fifth_applicant.reload
-        expect(fifth_applicant.mentor).to eq("A. Craftsman")
+        expect(assigns[:apprentice].mentor).to eq("A. Craftsman")
       end
 
       it "shows a success message when applicant is hired" do
         params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Craftsman"}}
         post :make_decision, params
-        fifth_applicant.reload
 
         expect(flash[:notice]).to include("Applicant hired")
-        expect(response).to redirect_to(applicant_path(params[:id]))
+        expect(response).to redirect_to(apprentices_path)
       end
     end
 

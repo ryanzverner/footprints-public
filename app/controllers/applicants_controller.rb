@@ -111,25 +111,25 @@ class ApplicantsController < ApplicationController
   end
 
   def make_decision
-    applicant = repo.applicant.find(params[:id])
-    apprentice = repo.apprentice.new
-    ApplicantInteractor.new(applicant, hiring_decision_params, session[:id_token]).update_applicant_for_hiring
+    @applicant = repo.applicant.find(params[:id])
+    @apprentice = repo.apprentice.new
+    ApplicantInteractor.new(@applicant, hiring_decision_params, session[:id_token]).update_applicant_for_hiring
 
-    apprentice.name = applicant.name
-    apprentice.email = applicant.email
-    apprentice.location = applicant.location
-    apprentice.position = applicant.discipline
-    apprentice.mentor = applicant.mentor
-    apprentice.start_date = applicant.start_date
-    apprentice.end_date = applicant.end_date
-    apprentice.save!
+    @apprentice.name = @applicant.name
+    @apprentice.email = @applicant.email
+    @apprentice.location = @applicant.location
+    @apprentice.position = @applicant.discipline
+    @apprentice.mentor = @applicant.mentor
+    @apprentice.start_date = @applicant.start_date
+    @apprentice.end_date = @applicant.end_date
+    @apprentice.save!
 
-    applicant.destroy
+    @applicant.destroy
 
     redirect_to apprentices_path, :flash => { :notice => "Applicant hired" }
   rescue StandardError => e
     flash[:error] = [e.message]
-    redirect_to applicant_path(applicant)
+    redirect_to applicant_path(@applicant)
   end
 
   def destroy
@@ -152,6 +152,8 @@ class ApplicantsController < ApplicationController
   def assign_craftsman
     applicant_id = params[:applicant_to_assign]["id"]
     chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
+    puts "chosen_crafter = #{chosen_crafter}"
+    puts "applicant_id = #{applicant_id}"
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
 
@@ -165,7 +167,7 @@ class ApplicantsController < ApplicationController
 
   def assign_craftsman_from_applicant
     applicant_id = params[:applicant_to_assign]["id"]
-    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
+    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"] 
     applicant = repo.applicant.find_by_id(applicant_id)
     steward = repo.craftsman.find_by_email(ENV['STEWARD'])
 
