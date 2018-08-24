@@ -28,10 +28,15 @@ describe ApplicantDispatch::Dispatcher do
                              position: "Software Craftsman")
   }
 
-  it "assigns an applicant to the best available craftsman" do
+  it "assigns best available crafter if steward is nil" do
+    described_class.new(applicant, nil).assign_applicant
+    expect(applicant.reload.craftsman).to eq(craftsman)
+  end
+
+  it "assigns specified steward to applicant" do
     described_class.new(applicant, steward).assign_applicant
 
-    expect(applicant.reload.craftsman).to eq(craftsman)
+    expect(applicant.reload.craftsman).to eq(steward)
   end
 
   it "defaults applicants to the steward when unassignable" do
