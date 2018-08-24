@@ -19,6 +19,7 @@
                     <%= options_for_select(@craftsmen.map { |crafter| [crafter['name'], crafter['name']] }.unshift(["Available Crafter"])) %>
                   </datalist>
                   <%= f.hidden_field(:id, :value => app.id) %>
+                  <%= f.hidden_field(:source, :value => "unassigned") %>
                 </div>
                 <div class="bottom_section">
                   <%= f.submit "Submit", class: "button primary" %>
