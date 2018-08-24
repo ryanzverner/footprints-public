@@ -189,10 +189,6 @@ class ApplicantsController < ApplicationController
 
   private
 
-  def automatically_assigned?
-    params[:chosen_crafter] == "Available Crafter"
-  end
-
   def render_offer_letter_form(location)
     if location_is_unknown(location)
       render "unknown_location_offer_letter_form", layout: false
