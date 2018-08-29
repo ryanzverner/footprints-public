@@ -422,7 +422,7 @@ describe ApplicantsController do
 
       it 'calls dispatcher with correct applicant' do
         expect_any_instance_of(ApplicantDispatch::Dispatcher).to receive(:assign_applicant)
-        get :assign_craftsman, {id: first_applicant.id}
+        get :assign_craftsman, {:applicant_to_assign => { id: first_applicant.id }}
 
         expect(response).to redirect_to(unassigned_applicants_path)
       end
