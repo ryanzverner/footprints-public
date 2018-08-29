@@ -146,12 +146,18 @@ class ApplicantsController < ApplicationController
     @applicant_presenter = ApplicantPresenter.new
     applicants = repo.applicant.get_unassigned_unarchived_applicants
     @applicants = @applicant_presenter.sort_by_date(applicants)
-    @craftsmen = Footprints::Repository.craftsman.all
+    @london_crafters = Footprints::Repository.craftsman.where("location = 'London' and seeking = 't'", 0)
+    @chicago_crafters = Footprints::Repository.craftsman.where("location = 'Chicago' and seeking = 't'", 0)
+    @la_crafters = Footprints::Repository.craftsman.where("location = 'Los Angeles' and seeking = 't'", 0)
+  end
+
+  def get_valid_crafters_for_assignment_location(location)
+    Footprints::Repository.craftsman.where("location = '#{location}' AND seeking = 't'", 0)
   end
 
   def assign_craftsman
     applicant = repo.applicant.find_by_id(params[:applicant_to_assign][:id])
-    crafter = repo.craftsman.find_by_name(params[:applicant_to_assign][:chosen_crafter]) || nil
+    crafter = repo.craftsman.find_by_name(params[:applicant_to_assign][:chosen_crafter])
     
     ApplicantDispatch::Dispatcher.new(applicant, crafter).assign_applicant
 
