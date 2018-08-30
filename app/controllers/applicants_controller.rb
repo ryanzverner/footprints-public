@@ -146,37 +146,26 @@ class ApplicantsController < ApplicationController
     @applicant_presenter = ApplicantPresenter.new
     applicants = repo.applicant.get_unassigned_unarchived_applicants
     @applicants = @applicant_presenter.sort_by_date(applicants)
-    @craftsmen = Footprints::Repository.craftsman.all
+    @london_crafters = Footprints::Repository.craftsman.where("location = 'London' and seeking = 't'", 0)
+    @chicago_crafters = Footprints::Repository.craftsman.where("location = 'Chicago' and seeking = 't'", 0)
+    @la_crafters = Footprints::Repository.craftsman.where("location = 'Los Angeles' and seeking = 't'", 0)
+  end
+
+  def get_valid_crafters_for_assignment_location(location)
+    Footprints::Repository.craftsman.where("location = '#{location}' AND seeking = 't'", 0)
   end
 
   def assign_craftsman
-    applicant_id = params[:applicant_to_assign]["id"]
-    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
-    puts "chosen_crafter = #{chosen_crafter}"
-    puts "applicant_id = #{applicant_id}"
-    applicant = repo.applicant.find_by_id(applicant_id)
-    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+    applicant = repo.applicant.find_by_id(params[:applicant_to_assign][:id])
+    crafter = repo.craftsman.find_by_name(params[:applicant_to_assign][:chosen_crafter])
+    
+    ApplicantDispatch::Dispatcher.new(applicant, crafter).assign_applicant
 
-    if automatically_assigned?
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
+    if params[:applicant_to_assign][:source] == "applicant"
+      redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
     else
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+      redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
     end
-    redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
-  end
-
-  def assign_craftsman_from_applicant
-    applicant_id = params[:applicant_to_assign]["id"]
-    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"] 
-    applicant = repo.applicant.find_by_id(applicant_id)
-    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
-
-    if automatically_assigned?
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
-    else
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
-    end
-    redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
   end
 
   def offer_letter_form
@@ -205,10 +194,6 @@ class ApplicantsController < ApplicationController
   end
 
   private
-
-  def automatically_assigned?
-    params[:applicant_to_assign]["chosen_crafter"] == "Available Crafter"
-  end
 
   def render_offer_letter_form(location)
     if location_is_unknown(location)
