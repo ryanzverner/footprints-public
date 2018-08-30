@@ -111,25 +111,25 @@ class ApplicantsController < ApplicationController
   end
 
   def make_decision
-    applicant = repo.applicant.find(params[:id])
-    apprentice = repo.apprentice.new
-    ApplicantInteractor.new(applicant, hiring_decision_params, session[:id_token]).update_applicant_for_hiring
+    @applicant = repo.applicant.find(params[:id])
+    @apprentice = repo.apprentice.new
+    ApplicantInteractor.new(@applicant, hiring_decision_params, session[:id_token]).update_applicant_for_hiring
 
-    apprentice.name = applicant.name
-    apprentice.email = applicant.email
-    apprentice.location = applicant.location
-    apprentice.position = applicant.discipline
-    apprentice.mentor = applicant.mentor
-    apprentice.start_date = applicant.start_date
-    apprentice.end_date = applicant.end_date
-    apprentice.save!
+    @apprentice.name = @applicant.name
+    @apprentice.email = @applicant.email
+    @apprentice.location = @applicant.location
+    @apprentice.position = @applicant.discipline
+    @apprentice.mentor = @applicant.mentor
+    @apprentice.start_date = @applicant.start_date
+    @apprentice.end_date = @applicant.end_date
+    @apprentice.save!
 
-    applicant.destroy
+    @applicant.destroy
 
     redirect_to apprentices_path, :flash => { :notice => "Applicant hired" }
   rescue StandardError => e
     flash[:error] = [e.message]
-    redirect_to applicant_path(applicant)
+    redirect_to applicant_path(@applicant)
   end
 
   def destroy
@@ -146,35 +146,26 @@ class ApplicantsController < ApplicationController
     @applicant_presenter = ApplicantPresenter.new
     applicants = repo.applicant.get_unassigned_unarchived_applicants
     @applicants = @applicant_presenter.sort_by_date(applicants)
-    @craftsmen = Footprints::Repository.craftsman.all
+    @london_crafters = Footprints::Repository.craftsman.where("location = 'London' and seeking = 't'", 0)
+    @chicago_crafters = Footprints::Repository.craftsman.where("location = 'Chicago' and seeking = 't'", 0)
+    @la_crafters = Footprints::Repository.craftsman.where("location = 'Los Angeles' and seeking = 't'", 0)
+  end
+
+  def get_valid_crafters_for_assignment_location(location)
+    Footprints::Repository.craftsman.where("location = '#{location}' AND seeking = 't'", 0)
   end
 
   def assign_craftsman
-    applicant_id = params[:applicant_to_assign]["id"]
-    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
-    applicant = repo.applicant.find_by_id(applicant_id)
-    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+    applicant = repo.applicant.find_by_id(params[:applicant_to_assign][:id])
+    crafter = repo.craftsman.find_by_name(params[:applicant_to_assign][:chosen_crafter])
+    
+    ApplicantDispatch::Dispatcher.new(applicant, crafter).assign_applicant
 
-    if automatically_assigned?
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
+    if params[:applicant_to_assign][:source] == "applicant"
+      redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
     else
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
+      redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
     end
-    redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
-  end
-
-  def assign_craftsman_from_applicant
-    applicant_id = params[:applicant_to_assign]["id"]
-    chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
-    applicant = repo.applicant.find_by_id(applicant_id)
-    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
-
-    if automatically_assigned?
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
-    else
-      ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
-    end
-    redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
   end
 
   def offer_letter_form
@@ -203,10 +194,6 @@ class ApplicantsController < ApplicationController
   end
 
   private
-
-  def automatically_assigned?
-    params[:applicant_to_assign]["chosen_crafter"] == "auto"
-  end
 
   def render_offer_letter_form(location)
     if location_is_unknown(location)
