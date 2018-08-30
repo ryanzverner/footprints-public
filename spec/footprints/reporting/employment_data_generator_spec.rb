@@ -45,7 +45,7 @@ describe EmploymentDataGenerator do
       "Software Craftsmen" => 0, "UX Craftsmen" => 0,
       "Software Residents" => 1, "UX Residents" => 1,
       "Finishing Software Residents" => 1, "Finishing UX Residents" => 0,
-      "Student Apprentices" => 0
+      "Student Apprentices" => 1
     })
   end
 

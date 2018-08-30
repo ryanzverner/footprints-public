@@ -805,14 +805,9 @@ nav.visible {
     padding: 1em 0;
     text-align: center;
   }
-  .dropdown-label {
+  .dropdown-label{
     display: inline !important;
   }
-
-  .textbox-dropdown {
-    display: inline;
-  }
-
   .card-header {
     padding: 0;
     .applicant-name {
@@ -1370,63 +1365,12 @@ input.required {
   }
   .applicant-actions {
     background: $white;
-    display: flex;
-    width: 100%;
+    display: block; 
+    float: right;
     margin: 0;
     padding: 0.7em 0.8em;
-    justify-content: center;
     label {
       display: inline;
-    }
-    form {
-      display: inline-flex;
-      flex-direction: row;
-      width: 100%;
-      .top_section {
-        display: inline-flex;
-        width: calc(100% - 225px);
-        label {
-          display: inline-flex;
-          width: auto;
-          height: 48px;
-          margin-bottom: 0;
-          align-items: center;
-        }
-        .textbox-dropdown {
-          height: 48px;
-          width: calc(100% - 82px);
-          margin: 0 5px;
-          padding: 8px;
-        }
-      }
-      .bottom_section {
-        display: inline-flex;
-        .button {
-          width: 115px;
-        }
-        .primary {
-          margin-right: 5px;
-        }
-        .secondary {
-          width: 105px;
-        }
-      }
-      @media (max-width: 640px) {
-        flex-direction: column;
-        .top_section {
-          width: 100%;
-          .textbox-dropdown {
-            margin: 0 0 5px 5px;
-            width: calc(100% - 77px);
-          }
-        }
-        .bottom_section {
-          width: 100%;
-          .button {
-            width: calc(50% - 2.5px);
-          }
-        }
-      }
     }
     @media (max-width: 640px) {
       float: none;
