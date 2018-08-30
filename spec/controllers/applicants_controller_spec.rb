@@ -257,6 +257,14 @@ describe ApplicantsController do
                                           :end_date => Date.today + 6.months)
       end
 
+      it "only allows hired and decision_made_on to be modified" do
+        params = {:id => fifth_applicant.id, :applicant => {mentor: "A. Craftsman", name: "Superman"} }
+
+        post :make_decision, params
+        fifth_applicant.reload
+        expect(fifth_applicant.name).to eq("Fifth")
+      end
+
       it "displays an error message when there is no mentor" do
         params = {:id => fifth_applicant.id, :applicant => {mentor: nil} }
 
@@ -275,15 +283,17 @@ describe ApplicantsController do
       it "updates hired applicant with a mentor" do
         params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Craftsman"}}
         post :make_decision, params
-        expect(assigns[:apprentice].mentor).to eq("A. Craftsman")
+        fifth_applicant.reload
+        expect(fifth_applicant.mentor).to eq("A. Craftsman")
       end
 
       it "shows a success message when applicant is hired" do
         params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Craftsman"}}
         post :make_decision, params
+        fifth_applicant.reload
 
         expect(flash[:notice]).to include("Applicant hired")
-        expect(response).to redirect_to(apprentices_path)
+        expect(response).to redirect_to(applicant_path(params[:id]))
       end
     end
 
@@ -422,7 +432,7 @@ describe ApplicantsController do
 
       it 'calls dispatcher with correct applicant' do
         expect_any_instance_of(ApplicantDispatch::Dispatcher).to receive(:assign_applicant)
-        get :assign_craftsman, {:applicant_to_assign => { id: first_applicant.id }}
+        get :assign_craftsman, {id: first_applicant.id}
 
         expect(response).to redirect_to(unassigned_applicants_path)
       end

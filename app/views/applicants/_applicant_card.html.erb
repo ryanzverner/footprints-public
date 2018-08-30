@@ -19,22 +19,20 @@
       <span class="card-sub-header">
         <% if app.assigned_craftsman %>
           Has Crafter
-          <%= form_for :applicant_to_assign, url: specify_craftsman_path, method: :post do |f| %>
+          <%= form_for :applicant_to_assign, url: assign_craftsman_new_path, method: :post do |f| %>
             <label class="dropdown-label">Assigned to:</label>
             <%= f.select(:chosen_crafter, options_for_select(Footprints::Repository.craftsman.all.map { |crafter| [crafter['name'], crafter['name']] }.unshift([app.assigned_craftsman,"current"])), {}, class: "dropdown-height dropdown") %>
              <%= f.submit "Submit", class: "button primary" %>
              <%= f.hidden_field(:id, :value => app.id) %>
-             <%= f.hidden_field(:source, :value => "applicant") %>
           <% end %>
           <!-- Assigned to <%= app.assigned_craftsman %> -->
         <% else %>
           Needs Crafter
-          <%= form_for :applicant_to_assign, url: specify_craftsman_path, method: :post do |f| %>
+          <%= form_for :applicant_to_assign, url: assign_craftsman_new_path, method: :post do |f| %>
             <label class="dropdown-label">Assign to: </label>
             <%= f.select(:chosen_crafter, options_for_select(Footprints::Repository.craftsman.all.map { |crafter| [crafter['name'], crafter['name']] }.unshift(['Available Crafter',"auto"])), {}, class: "dropdown-height dropdown") %>
              <%= f.submit "Submit", class: "button primary" %>
              <%= f.hidden_field(:id, :value => app.id) %>
-             <%= f.hidden_field(:source, :value => "applicant") %>
           <% end %>
         <% end %>
       </span>

@@ -17,7 +17,7 @@ class ApprenticesController < ApplicationController
   def index
     begin
       @apprentices = Footprints::Repository.apprentice.all
-    rescue AuthenticationError => e
+    rescue ApprenticesInteractor::AuthenticationError => e
       error_message = "You are not authorized through warehouse to use this feature"
       Rails.logger.error(e.message)
       Rails.logger.error(e.backtrace)
