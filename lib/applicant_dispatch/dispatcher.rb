@@ -12,25 +12,19 @@ module ApplicantDispatch
     end
 
     def assign_applicant
-      create_assignment(best_applicant_reviewer)
+      begin
+        if steward.nil?
+          create_assignment(best_applicant_reviewer)
+        else
+          create_assignment(steward)
+        end
 
-      NotificationMailer.applicant_request(applicant.craftsman, applicant).deliver
+        NotificationMailer.applicant_request(applicant.craftsman, applicant).deliver
 
-      applicant
-    rescue Exception => error
-      NotificationMailer.dispatcher_failed_to_assign_applicant(applicant, error).deliver
-    end
-
-    def assign_applicant_specific(craftsman_name)
-      specified_craftsman = craftsman_repository.find_by_name(craftsman_name)
-      create_assignment(specified_craftsman)
-
-      NotificationMailer.applicant_request(applicant.craftsman, applicant).deliver
-
-      applicant
-    rescue Exception => error
-      NotificationMailer.dispatcher_failed_to_assign_applicant(applicant, error).deliver
-
+        applicant
+      rescue Exception => error
+        NotificationMailer.dispatcher_failed_to_assign_applicant(applicant, error).deliver
+      end
     end
 
     private

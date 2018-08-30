@@ -62,7 +62,7 @@ describe ReportingInteractor do
           "Software Craftsmen" => 0, "UX Craftsmen" => 1,
           "Software Residents" => 1, "UX Residents" => 1,
           "Finishing Software Residents" => 1, "Finishing UX Residents" => 0,
-          "Student Apprentices" => 1
+          "Student Apprentices" => 0
         },
         "Jan 2015" => {
           "Software Craftsmen" => 1, "UX Craftsmen" => 1,
