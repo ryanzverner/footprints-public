@@ -9,12 +9,6 @@ describe ApprenticesController do
   end
 
   context "GET #index" do
-    it 'displays an error message' do
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_all_residents).and_raise(ApprenticesInteractor::AuthenticationError.new)
-
-      get :index
-      expect(flash[:error]).to eq ["You are not authorized through warehouse to use this feature"]
-    end
 
     it "renders the index view" do
       get :index
@@ -23,54 +17,52 @@ describe ApprenticesController do
       expect(response).to render_template :index
     end
 
-    it "fetches all resident apprentices" do
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_all_residents).and_return(:raw_residents)
-      allow_any_instance_of(ApprenticeListPresenter).to receive(:residents).and_return(:presented_residents)
+    it "fetches all apprentices" do
+      allow(Footprints::Repository.apprentice).to receive(:all).and_return(:fake_return)
 
       get :index
-
-      expect(assigns(:residents)).to eq(:presented_residents)
-    end
-
-    it "fetches all student apprentices" do
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_all_students).and_return(:raw_students)
-      allow_any_instance_of(StudentListPresenter).to receive(:students).and_return(:presented_students)
-
-      get :index
-
-      expect(assigns(:students)).to eq(:presented_students)
+      
+      expect(assigns(:apprentices)).to eq(:fake_return)
     end
   end
 
   context "GET #edit" do
     it "renders the edit view" do
-      get :edit, :id => 208
+      allow(Footprints::Repository.apprentice).to receive(:find)
+
+      get :edit, :id => 1
 
       expect(response.status).to eq(200)
       expect(response).to render_template :edit
     end
 
     it "sets the current apprentice being edited" do
+      allow(Footprints::Repository.apprentice).to receive(:find).and_return(Apprentice.new)
+
       get :edit, :id => 208
 
-      allow_any_instance_of(ApprenticesInteractor).to receive(:fetch_resident_by_id)
-
-      expect(assigns[:resident]).to be_a(ApprenticeListPresenter::PresentedApprentice)
+      expect(assigns[:apprentice]).to be_a(Apprentice)
     end
   end
 
   context "PUT #update" do
+  
     it "responds 302 after updating a resident" do
+      allow(Footprints::Repository.apprentice).to receive(:find).and_return(Apprentice.new)
+      allow_any_instance_of(Apprentice).to receive(:save!)
       put :update, :id => "208", :apprentice => {:end_date => Date.tomorrow}
       expect(response.status).to eq(302)
     end
 
     it "throws an error when no value is provided" do
+      allow(Footprints::Repository.apprentice).to receive(:find).and_return(Apprentice.new)
       put :update, :id => "208", :apprentice => {:end_date => ""}
       expect(flash[:error]).to eq ["Please provide a valid date"]
     end
 
-    it "redirects to the resident show page" do
+    it "redirects to the apprentice index page" do
+      allow(Footprints::Repository.apprentice).to receive(:find).and_return(Apprentice.new)
+      allow_any_instance_of(Apprentice).to receive(:save!)
       put :update, :id => "208", :apprentice => {:end_date => Date.tomorrow}
       expect(response).to redirect_to("/apprentices/")
     end
