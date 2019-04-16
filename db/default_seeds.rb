@@ -10,7 +10,7 @@ module DefaultSeed
       Apprentice.destroy_all
       puts "------------------------------------------------------------"
       puts "---------------------Adding Apprentices----------------------"
-      
+
       [
         "Eric Jolphy",
         "Charlie Jarker",
@@ -37,28 +37,25 @@ module DefaultSeed
         "Ryan Jerner Jr.",
         "Ryan Jerner"
       ].each do |apprentice|
-        start_date = Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}")
         Footprints::Repository.apprentice.create({
           :name => apprentice,
           :email => "#{apprentice.downcase.gsub(" ", ".")}@abcinc.com",
           :position => ["developer", "designer"].sample,
           :location => ["Chicago", "London", "Los Angeles"].sample,
           :hired => "yes",
-          :applied_on => (1..365).to_a.sample.days.ago,
-          :start_date => start_date,
-          :end_date => (start_date + 3.month)
+          :applied_on => (1..365).to_a.sample.days.ago
           })
         puts "New apprentice #{apprentice} added to the #{Rails.env} environment"
       end
       puts "------------------------------------------------------------"
-      
+
     end
-    
+
     def applicant
       Applicant.destroy_all
       puts "------------------------------------------------------------"
       puts "---------------------Adding Applicants----------------------"
-      
+
       [
         "Eric Dolphy",
         "Charlie Parker",
@@ -133,7 +130,6 @@ module DefaultSeed
       end
 
       all_applicants.first(count - 15).each do |applicant|
-        applicant.start_date = Date.current + 1.week
         applicant.end_date = Date.current + 6.months
         applicant.offered_on = Date.current - 3.weeks
         applicant.save
@@ -238,8 +234,6 @@ module DefaultSeed
           :location       => "Chicago",
           :employment_id  => i,
           :email          => "#{name.downcase.gsub(' ', '.')}@abcinc.com",
-          :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
-          :end_date       => nil,
           :seeking        => true,
           :has_apprentice => [true, false].sample,
           :skill          => [1, 2].sample
@@ -254,7 +248,6 @@ module DefaultSeed
         :employment_id  => 103,
         :email          => ApplicantDispatch::Strategies::DefaultAllLondonApplicants::LONDON_DIRECTOR_EMAIL,
         :seeking        => true,
-        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -266,7 +259,6 @@ module DefaultSeed
         :employment_id  => 104,
         :email          => ApplicantDispatch::Strategies::DefaultAllLosAngelesApplicants::LOS_ANGELES_DIRECTOR_EMAIL,
         :seeking        => true,
-        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -278,7 +270,6 @@ module DefaultSeed
         :employment_id  => 105,
         :email          => ApplicantDispatch::Strategies::DefaultAllDesignApplicants::LEAD_DESIGNER_EMAIL,
         :seeking        => true,
-        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -290,7 +281,6 @@ module DefaultSeed
         :employment_id  => 100,
         :email          => ENV['STEWARD'],
         :seeking        => true,
-        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
@@ -302,7 +292,6 @@ module DefaultSeed
         :employment_id  => 102,
         :email          => "you@abcinc.com",
         :seeking        => true,
-        :start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
       puts "#{new_craftsman.name} added to the #{Rails.env} environment"

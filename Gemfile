@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.2.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -17,7 +17,9 @@ gem "mail", '~> 2.5.4'
 gem "omniauth-google-oauth2", '~> 0.2.2'
 gem "edn", '~> 1.0.2'
 gem "httparty", '~> 0.13.0'
+gem 'mysql2', '~> 0.3.18'
 gem "american_date"
+gem "stackprof"
 
 gem 'stockroom', git: 'https://github.com/ryanzverner/stockroom-ruby-client.git'
 
@@ -38,7 +40,6 @@ gem 'simplecov', :require => false, :group => :test
 
 group :production do
   gem 'unicorn', '~> 4.8.2'
-  gem 'mysql2', '~> 0.4.10'
 end
 
 gem "guard", "~> 2.14"
