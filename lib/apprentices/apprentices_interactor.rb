@@ -38,11 +38,11 @@ class ApprenticesInteractor
     warehouse.update_employment!(raw_resident[:id], raw_resident)
   end
 
-  def modify_corresponding_craftsman_start_date!(raw_resident, date)
-    raw_craftsman = fetch_corresponding_craftsman_employment(raw_resident)
-    if raw_craftsman
-      raw_craftsman[:start] = date
-      warehouse.update_employment!(raw_craftsman[:id], raw_craftsman)
+  def modify_corresponding_crafter_start_date!(raw_resident, date)
+    raw_crafter = fetch_corresponding_crafter_employment(raw_resident)
+    if raw_crafter
+      raw_crafter[:start] = date
+      warehouse.update_employment!(raw_crafter[:id], raw_crafter)
     end
   end
 
@@ -51,11 +51,11 @@ class ApprenticesInteractor
     valid_resident?(employment) ? employment : NoResident
   end
 
-  def fetch_corresponding_craftsman_employment(resident)
-    craftsman = warehouse.find_all_employments.select do |employment|
-      corresponding_craftsman?(resident, employment)
+  def fetch_corresponding_crafter_employment(resident)
+    crafter = warehouse.find_all_employments.select do |employment|
+      corresponding_crafter?(resident, employment)
     end
-    craftsman.first
+    crafter.first
   end
 
   private
@@ -73,7 +73,7 @@ class ApprenticesInteractor
     Warehouse::APPRENTICE_POSITION_NAMES.values.include?(employment[:position][:name])
   end
 
-  def craftsman?(employment)
+  def crafter?(employment)
     Warehouse::CRAFTSMAN_POSITION_NAMES.values.include?(employment[:position][:name])
   end
 
@@ -85,7 +85,7 @@ class ApprenticesInteractor
     employment[:start] <= Date.current && (employment[:end].nil? || employment[:end] > Date.today)
   end
   
-  def corresponding_craftsman?(resident, employment)
-    true if (resident[:person][:id] == employment[:person][:id]) && craftsman?(employment)
+  def corresponding_crafter?(resident, employment)
+    true if (resident[:person][:id] == employment[:person][:id]) && crafter?(employment)
   end
 end

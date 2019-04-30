@@ -17,7 +17,7 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   #config.profile_examples = true # uncomment if profiling is necessary
 
-  config.before(:all) { Footprints::Repository.craftsman.destroy_all; Footprints::Repository.applicant.destroy_all; Footprints::Repository.assigned_craftsman_record.destroy_all }
+  config.before(:all) { Footprints::Repository.crafter.destroy_all; Footprints::Repository.applicant.destroy_all; Footprints::Repository.assigned_crafter_record.destroy_all }
 end
 
 OmniAuth.config.test_mode = true

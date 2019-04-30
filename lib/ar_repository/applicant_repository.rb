@@ -50,7 +50,7 @@ module ArRepository
     end
 
     def get_unassigned_unarchived_applicants
-      model_class.where(:assigned_craftsman => nil, :archived => false)
+      model_class.where(:assigned_crafter => nil, :archived => false)
     end
 
     def get_applicants_by_state(state)

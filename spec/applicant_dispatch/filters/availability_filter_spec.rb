@@ -5,28 +5,28 @@ describe "ApplicantDispatch::Filters::AvailabilityFilter" do
 
   let(:applicant)                   { double }
 
-  let(:craftsman_with_no_date)      { double(unavailable_until: nil) }
-  let(:craftsman_with_past_date)    { double(unavailable_until: (Date.today - 1)) }
-  let(:craftsman_with_future_date)  { double(unavailable_until: (Date.today + 1)) }
-  let(:craftsman_with_current_date) { double(unavailable_until: Date.today) }
+  let(:crafter_with_no_date)      { double(unavailable_until: nil) }
+  let(:crafter_with_past_date)    { double(unavailable_until: (Date.today - 1)) }
+  let(:crafter_with_future_date)  { double(unavailable_until: (Date.today + 1)) }
+  let(:crafter_with_current_date) { double(unavailable_until: Date.today) }
 
-  let(:craftsmen_list)              { [craftsman_with_no_date, craftsman_with_past_date, craftsman_with_future_date, craftsman_with_current_date] }
-  let(:available_craftsmen)         { [craftsman_with_no_date, craftsman_with_past_date] }
-  let(:unavailable_craftsmen)       { [craftsman_with_future_date, craftsman_with_current_date] }
+  let(:crafters_list)              { [crafter_with_no_date, crafter_with_past_date, crafter_with_future_date, crafter_with_current_date] }
+  let(:available_crafters)         { [crafter_with_no_date, crafter_with_past_date] }
+  let(:unavailable_crafters)       { [crafter_with_future_date, crafter_with_current_date] }
 
   context 'filtered through' do
-    it 'returns craftsmen who are currently available' do
-      filtered_craftsmen = subject.call(craftsmen_list, applicant)
+    it 'returns crafters who are currently available' do
+      filtered_crafters = subject.call(crafters_list, applicant)
 
-      expect(filtered_craftsmen).to eq available_craftsmen
+      expect(filtered_crafters).to eq available_crafters
     end
   end
 
   context 'filtered out' do
-    it 'does not return craftsmen that are unavailable' do
-      filtered_craftsmen = subject.call(craftsmen_list, applicant)
+    it 'does not return crafters that are unavailable' do
+      filtered_crafters = subject.call(crafters_list, applicant)
 
-      expect(filtered_craftsmen).not_to eq unavailable_craftsmen
+      expect(filtered_crafters).not_to eq unavailable_crafters
     end
   end
 end

@@ -5,12 +5,12 @@ require 'warehouse/json_api'
 
 describe ReportingInteractor do
   let(:interactor) { ReportingInteractor.new('fake_auth_token') }
-  let(:employment_data)  { [{ :start => Time.parse("2014-08-01"), :end => Time.parse("2014-08-30"), :position => { :name => "Software Craftsman" }, :person_id => 30 },
-                            { :start => Time.parse("2014-08-01"), :end => Time.parse("2015-08-30"), :position => { :name => "UX Craftsman" }, :person_id => 28 },
-                            { :start => Time.parse("2014-10-01"), :end => Time.parse("2014-10-30"), :position => { :name => "UX Craftsman" }, :person_id => 29 },
-                            { :start => Time.parse("2015-08-01"), :end => Time.parse("2015-08-30"), :position => { :name => "Software Craftsman" }, :person_id => 31 },
+  let(:employment_data)  { [{ :start => Time.parse("2014-08-01"), :end => Time.parse("2014-08-30"), :position => { :name => "Software Crafter" }, :person_id => 30 },
+                            { :start => Time.parse("2014-08-01"), :end => Time.parse("2015-08-30"), :position => { :name => "UX Crafter" }, :person_id => 28 },
+                            { :start => Time.parse("2014-10-01"), :end => Time.parse("2014-10-30"), :position => { :name => "UX Crafter" }, :person_id => 29 },
+                            { :start => Time.parse("2015-08-01"), :end => Time.parse("2015-08-30"), :position => { :name => "Software Crafter" }, :person_id => 31 },
                             { :start => Time.parse("2014-09-01"), :end => Time.parse("2014-12-30"), :position => { :name => "Software Resident" }, :person_id => 32 },
-                            { :start => Time.parse("2014-12-31"), :end => Time.parse("2016-12-30"), :position => { :name => "Software Craftsman" }, :person_id => 32 },
+                            { :start => Time.parse("2014-12-31"), :end => Time.parse("2016-12-30"), :position => { :name => "Software Crafter" }, :person_id => 32 },
                             { :start => Time.parse("2014-09-01"), :end => Time.parse("2015-09-30"), :position => { :name => "UX Resident" }, :person_id => 33 }] }
 
   before :each do
@@ -35,79 +35,79 @@ describe ReportingInteractor do
     it 'fetches the data for a projection of one year' do
       expect(interactor.fetch_projection_data(8, 2014)).to eq({
         "Aug 2014" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 0,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Sep 2014" => {
-          "Software Craftsmen" => 0, "UX Craftsmen" => 1,
+          "Software Crafters" => 0, "UX Crafters" => 1,
           "Software Residents" => 1, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Oct 2014" => {
-          "Software Craftsmen" => 0, "UX Craftsmen" => 2,
+          "Software Crafters" => 0, "UX Crafters" => 2,
           "Software Residents" => 1, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Nov 2014" => {
-          "Software Craftsmen" => 0, "UX Craftsmen" => 1,
+          "Software Crafters" => 0, "UX Crafters" => 1,
           "Software Residents" => 1, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Dec 2014" => {
-          "Software Craftsmen" => 0, "UX Craftsmen" => 1,
+          "Software Crafters" => 0, "UX Crafters" => 1,
           "Software Residents" => 1, "UX Residents" => 1,
           "Finishing Software Residents" => 1, "Finishing UX Residents" => 0,
           "Student Apprentices" => 1
         },
         "Jan 2015" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Feb 2015" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Mar 2015" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Apr 2015" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "May 2015" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Jun 2015" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Jul 2015" => {
-          "Software Craftsmen" => 1, "UX Craftsmen" => 1,
+          "Software Crafters" => 1, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0
         },
         "Aug 2015" => {
-          "Software Craftsmen" => 2, "UX Craftsmen" => 1,
+          "Software Crafters" => 2, "UX Crafters" => 1,
           "Software Residents" => 0, "UX Residents" => 1,
           "Finishing Software Residents" => 0, "Finishing UX Residents" => 0,
           "Student Apprentices" => 0

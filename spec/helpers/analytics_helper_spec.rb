@@ -5,8 +5,8 @@ describe AnalyticsHelper do
 
   before :each do
     repo.applicant.destroy_all
-    repo.craftsman.destroy_all
-    craftsman = repo.craftsman.create(:name => "A Craftsman", :email => "acraftsman@abcinc.com", :employment_id => "7")
+    repo.crafter.destroy_all
+    crafter = repo.crafter.create(:name => "A Crafter", :email => "acrafter@abcinc.com", :employment_id => "7")
     @applicant = repo.applicant.create(name: "Alice", email: "alice@bar.com", applied_on: Date.parse('20130115'), initial_reply_on: Date.parse('20130117'), codeschool: "Starter League",
                                       :discipline => "developer", :skill => "resident", :location => "Chicago")
     repo.applicant.create(name: "Bob", email: "bob@bar.com", applied_on: Date.parse('20130115'), initial_reply_on: Date.parse('20130117'),
@@ -20,7 +20,7 @@ describe AnalyticsHelper do
                           resubmitted_challenge_on: Date.parse('20130220'), :location => "Chicago", :discipline => "developer", :skill => "resident")
     repo.applicant.create(name: "Emily", email: "emily@bar.com", applied_on: Date.parse('20130115'), initial_reply_on: Date.parse('20130117'), :sent_challenge_on => Date.parse('20130201'),
                           completed_challenge_on: Date.parse('20130201'), reviewed_on: Date.parse('20130210'), resubmitted_challenge_on: Date.parse('20130220'),
-                          decision_made_on: Date.parse('20130302'), :hired => "no", :assigned_craftsman => "A Craftsman", :location => "Chicago", :discipline => "developer", :skill => "resident")
+                          decision_made_on: Date.parse('20130302'), :hired => "no", :assigned_crafter => "A Crafter", :location => "Chicago", :discipline => "developer", :skill => "resident")
     repo.applicant.create(name: "Zeb", email: "zeb@bar.com", applied_on: Date.parse('20130115'), initial_reply_on: Date.parse('20130117'), :sent_challenge_on => Date.parse('20130201'),
                           completed_challenge_on: Date.parse('20130201'), reviewed_on: Date.parse('20130210'), :location => "Chicago", :discipline => "developer", :skill => "resident")
   end

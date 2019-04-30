@@ -14,7 +14,7 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require autocomplete
-//= require craftsmen
+//= require crafters
 //= require datepicker
 //= require applicants
 //= require flash

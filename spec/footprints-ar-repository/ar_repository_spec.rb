@@ -6,8 +6,8 @@ describe ArRepository do
     ArRepository.applicant.should be_a ArRepository::ApplicantRepository
   end
 
-  it "has a craftsman repo" do
-    ArRepository.craftsman.should be_a ArRepository::CraftsmanRepository
+  it "has a crafter repo" do
+    ArRepository.crafter.should be_a ArRepository::CrafterRepository
   end
 
   it "has a message repo" do

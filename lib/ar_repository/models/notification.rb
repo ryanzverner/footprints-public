@@ -1,6 +1,6 @@
 class Notification < ActiveRecord::Base
 
   belongs_to :applicant
-  belongs_to :craftsman
+  belongs_to :crafter
 
 end

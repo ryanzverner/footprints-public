@@ -10,26 +10,26 @@ module ApplicantDispatch
       let(:weight) { WEIGHT[:has_apprentice] }
       let(:applicant) { double(:applicant) }
 
-      it "decreases a craftsman's score if she has an apprentice" do
-        craftsman = build_craftsman(has_apprentice: true)
+      it "decreases a crafter's score if she has an apprentice" do
+        crafter = build_crafter(has_apprentice: true)
 
-        subject.call([craftsman], applicant)
+        subject.call([crafter], applicant)
 
-        expect(craftsman.score).to eq(weight)
+        expect(crafter.score).to eq(weight)
       end
 
       it "does not decrease the score if she does not have an apprentice" do
-        craftsman = build_craftsman(has_apprentice: false)
+        crafter = build_crafter(has_apprentice: false)
 
-        subject.call([craftsman], applicant)
+        subject.call([crafter], applicant)
 
-        expect(craftsman.score).to eq(0)
+        expect(crafter.score).to eq(0)
       end
 
-      def build_craftsman(args = {})
+      def build_crafter(args = {})
         has_apprentice = args.fetch(:has_apprentice)
 
-        ScoreableEntity.new(double(:craftsman, :has_apprentice => has_apprentice))
+        ScoreableEntity.new(double(:crafter, :has_apprentice => has_apprentice))
       end
     end
   end

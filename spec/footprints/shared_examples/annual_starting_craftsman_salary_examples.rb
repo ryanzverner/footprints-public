@@ -1,4 +1,4 @@
-shared_examples "annual starting craftsman salary" do
+shared_examples "annual starting crafter salary" do
   let(:repo) { described_class.new }
 
   let(:salary) {{

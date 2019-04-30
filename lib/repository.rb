@@ -29,8 +29,8 @@ module Footprints
       repo.apprentice
     end
 
-    def self.craftsman
-      repo.craftsman
+    def self.crafter
+      repo.crafter
     end
 
     def self.user
@@ -49,16 +49,16 @@ module Footprints
       @repo
     end
 
-    def self.assigned_craftsman_record
-      repo.assigned_craftsman_record
+    def self.assigned_crafter_record
+      repo.assigned_crafter_record
     end
 
     def self.monthly_apprentice_salary
       repo.monthly_apprentice_salary
     end
 
-    def self.annual_starting_craftsman_salary
-      repo.annual_starting_craftsman_salary
+    def self.annual_starting_crafter_salary
+      repo.annual_starting_crafter_salary
     end
 
   end

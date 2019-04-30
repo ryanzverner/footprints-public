@@ -21,7 +21,7 @@ task :convert_to_utf8 => :environment do
 
   mapping = { :applicants => Applicant,
               :messages => Message,
-              :craftsmen => Craftsman,
+              :crafters => Crafter,
               :users => User,
               :schema_migrations => true,
   }.with_indifferent_access

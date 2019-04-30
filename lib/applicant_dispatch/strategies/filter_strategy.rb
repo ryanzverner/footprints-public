@@ -13,29 +13,29 @@ module ApplicantDispatch
   end
 
   module Filters
-    AvailabilityFilter = ->(craftsmen, applicant) {
-      craftsmen.reject do |craftsman|
-        craftsman.unavailable_until && craftsman.unavailable_until >= Date.today
+    AvailabilityFilter = ->(crafters, applicant) {
+      crafters.reject do |crafter|
+        crafter.unavailable_until && crafter.unavailable_until >= Date.today
       end
     }
 
-    DisciplineFilter = ->(craftsmen, applicant) {
-      craftsmen.select do |craftsman|
-        position = craftsman.position
+    DisciplineFilter = ->(crafters, applicant) {
+      crafters.select do |crafter|
+        position = crafter.position
 
-        !position or position.downcase == "software craftsman"
+        !position or position.downcase == "software crafter"
       end
     }
 
-    LocationFilter = ->(craftsmen, applicant) {
-      craftsmen.reject do |craftsman|
-        craftsman.location.try(:downcase) != applicant.location.try(:downcase)
+    LocationFilter = ->(crafters, applicant) {
+      crafters.reject do |crafter|
+        crafter.location.try(:downcase) != applicant.location.try(:downcase)
       end
     }
 
-    PreviouslyDeniedFilter = ->(craftsmen, applicant) {
-      craftsmen.reject do |craftsman|
-        craftsman.previously_denied_applicant?(applicant)
+    PreviouslyDeniedFilter = ->(crafters, applicant) {
+      crafters.reject do |crafter|
+        crafter.previously_denied_applicant?(applicant)
       end
     }
   end

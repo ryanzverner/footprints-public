@@ -1,4 +1,4 @@
-require 'warehouse/prefetch_craftsmen'
+require 'warehouse/prefetch_crafters'
 
 class SessionsController < ApplicationController
   layout "sessions_layout"
@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       auth_hash = request.env["omniauth.auth"]
       user    = repo.user.find_or_create_by_auth_hash(auth_hash) rescue nil
 
-      prefetch_craftsmen(auth_hash)
+      prefetch_crafters(auth_hash)
       build_sessions(user, auth_hash)
       flash[:notice] = "Signed in successfully."
       redirect_target = session[:return_to] || root_path
@@ -46,13 +46,13 @@ class SessionsController < ApplicationController
     session[:id_token] = auth_hash[:extra][:id_token]
   end
 
-  def prefetch_craftsmen(auth_hash)
-    Warehouse::PrefetchCraftsmen.new.execute(auth_hash[:extra][:id_token]) if Rails.application.config.prefetch_craftsmen
+  def prefetch_crafters(auth_hash)
+    Warehouse::PrefetchCrafters.new.execute(auth_hash[:extra][:id_token]) if Rails.application.config.prefetch_crafters
   end
 
   def display_authorization_message_and_log_exception(exception)
     message = "You are not authorized to view this page. " +
-      "Only ABC, Inc. craftsmen are authorized to view this page. " +
+      "Only ABC, Inc. crafters are authorized to view this page. " +
       "If you are one, please contact us."
 
     display_message_and_log_exception(message, exception)

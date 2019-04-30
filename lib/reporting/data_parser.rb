@@ -8,8 +8,8 @@ class DataParser
     @employment_data = employment_data
   end
 
-  def active_craftsmen_for(month, year)
-    all_craftsmen.reduce({}) do |resulting_hash, (position, employments)|
+  def active_crafters_for(month, year)
+    all_crafters.reduce({}) do |resulting_hash, (position, employments)|
       resulting_hash[position] = number_of_active_employments(month, year, employments)
       resulting_hash
     end
@@ -41,9 +41,9 @@ class DataParser
     {"Student Apprentices" => apprentice_count}
   end
 
-  def all_craftsmen
-    { "Software Craftsmen" => all_records_for(Warehouse::CRAFTSMAN_POSITION_NAMES[:developer], employment_data),
-      "UX Craftsmen" => all_records_for(Warehouse::CRAFTSMAN_POSITION_NAMES[:designer], employment_data) }
+  def all_crafters
+    { "Software Crafters" => all_records_for(Warehouse::CRAFTSMAN_POSITION_NAMES[:developer], employment_data),
+      "UX Crafters" => all_records_for(Warehouse::CRAFTSMAN_POSITION_NAMES[:designer], employment_data) }
   end
 
   def all_residents

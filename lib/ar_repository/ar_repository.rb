@@ -8,15 +8,15 @@ ActiveRecord::Base.establish_connection(dbconfig[Rails.env])
 
 require './lib/repository'
 require 'ar_repository/applicant_repository'
-require 'ar_repository/craftsman_repository'
+require 'ar_repository/crafter_repository'
 require 'ar_repository/apprentice_repository'
 require 'ar_repository/message_repository'
 require 'ar_repository/user_repository'
 require 'ar_repository/note_repository'
-require 'ar_repository/assigned_craftsman_record_repository'
+require 'ar_repository/assigned_crafter_record_repository'
 require 'ar_repository/notification_repository'
 require 'ar_repository/monthly_apprentice_salary_repository'
-require 'ar_repository/annual_starting_craftsman_salary_repository'
+require 'ar_repository/annual_starting_crafter_salary_repository'
 
 module ArRepository
   def self.applicant
@@ -27,8 +27,8 @@ module ArRepository
     @apprentice_repo ||= ApprenticeRepository.new
   end
 
-  def self.craftsman
-    @craftsman_repo ||= CraftsmanRepository.new
+  def self.crafter
+    @crafter_repo ||= CrafterRepository.new
   end
 
   def self.message
@@ -43,8 +43,8 @@ module ArRepository
     @note_repo ||= NoteRepository.new
   end
 
-  def self.assigned_craftsman_record
-    @assigned_craftsman_record_repo ||= AssignedCraftsmanRecordRepository.new
+  def self.assigned_crafter_record
+    @assigned_crafter_record_repo ||= AssignedCrafterRecordRepository.new
   end
 
   def self.notification
@@ -55,8 +55,8 @@ module ArRepository
     @monthly_apprentice_salary ||= MonthlyApprenticeSalaryRepository.new
   end
 
-  def self.annual_starting_craftsman_salary
-    @annual_starting_craftsman_salary ||= AnnualStartingCraftsmanSalaryRepository.new
+  def self.annual_starting_crafter_salary
+    @annual_starting_crafter_salary ||= AnnualStartingCrafterSalaryRepository.new
   end
 
 end

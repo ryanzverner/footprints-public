@@ -19,7 +19,7 @@ class ApplicantInteractor
   def update
     @applicant.assign_attributes(@params)
     if @applicant.valid?
-      notify_if_craftsman_changed
+      notify_if_crafter_changed
       send_to_warehouse_if_hired
     end
     @applicant.save!
@@ -34,31 +34,31 @@ class ApplicantInteractor
     @applicant.update_attributes!(@params)
   end
 
-  def notify_if_craftsman_changed
-    if craftsman_changed?
+  def notify_if_crafter_changed
+    if crafter_changed?
       @applicant.has_steward ? handle_transfer : send_request_email
     end
   end
 
-  def craftsman_changed?
-    @params[:assigned_craftsman] != "" && @applicant.assigned_craftsman_changed?
+  def crafter_changed?
+    @params[:assigned_crafter] != "" && @applicant.assigned_crafter_changed?
   end
 
   def handle_transfer
     send_transfer_emails
-    @notice = get_notice + " Emailed #{@applicant.assigned_craftsman}."
+    @notice = get_notice + " Emailed #{@applicant.assigned_crafter}."
   end
 
   def send_request_email
-    craftsman = Craftsman.find_by_name(@applicant.assigned_craftsman)
-    NotificationMailer.applicant_request(craftsman, @applicant).deliver
+    crafter = Crafter.find_by_name(@applicant.assigned_crafter)
+    NotificationMailer.applicant_request(crafter, @applicant).deliver
   end
 
   def send_transfer_emails
-    previous_craftsman = @applicant.craftsman
-    new_craftsman = Craftsman.find_by_name(@params[:assigned_craftsman])
-    NotificationMailer.prev_craftsman_transfer(previous_craftsman, new_craftsman, @applicant).deliver
-    NotificationMailer.new_craftsman_transfer(previous_craftsman, new_craftsman, @applicant).deliver
+    previous_crafter = @applicant.crafter
+    new_crafter = Crafter.find_by_name(@params[:assigned_crafter])
+    NotificationMailer.prev_crafter_transfer(previous_crafter, new_crafter, @applicant).deliver
+    NotificationMailer.new_crafter_transfer(previous_crafter, new_crafter, @applicant).deliver
   end
 
   def send_to_warehouse_if_hired

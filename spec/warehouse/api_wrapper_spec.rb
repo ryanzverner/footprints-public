@@ -7,18 +7,18 @@ describe Warehouse::APIWrapper do
                                                           :last_name => "Flax",
                                                           :email => "hflax@dundermifflin.com",
                                                           :start => Date.today - 7,
-                                                          :position_name => "Software Craftsman"}) }
+                                                          :position_name => "Software Crafter"}) }
   let(:bob)  { Warehouse::SpecHelpers.create_employment({:id => 2, :first_name => "Bob",
                                                           :last_name => "Vance",
                                                           :email => "bvance@vancerefrig.com",
                                                           :start => Date.today - 14,
                                                           :end => Date.today - 7,
-                                                          :position_name => "Software Craftsman"})}
+                                                          :position_name => "Software Crafter"})}
   let(:jim) { Warehouse::SpecHelpers.create_employment({:id => 5, :first_name => "Jim",
                                                         :last_name => "Halpert",
                                                         :email => "jhalpert@dundermiffline.com",
                                                         :start => Date.today + 6.months,
-                                                        :position_name => "Software Craftsman"})}
+                                                        :position_name => "Software Crafter"})}
   let(:paul) { Warehouse::SpecHelpers.create_employment({:id => 6,
                                                          :first_name => "Paul",
                                                          :last_name => "Pagel",
@@ -34,16 +34,16 @@ describe Warehouse::APIWrapper do
   let(:warehouse_api) { double(:find_all_employments => [bob, holly, jim, paul, mike]) }
   let(:warehouse_wrapper) { Warehouse::APIWrapper.new(warehouse_api, Warehouse::SpecHelpers::TestCache.new(:no_cache)) }
 
-  context "#craftsmen" do
-    it "only considers craftsmen with past start dates to be current craftsman" do
+  context "#crafters" do
+    it "only considers crafters with past start dates to be current crafter" do
       expect(warehouse_api).to receive(:find_all_employments)
-      expect(warehouse_wrapper.current_craftsmen).to eq([holly, paul, mike])
+      expect(warehouse_wrapper.current_crafters).to eq([holly, paul, mike])
     end
 
-    it "caches craftsmen, so it doesnt have to hit warehouse everytime" do
+    it "caches crafters, so it doesnt have to hit warehouse everytime" do
       warehouse_wrapper = Warehouse::APIWrapper.new(warehouse_api, Warehouse::SpecHelpers::TestCache.new(:with_cache))
       expect(warehouse_api).to receive(:find_all_employments).once
-      3.times { warehouse_wrapper.current_craftsmen }
+      3.times { warehouse_wrapper.current_crafters }
     end
   end
 end

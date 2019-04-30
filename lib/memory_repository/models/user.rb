@@ -4,7 +4,7 @@ require "active_model"
 module MemoryRepository
   class User < MemoryRepository::Base
     data_attributes :login, :created_at, :updated_at, :email,
-                    :uid, :provider, :craftsman_id
+                    :uid, :provider, :crafter_id
 
     def initialize(*args)
       @external_errors = []

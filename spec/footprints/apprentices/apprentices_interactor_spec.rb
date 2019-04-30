@@ -38,7 +38,7 @@ describe ApprenticesInteractor do
                                                                    :start => 2.days.ago,
                                                                    :end => 1.day.ago,
                                                                    :p_id => 1,
-                                                                   :position_name => "Software Craftsman"})}
+                                                                   :position_name => "Software Crafter"})}
 
 
   let(:interactor) { ApprenticesInteractor.new('fake_auth_token') }
@@ -103,9 +103,9 @@ describe ApprenticesInteractor do
   end
 
   context '#fetch_employment_by_person_id' do
-    it 'returns corresponding craftsman' do
+    it 'returns corresponding crafter' do
       expect_any_instance_of(Warehouse::FakeAPI).to receive(:find_all_employments).and_return([bob_resident, bob_craft])
-      expect(interactor.fetch_corresponding_craftsman_employment(bob_resident)).to eq(bob_craft)
+      expect(interactor.fetch_corresponding_crafter_employment(bob_resident)).to eq(bob_craft)
     end
   end
 end

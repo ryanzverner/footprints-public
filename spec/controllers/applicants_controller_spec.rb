@@ -37,7 +37,7 @@ describe ApplicantsController do
                                                   :initial_reply_on => initial_reply_date,
                                                   :completed_challenge_on => completed_ttt_date, :reviewed_on => reviewed_date,
                                                   :resubmitted_challenge_on => resubmitted_ttt_date, :decision_made_on => decision_made_date,
-                                                  :assigned_craftsman => "A. Craftsman", :discipline => "developer", :skill => "resident", :location => "Chicago") }
+                                                  :assigned_crafter => "A. Crafter", :discipline => "developer", :skill => "resident", :location => "Chicago") }
 
   let(:london_applicant) { repo.applicant.create(:name => "London", :applied_on => applied_date,
                                                  :discipline => "developer", :skill => "resident", :location => "London") }
@@ -55,7 +55,7 @@ describe ApplicantsController do
 
   before :each do
     repo.applicant.destroy_all
-    repo.craftsman.destroy_all
+    repo.crafter.destroy_all
     controller.stub(:authenticate)
     controller.stub(:employee?)
   end
@@ -140,22 +140,22 @@ describe ApplicantsController do
       expect(assigns[:applicant].name).to eq "Meagan"
     end
 
-    it "updates craftsman_id from assigned_craftsman" do
-      repo.craftsman.create({:name => "A. Craftsman", :employment_id => "1234", :email => "test@abcinc.com"})
-      craftsman = repo.craftsman.find_by_name("A. Craftsman")
-      post :update, { :id => first_applicant.id, "applicant" =>  {:name => "Meagan", "applied_on"=>"02/10/2014", "initial_reply_on"=>"", "completed_challenge_on"=>"", "reviewed_on"=>"", "resubmitted_challenge_on"=>"", "decision_made_on"=>"","start_date"=>"","end_date"=>"", "assigned_craftsman" => "A. Craftsman"}}
-      expect(assigns[:applicant].craftsman_id).to eq craftsman.id
+    it "updates crafter_id from assigned_crafter" do
+      repo.crafter.create({:name => "A. Crafter", :employment_id => "1234", :email => "test@abcinc.com"})
+      crafter = repo.crafter.find_by_name("A. Crafter")
+      post :update, { :id => first_applicant.id, "applicant" =>  {:name => "Meagan", "applied_on"=>"02/10/2014", "initial_reply_on"=>"", "completed_challenge_on"=>"", "reviewed_on"=>"", "resubmitted_challenge_on"=>"", "decision_made_on"=>"","start_date"=>"","end_date"=>"", "assigned_crafter" => "A. Crafter"}}
+      expect(assigns[:applicant].crafter_id).to eq crafter.id
     end
 
-    it "returns nil for craftsman_id if assigned_craftsman doesn't exist" do
+    it "returns nil for crafter_id if assigned_crafter doesn't exist" do
       test_app = first_applicant
-      post :update, { :id => test_app.id, "applicant" =>  {:name => "Meagan", "applied_on"=>"02/10/2014", "initial_reply_on"=>"", "completed_challenge_on"=>"", "reviewed_on"=>"", "resubmitted_challenge_on"=>"", "decision_made_on"=>"","start_date"=>"","end_date"=>"", "assigned_craftsman" => "B. Craftsman"}}
-      expect(assigns[:applicant].craftsman_id).to eq nil
+      post :update, { :id => test_app.id, "applicant" =>  {:name => "Meagan", "applied_on"=>"02/10/2014", "initial_reply_on"=>"", "completed_challenge_on"=>"", "reviewed_on"=>"", "resubmitted_challenge_on"=>"", "decision_made_on"=>"","start_date"=>"","end_date"=>"", "assigned_crafter" => "B. Crafter"}}
+      expect(assigns[:applicant].crafter_id).to eq nil
     end
 
     it 'updates applicant fields' do
       applicant = repo.applicant.create(:name => "Joe", :applied_on => applied_date)
-      params = {"name" => "Joe Doe", "assigned_craftsman" => "A Craftsman", "location" => "London", "discipline" => "Developer", "about" => "Just love software." }
+      params = {"name" => "Joe Doe", "assigned_crafter" => "A Crafter", "location" => "London", "discipline" => "Developer", "about" => "Just love software." }
       post :update, { :id => applicant.id, "applicant" => params }
 
       params.each do |field, value|
@@ -244,7 +244,7 @@ describe ApplicantsController do
   end
 
   context "hiring decision" do
-    let!(:craftsman) { repo.craftsman.create(:name => "A. Craftsman", :email => "acraftsman@abcinc.com", :employment_id => 007) }
+    let!(:crafter) { repo.crafter.create(:name => "A. Crafter", :email => "acrafter@abcinc.com", :employment_id => 007) }
 
     context "#make_decision" do
       let(:employment_post_dummy) { double(Warehouse::EmploymentPost, :add_resident! => nil) }
@@ -252,13 +252,13 @@ describe ApplicantsController do
       before :each do
         expect(Warehouse::EmploymentPost).to receive(:new).and_return(employment_post_dummy)
         login_as_admin
-        fifth_applicant.update_attributes(:assigned_craftsman => "A. Craftsman",
+        fifth_applicant.update_attributes(:assigned_crafter => "A. Crafter",
                                           :start_date => Date.today + 5.days,
                                           :end_date => Date.today + 6.months)
       end
 
       it "only allows hired and decision_made_on to be modified" do
-        params = {:id => fifth_applicant.id, :applicant => {mentor: "A. Craftsman", name: "Superman"} }
+        params = {:id => fifth_applicant.id, :applicant => {mentor: "A. Crafter", name: "Superman"} }
 
         post :make_decision, params
         fifth_applicant.reload
@@ -276,19 +276,19 @@ describe ApplicantsController do
       it "displays an error message when the mentor is invalid" do
         params = {:id => fifth_applicant.id, :applicant => {mentor: "Not available"} }
         post :make_decision, params
-        expect(flash[:error].join("")).to include("is not a valid craftsman")
+        expect(flash[:error].join("")).to include("is not a valid crafter")
         expect(response).to redirect_to(applicant_path(params[:id]))
       end
 
       it "updates hired applicant with a mentor" do
-        params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Craftsman"}}
+        params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Crafter"}}
         post :make_decision, params
         fifth_applicant.reload
-        expect(fifth_applicant.mentor).to eq("A. Craftsman")
+        expect(fifth_applicant.mentor).to eq("A. Crafter")
       end
 
       it "shows a success message when applicant is hired" do
-        params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Craftsman"}}
+        params = {:id => fifth_applicant.id, :applicant => {:mentor => "A. Crafter"}}
         post :make_decision, params
         fifth_applicant.reload
 
@@ -314,13 +314,13 @@ describe ApplicantsController do
         expect(first_applicant.archived).to be_true
       end
 
-      it 'redirects to new applicants if denyed applicant without craftsman' do
+      it 'redirects to new applicants if denyed applicant without crafter' do
         get :deny_application, {:id => first_applicant.id}
         expect(response).to redirect_to unassigned_applicants_path
       end
 
-      it 'redirects to root if denyed applicant with craftsman' do
-        first_applicant.update_attribute(:assigned_craftsman, "A. Craftsman")
+      it 'redirects to root if denyed applicant with crafter' do
+        first_applicant.update_attribute(:assigned_crafter, "A. Crafter")
         get :deny_application, {:id => first_applicant.id}
         expect(response).to redirect_to root_path
       end
@@ -420,10 +420,10 @@ describe ApplicantsController do
     end
   end
 
-  context 'assign_craftsman' do
+  context 'assign_crafter' do
     it 'cannot be viewed if not admin' do
       login_as_non_admin
-      get :assign_craftsman, {id: '1'}
+      get :assign_crafter, {id: '1'}
       expect(response).to redirect_to(root_path)
     end
 
@@ -432,7 +432,7 @@ describe ApplicantsController do
 
       it 'calls dispatcher with correct applicant' do
         expect_any_instance_of(ApplicantDispatch::Dispatcher).to receive(:assign_applicant)
-        get :assign_craftsman, {id: first_applicant.id}
+        get :assign_crafter, {id: first_applicant.id}
 
         expect(response).to redirect_to(unassigned_applicants_path)
       end

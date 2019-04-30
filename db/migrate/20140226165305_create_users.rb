@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string "email"
       t.string "uid"
       t.string "provider"
-      t.integer "craftsman_id"
+      t.integer "crafter_id"
     end
   end
 end

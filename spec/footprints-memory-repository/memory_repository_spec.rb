@@ -1,6 +1,6 @@
 require 'spec_helper'
 require './lib/memory_repository/applicant_repository'
-require './lib/memory_repository/craftsman_repository'
+require './lib/memory_repository/crafter_repository'
 require './lib/memory_repository/user_repository'
 require './lib/memory_repository/message_repository'
 
@@ -9,8 +9,8 @@ describe MemoryRepository do
     MemoryRepository.applicant.should be_a MemoryRepository::ApplicantRepository
   end
 
-  it "has a craftsman repo" do
-    MemoryRepository.craftsman.should be_a MemoryRepository::CraftsmanRepository
+  it "has a crafter repo" do
+    MemoryRepository.crafter.should be_a MemoryRepository::CrafterRepository
   end
 
   it "has a user repo" do

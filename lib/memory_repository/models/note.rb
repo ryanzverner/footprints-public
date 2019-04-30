@@ -3,7 +3,7 @@ require "active_model"
 
 module MemoryRepository
   class Note < MemoryRepository::Base
-    data_attributes :body, :applicant_id, :craftsman_id
+    data_attributes :body, :applicant_id, :crafter_id
     include ActiveModel::Validations
 
     validates_presence_of :body

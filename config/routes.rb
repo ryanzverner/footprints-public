@@ -11,9 +11,9 @@ Footprints::Application.routes.draw do
   post "applicants/new" => 'applicants#create'
   post "applicants/submit" => 'applicants#submit'
   get "applicants/:id/deny_application" => "applicants#deny_application", as: "deny_application"
-  get "applicants/:id/assign_craftsman" => "applicants#assign_craftsman", as: "assign_craftsman"
-  post "applicants/assign_craftsman" => "applicants#assign_craftsman", as: "specify_craftsman"
-  post "applicants/assign_craftsman_from_applicant" => "applicants#assign_craftsman_from_applicant", as: "assign_craftsman_new"
+  get "applicants/:id/assign_crafter" => "applicants#assign_crafter", as: "assign_crafter"
+  post "applicants/assign_crafter" => "applicants#assign_crafter", as: "specify_crafter"
+  post "applicants/assign_crafter_from_applicant" => "applicants#assign_crafter_from_applicant", as: "assign_crafter_new"
   get "applicants/:id/hire" => 'applicants#hire', as: "hire_applicant"
   post "update_state/:id" => 'applicants#update_state', :as => 'update_state'
   post "make_decision/:id" => 'applicants#make_decision', :as => 'make_decision'
@@ -38,12 +38,12 @@ Footprints::Application.routes.draw do
   patch "notes/update/:id" => "notes#update", as: 'note_update'
 
   get "analytics" => "analytics#index"
-  get "profile" => "craftsmen#profile", as: 'profile'
-  get "craftsmen/seeking" => "craftsmen#seeking", as: 'craftsmen'
-  put "craftsman/update" => "craftsmen#update"
+  get "profile" => "crafters#profile", as: 'profile'
+  get "crafters/seeking" => "crafters#seeking", as: 'crafters'
+  put "crafter/update" => "crafters#update"
 
   get "search_suggestions" => 'search_suggestions#index'
-  get "craftsman_suggestions" => 'search_suggestions#craftsman_suggestions'
+  get "crafter_suggestions" => 'search_suggestions#crafter_suggestions'
   get "dashboard/confirm_applicant_assignment" => "dashboard#confirm_applicant_assignment", as: 'confirm_applicant_assignment'
   get "dashboard/decline_applicant_assignment" => "dashboard#decline_applicant_assignment", as: 'decline_applicant_assignment'
   post "dashboard/decline_all_applicants" => "dashboard#decline_all_applicants", as: 'decline_all_applicants'

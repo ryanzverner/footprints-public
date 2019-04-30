@@ -95,14 +95,14 @@ module Warehouse
           :position =>  {
             :created_at => @created_at,
             :id => 10,
-            :name => "Software Craftsman",
+            :name => "Software Crafter",
             :updated_at => @updated_at
           },
           :person =>  {
             :created_at => @created_at,
             :id => 110,
             :first_name => "A",
-            :last_name => "Craftsman",
+            :last_name => "Crafter",
             :email => "a@footprints.com",
             :updated_at => @updated_at
           },
@@ -118,14 +118,14 @@ module Warehouse
           :position =>  {
             :created_at => @created_at,
             :id => 11,
-            :name => "Software Craftsman",
+            :name => "Software Crafter",
             :updated_at => @updated_at
           },
           :person =>  {
             :created_at => @created_at,
             :id => 111,
             :first_name => "B",
-            :last_name => "Craftsman",
+            :last_name => "Crafter",
             :email => "b@footprints.com",
             :updated_at => @updated_at
           },
@@ -141,14 +141,14 @@ module Warehouse
           :position =>  {
             :created_at => @created_at,
             :id => 12,
-            :name => "Software Craftsman",
+            :name => "Software Crafter",
             :updated_at => @updated_at
           },
           :person =>  {
             :created_at => @created_at,
             :id => 112,
             :first_name => "C",
-            :last_name => "Craftsman",
+            :last_name => "Crafter",
             :email => "c@footprints.com",
             :updated_at => @updated_at
           },
@@ -164,14 +164,14 @@ module Warehouse
           :position =>  {
             :created_at => @created_at,
             :id => 13,
-            :name => "UX Craftsman",
+            :name => "UX Crafter",
             :updated_at => @updated_at
           },
           :person =>  {
             :created_at => @created_at,
             :id => 113,
             :first_name => "D",
-            :last_name => "Craftsman",
+            :last_name => "Crafter",
             :email => "d@footprints.com",
             :updated_at => @updated_at
           },
@@ -187,14 +187,14 @@ module Warehouse
           :position =>  {
             :created_at => @created_at,
             :id => 14,
-            :name => "UX Craftsman",
+            :name => "UX Crafter",
             :updated_at => @updated_at
           },
           :person =>  {
             :created_at => @created_at,
             :id => 114,
             :first_name => "E",
-            :last_name => "Craftsman",
+            :last_name => "Crafter",
             :email => "e@footprints.com",
             :updated_at => @updated_at
           },
@@ -302,7 +302,7 @@ module Warehouse
           :position =>  {
             :created_at => @created_at,
             :id => 18,
-            :name => "UX Craftsman",
+            :name => "UX Crafter",
             :updated_at => @updated_at
           },
           :person =>  {

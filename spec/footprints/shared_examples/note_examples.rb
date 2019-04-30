@@ -2,12 +2,12 @@ shared_examples "note repository" do
   let(:repo) { described_class.new }
   let(:applicant) { Applicant.create(:name => "A Applicant",
                                      :applied_on => Date.current)}
-  let(:craftsman) { Craftsman.create(:name => "A Craftsman",
+  let(:crafter) { Crafter.create(:name => "A Crafter",
                                      :employment_id => "0") }
   let(:note) {{
     :body => "Test",
     :applicant_id => applicant.id,
-    :craftsman_id => craftsman.id
+    :crafter_id => crafter.id
   }}
 
   def create_note

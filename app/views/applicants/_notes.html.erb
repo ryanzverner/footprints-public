@@ -2,7 +2,7 @@
 <% @notes.each do |note| %>
   <div class="note">
     <div class="note-header">
-      <p class="note-author"><%= note.craftsman %> · <%= note.updated_at %><p>
+      <p class="note-author"><%= note.crafter %> · <%= note.updated_at %><p>
       <% if note.created_by?(@current_user) %>
         <%= link_to "Edit", note_path(note.id), :class => 'edit-note button small secondary' %>
       <% end %>

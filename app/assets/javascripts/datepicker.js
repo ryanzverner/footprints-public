@@ -9,5 +9,5 @@ $(function() {
     $("#start_date").datepicker();
     $("#end_date").datepicker();
     $("#unavailable_until").datepicker();
-    $("#craftsman_unavailable_until").datepicker();
+    $("#crafter_unavailable_until").datepicker();
 });

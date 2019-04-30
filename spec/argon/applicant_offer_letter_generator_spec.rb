@@ -3,9 +3,9 @@ require 'spec_helper'
 require './lib/argon/applicant_offer_letter_generator.rb'
 
 describe ApplicantOfferLetterGenerator do
-  let!(:craftsman) { Footprints::Repository.craftsman.create(:name => "A Craftsman", :employment_id => "007") }
+  let!(:crafter) { Footprints::Repository.crafter.create(:name => "A Crafter", :employment_id => "007") }
   let!(:applicant) { Footprints::Repository.applicant.create(:name => "G Applicant",
-                                                             :assigned_craftsman => "A Craftsman",
+                                                             :assigned_crafter => "A Crafter",
                                                              :email => "g.applicant@example.com",
                                                              :applied_on => Date.today,
                                                              :initial_reply_on => Date.today,
@@ -18,7 +18,7 @@ describe ApplicantOfferLetterGenerator do
                                                              :discipline => "developer",
                                                              :start_date => "6/21/2014".to_date,
                                                              :end_date => "10/26/2014".to_date,
-                                                             :mentor => "A Craftsman",
+                                                             :mentor => "A Crafter",
                                                              :skill => "resident",
                                                              :location => "London")}
 
@@ -33,7 +33,7 @@ describe ApplicantOfferLetterGenerator do
 
   def add_test_salaries
     Footprints::Repository.monthly_apprentice_salary.create({location: applicant.location, duration: 4, amount: 500.0})
-    Footprints::Repository.annual_starting_craftsman_salary.create({location: applicant.location, amount: 12345.0})
+    Footprints::Repository.annual_starting_crafter_salary.create({location: applicant.location, amount: 12345.0})
   end
 
   before :each do
@@ -42,12 +42,12 @@ describe ApplicantOfferLetterGenerator do
 
   after :each do
     Footprints::Repository.monthly_apprentice_salary.destroy_all
-    Footprints::Repository.annual_starting_craftsman_salary.destroy_all
+    Footprints::Repository.annual_starting_crafter_salary.destroy_all
   end
 
   it "generates a link to Argon with the JSON data and API key" do
     allow(generator).to receive(:get_template).and_return(File.new("#{Rails.root}/spec/argon/mock_offer_letter_template.json"))
 
-    expect(generator.build_offer_letter_as_json).to eq('[ "document", {}, [ "paragraph", {}, "Name is G Applicant, residency length is 4 months, start date is 21 June 2014, apprentice salary is £500.00 per month, craftsman salary is £12,345.00 per year, mentor name is A Craftsman, pt/ft is full time, hours per week is 37.5, withdraw offer date is 25 June 2014" ]]')
+    expect(generator.build_offer_letter_as_json).to eq('[ "document", {}, [ "paragraph", {}, "Name is G Applicant, residency length is 4 months, start date is 21 June 2014, apprentice salary is £500.00 per month, crafter salary is £12,345.00 per year, mentor name is A Crafter, pt/ft is full time, hours per week is 37.5, withdraw offer date is 25 June 2014" ]]')
   end
 end

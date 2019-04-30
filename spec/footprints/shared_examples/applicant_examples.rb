@@ -85,16 +85,16 @@ shared_examples "applicant repository" do
   end
 
   context 'get unassigned, unarchived applicants' do
-    it 'includes unarchived applicants without a craftsman' do
+    it 'includes unarchived applicants without a crafter' do
       unassigned_applicant = create_applicant(archived: false)
       archived_applicant = create_applicant(archived: true)
 
       expect(repo.get_unassigned_unarchived_applicants).to eq [unassigned_applicant]
     end
 
-    it 'excludes applicants who already have a craftsman' do
-      Footprints::Repository.craftsman.create(name: "Jimi Hendrix", employment_id: 1)
-      assigned_applicant = create_applicant(:assigned_craftsman => "Jimi Hendrix")
+    it 'excludes applicants who already have a crafter' do
+      Footprints::Repository.crafter.create(name: "Jimi Hendrix", employment_id: 1)
+      assigned_applicant = create_applicant(:assigned_crafter => "Jimi Hendrix")
       expect(repo.get_unassigned_unarchived_applicants).to eq []
     end
   end
