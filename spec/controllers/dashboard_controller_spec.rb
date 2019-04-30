@@ -3,17 +3,17 @@ require 'spec_helper'
 describe DashboardController do
   let(:repo) { Footprints::Repository }
   let(:confirmed_app)             { repo.applicant.create(name: "Confirmeded App", applied_on: Date.today, email: "test1@test.com",
-                                                          assigned_craftsman: "A. Craftsman", craftsman_id: craftsman.id, has_steward: true,
+                                                          assigned_crafter: "A. Crafter", crafter_id: crafter.id, has_steward: true,
                                                           :discipline => "developer", :skill => "resident", :location => "Chicago") }
   let(:not_yet_responded_app)     { repo.applicant.create(name: "NotYetResponded App", applied_on: Date.today, email: "test2@test.com",
-                                                          assigned_craftsman: "A. Craftsman", craftsman_id: craftsman.id, has_steward: false,
+                                                          assigned_crafter: "A. Crafter", crafter_id: crafter.id, has_steward: false,
                                                           :discipline => "developer", :skill => "resident", :location => "Chicago") }
   let(:archived_app)              { repo.applicant.create(name: "Archived App", applied_on: Date.today, email: "test3@test.com",
-                                                          assigned_craftsman: "A. Craftsman", craftsman_id: craftsman.id, has_steward: true,
+                                                          assigned_crafter: "A. Crafter", crafter_id: crafter.id, has_steward: true,
                                                           :discipline => "developer", :skill => "resident", :location => "Chicago", archived: true) }
-  let(:craftsman)                 { repo.craftsman.create(name: "A. Craftsman", employment_id: "123", email: "testcraftsman@abcinc.com") }
-  let(:current_user)              { repo.user.new({ :login => "A. Craftsman", :email => "testuser@abcinc.com"}) }
-  let(:assigned_applicant_record) { AssignedCraftsmanRecord.create(:applicant_id => not_yet_responded_app.id, :craftsman_id => craftsman.id) }
+  let(:crafter)                 { repo.crafter.create(name: "A. Crafter", employment_id: "123", email: "testcrafter@abcinc.com") }
+  let(:current_user)              { repo.user.new({ :login => "A. Crafter", :email => "testuser@abcinc.com"}) }
+  let(:assigned_applicant_record) { AssignedCrafterRecord.create(:applicant_id => not_yet_responded_app.id, :crafter_id => crafter.id) }
 
   it "redirects to login page when not logged in" do
     get :index
@@ -31,12 +31,12 @@ describe DashboardController do
       controller.stub(:current_user).and_return(current_user)
       controller.stub(:authenticate)
       controller.stub(:employee?)
-      current_user.update_attribute(:craftsman_id, craftsman.id)
+      current_user.update_attribute(:crafter_id, crafter.id)
     end
 
-    it "finds correct craftsman and his/her applicants for index" do
+    it "finds correct crafter and his/her applicants for index" do
       get :index
-      expect(assigns(:craftsman)).to eq(current_user.craftsman)
+      expect(assigns(:crafter)).to eq(current_user.crafter)
       expect(assigns(:confirmed_applicants)).to eq([confirmed_app])
       expect(assigns(:not_yet_responded_applicants)).to eq([not_yet_responded_app])
     end
@@ -66,18 +66,18 @@ describe DashboardController do
       expect(response).to redirect_to(root_path)
     end
 
-    it "sets assigned_craftsman_records#current to false when an applicant assignment is declined" do
+    it "sets assigned_crafter_records#current to false when an applicant assignment is declined" do
       assigned_applicant_record
-      current_records = AssignedCraftsmanRecord.where(:applicant_id => not_yet_responded_app.id, :craftsman_id => craftsman.id,
+      current_records = AssignedCrafterRecord.where(:applicant_id => not_yet_responded_app.id, :crafter_id => crafter.id,
                                                       :current => true)
       expect(current_records.count).to eq(1)
       get :decline_applicant_assignment, {:id => not_yet_responded_app.id}
       expect(current_records.count).to eq(0)
     end
 
-    it "assigned_craftsman_records is still current when an applicant assignment is confirmed" do
+    it "assigned_crafter_records is still current when an applicant assignment is confirmed" do
       record = assigned_applicant_record
-      current_records = AssignedCraftsmanRecord.where(:applicant_id => not_yet_responded_app.id, :craftsman_id => craftsman.id,
+      current_records = AssignedCrafterRecord.where(:applicant_id => not_yet_responded_app.id, :crafter_id => crafter.id,
                                                       :current => true)
       expect(current_records.count).to eq(1)
       get :confirm_applicant_assignment, {:id => not_yet_responded_app.id}
@@ -86,7 +86,7 @@ describe DashboardController do
 
     it "can decline all applicants" do
       assigned_applicant_record
-      current_records = AssignedCraftsmanRecord.where(:applicant_id => not_yet_responded_app.id, :craftsman_id => craftsman.id,
+      current_records = AssignedCrafterRecord.where(:applicant_id => not_yet_responded_app.id, :crafter_id => crafter.id,
                                                       :current => true)
       expect(current_records.count).to eq(1)
       post :decline_all_applicants
@@ -98,16 +98,16 @@ describe DashboardController do
       expect(response).to redirect_to(root_path)
     end
 
-    it "sets the date until which the craftsman is unavailable for new applicants" do
+    it "sets the date until which the crafter is unavailable for new applicants" do
       assigned_applicant_record
 
       post :decline_all_applicants, { :unavailable_until => "08/06/2014" }
-      expect(current_user.craftsman.unavailable_until).to eq Date.parse("08/06/2014")
+      expect(current_user.crafter.unavailable_until).to eq Date.parse("08/06/2014")
     end
 
-    it "does not set the Craftsman's unavailability if there are no applicants to decline" do
+    it "does not set the Crafter's unavailability if there are no applicants to decline" do
       post :decline_all_applicants, { :unavailable_until => "08/06/2014" }
-      expect(current_user.craftsman.unavailable_until).to eq nil
+      expect(current_user.crafter.unavailable_until).to eq nil
     end
 
     it 'raises an exception when the date is in the past' do

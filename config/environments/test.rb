@@ -31,8 +31,8 @@ Footprints::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # Request craftsmen from Warehouse
-  config.prefetch_craftsmen = false
+  # Request crafters from Warehouse
+  config.prefetch_crafters = false
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

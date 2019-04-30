@@ -5,9 +5,9 @@ class DashboardController < ApplicationController
   before_filter :authenticate, :employee?
 
   def index
-    @craftsman = current_user.craftsman
-    @confirmed_applicants = interactor.confirmed_applicants(@craftsman)
-    @not_yet_responded_applicants = interactor.not_yet_responded_applicants(@craftsman)
+    @crafter = current_user.crafter
+    @confirmed_applicants = interactor.confirmed_applicants(@crafter)
+    @not_yet_responded_applicants = interactor.not_yet_responded_applicants(@crafter)
     @presenter = ApplicantIndexPresenter.new(@confirmed_applicants)
   end
 
@@ -20,13 +20,13 @@ class DashboardController < ApplicationController
   def decline_applicant_assignment
     @applicant = repo.applicant.find_by_id(params[:id])
     interactor.decline_applicant(@applicant)
-    interactor.assign_new_craftsman(@applicant)
+    interactor.assign_new_crafter(@applicant)
     redirect_to root_path, :notice => "Declined"
   end
 
   def decline_all_applicants
-    craftsman = current_user.craftsman
-    interactor.decline_all_applicants_and_set_availability_date(craftsman, params[:unavailable_until])
+    crafter = current_user.crafter
+    interactor.decline_all_applicants_and_set_availability_date(crafter, params[:unavailable_until])
     redirect_to root_path, :notice => "Declined All Applicants"
   rescue DashboardInteractor::InvalidAvailabilityDate => e
     redirect_to root_path, flash: { error: [e.message] }
@@ -35,6 +35,6 @@ class DashboardController < ApplicationController
   private
 
   def interactor
-    DashboardInteractor.new(repo.craftsman)
+    DashboardInteractor.new(repo.crafter)
   end
 end

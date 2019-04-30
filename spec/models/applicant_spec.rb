@@ -16,7 +16,7 @@ describe Applicant do
   end
 
   let(:message)    { Message.new(:title => "Title", :body => "Body", :created_at => Date.today) }
-  let!(:craftsman) { Craftsman.create(:name => "A Craftsman", :email => "acraftsman@abcinc.com", :employment_id => "1234") }
+  let!(:crafter) { Crafter.create(:name => "A Crafter", :email => "acrafter@abcinc.com", :employment_id => "1234") }
 
   it "has available code schools" do
     Applicant.code_schools.should_not be_empty
@@ -26,25 +26,25 @@ describe Applicant do
     let(:applicant) { Footprints::Repository.applicant.create(attrs) }
 
     after :each do
-      Craftsman.destroy_all
+      Crafter.destroy_all
     end
 
     it "requires a name, applied on date, and valid email" do
       applicant.should be_valid
     end
 
-    it "saves assigned craftsman if craftsman exists" do
-      applicant.update_attributes(:assigned_craftsman => "A Craftsman", :craftsman_id => craftsman.id)
-      applicant.craftsman_id.should == craftsman.id
+    it "saves assigned crafter if crafter exists" do
+      applicant.update_attributes(:assigned_crafter => "A Crafter", :crafter_id => crafter.id)
+      applicant.crafter_id.should == crafter.id
     end
 
-    it "does not save assigned craftsman if craftsman does not exist" do
-      applicant.update(:assigned_craftsman => "Some Craftsman")
+    it "does not save assigned crafter if crafter does not exist" do
+      applicant.update(:assigned_crafter => "Some Crafter")
       applicant.should_not be_valid
     end
 
     it "does not set hired if no decision_made_on date" do
-      applicant.update(:hired => "yes", :assigned_craftsman => "A Craftsman")
+      applicant.update(:hired => "yes", :assigned_crafter => "A Crafter")
       expect(applicant).not_to be_valid
     end
 
@@ -53,37 +53,37 @@ describe Applicant do
                        :start_date => Date.today,
                        :end_date => Date.tomorrow,
                        :hired => "yes",
-                       :mentor => "A Craftsman")
+                       :mentor => "A Crafter")
       expect(applicant).to be_valid
     end
 
     it "does not allow hired to be set to invalid value" do
-      applicant.update(:decision_made_on => DateTime.current, :hired => "banana", :assigned_craftsman => "A Craftsman")
+      applicant.update(:decision_made_on => DateTime.current, :hired => "banana", :assigned_crafter => "A Crafter")
       expect(applicant).not_to be_valid
     end
 
-    it "must have assigned craftsman with hiring decision" do
+    it "must have assigned crafter with hiring decision" do
       applicant.update(:decision_made_on => DateTime.current, :hired => "yes")
       expect(applicant).not_to be_valid
     end
 
     it "must have a mentor for a hiring decision to be made" do
-      applicant.update(:decision_made_on => DateTime.current, :hired => "yes", :assigned_craftsman => "A Craftsman")
+      applicant.update(:decision_made_on => DateTime.current, :hired => "yes", :assigned_crafter => "A Crafter")
       expect(applicant).to have(1).error_on(:mentor)
     end
 
     it "does not save mentor if mentor does not exist" do
-      applicant.update(:mentor => "Unknown Craftsman")
+      applicant.update(:mentor => "Unknown Crafter")
       expect(applicant).to have(1).error_on(:mentor)
     end
 
     it "requires the start date to come before the end date" do
-      applicant.update(assigned_craftsman: "A Craftsman", :decision_made_on => Date.yesterday, :hired => "yes", :start_date => DateTime.current, :end_date => DateTime.yesterday )
+      applicant.update(assigned_crafter: "A Crafter", :decision_made_on => Date.yesterday, :hired => "yes", :start_date => DateTime.current, :end_date => DateTime.yesterday )
       expect(applicant).not_to be_valid
     end
 
     it "requires start and end date when decision is made on a applicant" do
-      applicant.update(:assigned_craftsman => "A Craftsman", :decision_made_on => Date.yesterday, :hired => "yes")
+      applicant.update(:assigned_crafter => "A Crafter", :decision_made_on => Date.yesterday, :hired => "yes")
       expect(applicant).to have(1).error_on(:start_date)
       expect(applicant).to have(1).error_on(:end_date)
     end
@@ -91,24 +91,24 @@ describe Applicant do
 
   context "outstanding" do
     before :all do
-      Craftsman.create(:name => "Tywin Lannister", :email => "tywin@sevenkingdoms.com", :employment_id => 1)
+      Crafter.create(:name => "Tywin Lannister", :email => "tywin@sevenkingdoms.com", :employment_id => 1)
     end
 
     before :each do
       attrs[:applied_on] = 3.days.ago
-      attrs[:assigned_craftsman] = "Tywin Lannister"
+      attrs[:assigned_crafter] = "Tywin Lannister"
     end
 
     it "recognizes outstanding request without replies" do
       applicant = Applicant.create(attrs)
-      Notification.create(:applicant => applicant, :craftsman_id => applicant.craftsman.id, :created_at => 1.day.ago)
+      Notification.create(:applicant => applicant, :crafter_id => applicant.crafter.id, :created_at => 1.day.ago)
       expect(applicant.outstanding?(1)).to be_true
     end
 
     it "request is not outstanding if there has been a reply" do
       attrs[:has_steward] = true
       applicant = Applicant.create(attrs)
-      Notification.create(:applicant => applicant, :craftsman_id => applicant.craftsman.id, :created_at => 1.day.ago)
+      Notification.create(:applicant => applicant, :crafter_id => applicant.crafter.id, :created_at => 1.day.ago)
       expect(applicant.outstanding?(1)).to be_false
     end
   end

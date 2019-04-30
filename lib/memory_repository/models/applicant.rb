@@ -3,7 +3,7 @@ require "active_model"
 
 module MemoryRepository
   class Applicant < MemoryRepository::Base
-    data_attributes :name, :email, :applied_on, :initial_reply_on, :sent_challenge_on, :completed_challenge_on, :reviewed_on, :offered_on, :decision_made_on, :hired, :codeschool, :college_degree, :cs_degree, :worked_as_dev, :assigned_craftsman, :additional_notes, :code_submission, :state, :craftsman_id, :slug, :archived
+    data_attributes :name, :email, :applied_on, :initial_reply_on, :sent_challenge_on, :completed_challenge_on, :reviewed_on, :offered_on, :decision_made_on, :hired, :codeschool, :college_degree, :cs_degree, :worked_as_dev, :assigned_crafter, :additional_notes, :code_submission, :state, :crafter_id, :slug, :archived
 
     include ActiveModel::Validations
 

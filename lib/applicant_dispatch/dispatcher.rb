@@ -14,18 +14,18 @@ module ApplicantDispatch
     def assign_applicant
       create_assignment(best_applicant_reviewer)
 
-      NotificationMailer.applicant_request(applicant.craftsman, applicant).deliver
+      NotificationMailer.applicant_request(applicant.crafter, applicant).deliver
 
       applicant
     rescue Exception => error
       NotificationMailer.dispatcher_failed_to_assign_applicant(applicant, error).deliver
     end
 
-    def assign_applicant_specific(craftsman_name)
-      specified_craftsman = craftsman_repository.find_by_name(craftsman_name)
-      create_assignment(specified_craftsman)
+    def assign_applicant_specific(crafter_name)
+      specified_crafter = crafter_repository.find_by_name(crafter_name)
+      create_assignment(specified_crafter)
 
-      NotificationMailer.applicant_request(applicant.craftsman, applicant).deliver
+      NotificationMailer.applicant_request(applicant.crafter, applicant).deliver
 
       applicant
     rescue Exception => error
@@ -38,27 +38,27 @@ module ApplicantDispatch
     def best_applicant_reviewer
       finder = FindBestApplicantReviewer.new(applicant: applicant, fallback: steward)
 
-      finder.call(candidates: all_craftsmen)
+      finder.call(candidates: all_crafters)
     end
 
-    def create_assignment(craftsman)
-      applicant.update_attributes(:assigned_craftsman => craftsman.name)
+    def create_assignment(crafter)
+      applicant.update_attributes(:assigned_crafter => crafter.name)
 
-      craftsman_assignment_repository.create(
+      crafter_assignment_repository.create(
         :applicant_id => applicant.id,
-        :craftsman_id => craftsman.id)
+        :crafter_id => crafter.id)
     end
 
-    def all_craftsmen
-      craftsman_repository.all
+    def all_crafters
+      crafter_repository.all
     end
 
-    def craftsman_repository
-      Footprints::Repository.craftsman
+    def crafter_repository
+      Footprints::Repository.crafter
     end
 
-    def craftsman_assignment_repository
-      Footprints::Repository.assigned_craftsman_record
+    def crafter_assignment_repository
+      Footprints::Repository.assigned_crafter_record
     end
   end
 end

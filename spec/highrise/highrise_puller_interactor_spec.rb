@@ -3,7 +3,7 @@ require 'highrise/highrise_puller_interactor'
 
 describe Interactor::HighrisePuller do
   let(:repo) { Footprints::Repository }
-  let(:application) { double("application", :body => "By:          Applicant\nEmail:       test@test.com\nPublication: http://www.google.com\n\n----\nQ: what's your story?\nA: \"story\"\n\n----\nQ: what do you love about writing software?\nA: \"software\"\n\n----\nQ: why do you want to be a(n) craftsman at ABC, Inc.?\nA: \"craftsman\"\n", :subject_name => "Applicant", :created_at => Time.current, :location => "Chicago") }
+  let(:application) { double("application", :body => "By:          Applicant\nEmail:       test@test.com\nPublication: http://www.google.com\n\n----\nQ: what's your story?\nA: \"story\"\n\n----\nQ: what do you love about writing software?\nA: \"software\"\n\n----\nQ: why do you want to be a(n) crafter at ABC, Inc.?\nA: \"crafter\"\n", :subject_name => "Applicant", :created_at => Time.current, :location => "Chicago") }
   before(:each) do
     allow(Highrise::Recording).to receive(:find_all_across_pages_since) { [application] }
   end
@@ -19,10 +19,10 @@ describe Interactor::HighrisePuller do
       :url               => "http://www.google.com",
       :about             => "story",
       :software_interest => "software",
-      :reason            => "craftsman",
+      :reason            => "crafter",
       :discipline        => "software",
       :location          => "Chicago",
-      :skill             => "craftsman"
+      :skill             => "crafter"
     }
     expect(repo.applicant).to have_received(:create).with(data)
     expect(repo.applicant.new(data)).to be_valid

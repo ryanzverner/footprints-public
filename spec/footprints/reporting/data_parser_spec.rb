@@ -6,9 +6,9 @@ describe DataParser do
   let(:now)              { Time.now.utc }
   let(:start_date)       { Time.parse("2014-08-01") }
 
-  context 'craftsmen' do
-    let(:employment_data)  { [{ :start => start_date, :end => now, :position => { :name => "Software Craftsman" }, :person_id => 30 },
-                              { :start => start_date, :end => now, :position => { :name => "UX Craftsman" }, :person_id => 29 },
+  context 'crafters' do
+    let(:employment_data)  { [{ :start => start_date, :end => now, :position => { :name => "Software Crafter" }, :person_id => 30 },
+                              { :start => start_date, :end => now, :position => { :name => "UX Crafter" }, :person_id => 29 },
                               { :start => start_date, :end => now, :position => { :name => "Designer" }, :person_id => 31 }] }
     let(:apprenticeships) {
       Warehouse::FakeAPIData.apprenticeships
@@ -34,8 +34,8 @@ describe DataParser do
       end
     end
 
-    context '#all_craftsmen' do
-      it 'returns empty list if there are no craftsmen' do
+    context '#all_crafters' do
+      it 'returns empty list if there are no crafters' do
         employment_data = [{ :start => start_date,
                              :end => Time.parse("2014-08-31"),
                              :position => { :name => "Developer" },
@@ -43,44 +43,44 @@ describe DataParser do
 
         parser = DataParser.new(employment_data)
 
-        expect(parser.all_craftsmen).to eq({"Software Craftsmen"=>[], "UX Craftsmen"=>[]})
+        expect(parser.all_crafters).to eq({"Software Crafters"=>[], "UX Crafters"=>[]})
       end
 
-      it 'returns only the craftsmen from the data' do
+      it 'returns only the crafters from the data' do
         parser = DataParser.new(employment_data)
 
-        result = { "Software Craftsmen" => [{ id: 30, start_date: start_date, end_date: now }],
-                   "UX Craftsmen" => [{ id: 29, start_date: start_date, end_date: now }] }
-        expect(parser.all_craftsmen).to eq result
+        result = { "Software Crafters" => [{ id: 30, start_date: start_date, end_date: now }],
+                   "UX Crafters" => [{ id: 29, start_date: start_date, end_date: now }] }
+        expect(parser.all_crafters).to eq result
       end
     end
 
-    context '#active_craftsmen_for' do
-      it 'returns 0 if there are no active craftsmen for given month' do
+    context '#active_crafters_for' do
+      it 'returns 0 if there are no active crafters for given month' do
         parser = DataParser.new([])
-        expect(parser.active_craftsmen_for(2, 2014)).to eq({"Software Craftsmen" => 0, "UX Craftsmen" => 0})
+        expect(parser.active_crafters_for(2, 2014)).to eq({"Software Crafters" => 0, "UX Crafters" => 0})
       end
 
-      it 'returns hash with the count for currently employed craftsmen for a given month' do
+      it 'returns hash with the count for currently employed crafters for a given month' do
         employment_data << { :start => Time.parse("01/01/1990"),
                              :end => Time.parse("01/01/1990"),
-                             :position => { :name => "Software Craftsman" },
+                             :position => { :name => "Software Crafter" },
                              :person_id => 31 }
 
         parser = DataParser.new(employment_data)
 
-        expect(parser.active_craftsmen_for(start_date.month, start_date.year)).to eq({"Software Craftsmen" => 1, "UX Craftsmen" => 1})
+        expect(parser.active_crafters_for(start_date.month, start_date.year)).to eq({"Software Crafters" => 1, "UX Crafters" => 1})
       end
 
-      it 'returns hash with the count for currently employed craftsman' do
+      it 'returns hash with the count for currently employed crafter' do
         employment_data = [{ :start => Time.parse("2014-08-01"),
                              :end => nil,
-                             :position => { :name => "Software Craftsman" },
+                             :position => { :name => "Software Crafter" },
                              :person_id => 31 }]
 
         parser = DataParser.new(employment_data)
 
-        expect(parser.active_craftsmen_for(9, 2014)).to eq({"Software Craftsmen" => 1, "UX Craftsmen" => 0})
+        expect(parser.active_crafters_for(9, 2014)).to eq({"Software Crafters" => 1, "UX Crafters" => 0})
       end
     end
   end

@@ -13,10 +13,10 @@ describe ApplicantProfilePresenter do
     )
   end
   let(:presenter) { ApplicantProfilePresenter.new(applicant) }
-  let!(:craftsman) do
-    Footprints::Repository.craftsman.create(
-      :name => "A Craftsman",
-      :email => "acraftsman@abcinc.com",
+  let!(:crafter) do
+    Footprints::Repository.crafter.create(
+      :name => "A Crafter",
+      :email => "acrafter@abcinc.com",
       :employment_id => "7"
     )
   end
@@ -99,7 +99,7 @@ describe ApplicantProfilePresenter do
       app = Footprints::Repository.applicant.create({:name => "Meagan", :applied_on => Date.today,  :initial_reply_on => Date.today,
                                                       :sent_challenge_on => Date.today, :completed_challenge_on => Date.today,
                                                       :reviewed_on => Date.today, :resubmitted_challenge_on => Date.today, :offered_on => Date.today,
-                                                      :decision_made_on => Date.today, :hired => "no", :assigned_craftsman => "A Craftsman",
+                                                      :decision_made_on => Date.today, :hired => "no", :assigned_crafter => "A Crafter",
                                                       :discipline => "developer", :skill => "resident", :location => "Chicago" })
       ApplicantProfilePresenter.new(app).current_state.should == "Completed Application"
     end
@@ -153,7 +153,7 @@ describe ApplicantProfilePresenter do
 
   context "#hire_action" do
     it "returns 'Hired' string if applicant has been hired" do
-      app = Footprints::Repository.applicant.create({:name => "Meagan", :applied_on => Date.yesterday, :url => "https://meaganwaller.com, github.com/meaganewaller;", :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Craftsman", :assigned_craftsman => "A Craftsman", :decision_made_on => DateTime.current, :discipline => "developer", :skill => "resident", :location => "Chicago" })
+      app = Footprints::Repository.applicant.create({:name => "Meagan", :applied_on => Date.yesterday, :url => "https://meaganwaller.com, github.com/meaganewaller;", :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Crafter", :assigned_crafter => "A Crafter", :decision_made_on => DateTime.current, :discipline => "developer", :skill => "resident", :location => "Chicago" })
       expect(ApplicantProfilePresenter.new(app).hire_action).to eq("Hired")
     end
 
@@ -177,14 +177,14 @@ describe ApplicantProfilePresenter do
 
     it "returns false if applicant was not hired" do
       app = Footprints::Repository.applicant.create({:name => "Meagan", :applied_on => Date.yesterday, :url => "https://meaganwaller.com, github.com/meaganewaller;",
-                                                     :hired => "no", :assigned_craftsman => "A Craftsman", :decision_made_on => DateTime.current,
+                                                     :hired => "no", :assigned_crafter => "A Crafter", :decision_made_on => DateTime.current,
                                                      :discipline => "developer", :skill => "resident", :location => "Chicago"})
       expect(ApplicantProfilePresenter.new(app).applicant_hired?).to be_false
     end
 
     it "returns true if applicant was hired" do
       app = Footprints::Repository.applicant.create({:name => "Meagan", :applied_on => Date.yesterday, :url => "https://meaganwaller.com, github.com/meaganewaller;",
-                                                     :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Craftsman", :assigned_craftsman => "A Craftsman",
+                                                     :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Crafter", :assigned_crafter => "A Crafter",
                                                      :decision_made_on => DateTime.current, :discipline => "developer", :skill => "resident", :location => "Chicago" })
       expect(ApplicantProfilePresenter.new(app).applicant_hired?).to be_true
     end
@@ -218,10 +218,10 @@ describe ApplicantProfilePresenter do
                                                             :discipline => "developer",
                                                             :archived => true,
                                                             :hired => "yes",
-                                                            :assigned_craftsman => craftsman.name,
+                                                            :assigned_crafter => crafter.name,
                                                             :start_date => Date.today,
                                                             :end_date => Date.today,
-                                                            :mentor => "A Craftsman",
+                                                            :mentor => "A Crafter",
                                                             :location => "Chicago" })
 
       expect(ApplicantProfilePresenter.new(applicant).can_be_unarchived?).to be_false
@@ -232,7 +232,7 @@ describe ApplicantProfilePresenter do
     it "returns true for applicants currently in process" do
       applicant = Footprints::Repository.applicant.create({:name => "Name",
                                                            :applied_on => Date.yesterday,
-                                                           :assigned_craftsman => "A Craftsman",
+                                                           :assigned_crafter => "A Crafter",
                                                            :discipline => "developer",
                                                            :skill => "resident",
                                                            :location => "Chicago" })
@@ -243,7 +243,7 @@ describe ApplicantProfilePresenter do
     it "returns false for applicants already denied" do
       applicant = Footprints::Repository.applicant.create({:name => "Name",
                                                            :applied_on => Date.yesterday,
-                                                           :assigned_craftsman => "A Craftsman",
+                                                           :assigned_crafter => "A Crafter",
                                                            :discipline => "developer",
                                                            :skill => "resident",
                                                            :location => "Chicago",
@@ -255,7 +255,7 @@ describe ApplicantProfilePresenter do
     it "returns false for applicants already accepted/hired" do
       applicant = Footprints::Repository.applicant.create({:name => "Name",
                                                            :applied_on => Date.yesterday,
-                                                           :assigned_craftsman => "A Craftsman",
+                                                           :assigned_crafter => "A Crafter",
                                                            :discipline => "developer",
                                                            :skill => "resident",
                                                            :location => "Chicago",
@@ -263,7 +263,7 @@ describe ApplicantProfilePresenter do
                                                            :hired => "yes",
                                                            :start_date => Date.today,
                                                            :end_date => Date.today,
-                                                           :mentor => "A Craftsman" })
+                                                           :mentor => "A Crafter" })
 
       expect(ApplicantProfilePresenter.new(applicant).can_be_denied?).to be_false
     end

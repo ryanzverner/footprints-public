@@ -56,8 +56,8 @@ describe SessionsController do
 
     context "authentication errors" do
       before :each do
-        allow(Rails.application.config).to receive(:prefetch_craftsmen) { true }
-        expect(Warehouse::PrefetchCraftsmen).to receive(:new).and_return(WarehousePrefetchCraftsmenWithAuthenticationError.new)
+        allow(Rails.application.config).to receive(:prefetch_crafters) { true }
+        expect(Warehouse::PrefetchCrafters).to receive(:new).and_return(WarehousePrefetchCraftersWithAuthenticationError.new)
 
         request.env["omniauth.auth"] = {:extra => {:id_token => "invalid token"},
           :info => {:email => "some email"},
@@ -71,7 +71,7 @@ describe SessionsController do
         expect(response).to redirect_to(oauth_signin_path)
       end
 
-      class WarehousePrefetchCraftsmenWithAuthenticationError
+      class WarehousePrefetchCraftersWithAuthenticationError
         def execute(token)
           raise Warehouse::AuthenticationError.new([])
         end
@@ -86,8 +86,8 @@ describe SessionsController do
 
     context "authorization errors" do
       before :each do
-        allow(Rails.application.config).to receive(:prefetch_craftsmen) { true }
-        expect(Warehouse::PrefetchCraftsmen).to receive(:new).and_return(WarehousePrefetchCraftsmenWithAuthorizationError.new)
+        allow(Rails.application.config).to receive(:prefetch_crafters) { true }
+        expect(Warehouse::PrefetchCrafters).to receive(:new).and_return(WarehousePrefetchCraftersWithAuthorizationError.new)
 
         request.env["omniauth.auth"] = {:extra => {:id_token => "invalid token"},
                                         :info => {:email => "some email"},
@@ -101,7 +101,7 @@ describe SessionsController do
         expect(response).to redirect_to(oauth_signin_path)
       end
 
-      class WarehousePrefetchCraftsmenWithAuthorizationError
+      class WarehousePrefetchCraftersWithAuthorizationError
         def execute(token)
           raise Warehouse::AuthorizationError.new([])
         end

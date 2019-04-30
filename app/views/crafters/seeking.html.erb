@@ -1,0 +1,18 @@
+<div class="container seeking">
+  <h1>Interested In Mentoring An Apprentice</h1>
+  <div class="row">
+    <div class="column half">
+      <h5>Resident</h5>
+      <% @crafters_seeking_residents.each do |crafter| %>
+        <p><%= crafter.name %> - <%= mail_to crafter.email, crafter.email %></p>
+      <% end %>
+    </div>
+
+    <div class="column half">
+      <h5>Student</h5>
+        <% @crafters_seeking_students.each do |crafter| %>
+          <p><%= crafter.name %> - <%= mail_to crafter.email, crafter.email %></p>
+        <% end %>
+    </div>
+  </div>
+</div>

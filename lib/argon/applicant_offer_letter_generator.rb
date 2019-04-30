@@ -38,8 +38,8 @@ class ApplicantOfferLetterGenerator
     number_to_currency(raw, currency_format_options(applicant.location))
   end
 
-  def get_craftsman_salary
-    raw = Footprints::Repository.annual_starting_craftsman_salary.find_by_location(applicant.location).amount
+  def get_crafter_salary
+    raw = Footprints::Repository.annual_starting_crafter_salary.find_by_location(applicant.location).amount
     number_to_currency(raw, currency_format_options(applicant.location))
   end
 
@@ -55,12 +55,12 @@ class ApplicantOfferLetterGenerator
     [
       ["<TODAY'S DATE>", format_date(Date.today)],
       ["<APPLICANT NAME>", applicant.name],
-      ["<MENTOR NAME>", applicant.assigned_craftsman],
+      ["<MENTOR NAME>", applicant.assigned_crafter],
       ["<START DATE>", format_date(applicant.start_date)],
       ["<END DATE>", format_date(applicant.end_date)],
       ["<DURATION>", params[:duration]],
       ["<APPRENTICE SALARY>", get_apprentice_salary],
-      ["<CRAFTSMAN ANNUAL SALARY>", get_craftsman_salary],
+      ["<CRAFTSMAN ANNUAL SALARY>", get_crafter_salary],
       ["<PT FT>", params[:pt_ft]],
       ["<WITHDRAW OFFER DATE>", format_date(Date.parse(params[:withdraw_offer_date]))],
       ["<HOURS PER WEEK>", params[:hours_per_week]]

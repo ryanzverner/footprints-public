@@ -11,8 +11,8 @@ class NotePresenter
     @note.body
   end
 
-  def craftsman
-    @note.craftsman.name rescue "Unknown"
+  def crafter
+    @note.crafter.name rescue "Unknown"
   end
 
   def updated_at
@@ -20,6 +20,6 @@ class NotePresenter
   end
 
   def created_by?(user)
-    user.craftsman_id == @note.craftsman_id
+    user.crafter_id == @note.crafter_id
   end
 end

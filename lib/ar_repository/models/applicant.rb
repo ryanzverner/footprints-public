@@ -2,7 +2,7 @@ require './lib/repository'
 require './app/helpers/applicants_helper'
 require './app/validators/date_validator'
 require './app/validators/url_validator'
-require './app/validators/craftsman_validator'
+require './app/validators/crafter_validator'
 
 class Applicant < ActiveRecord::Base
   include ActiveModel::Validations
@@ -12,9 +12,9 @@ class Applicant < ActiveRecord::Base
 
   has_many :messages
   has_many :notes
-  has_many :assigned_craftsman_records, autosave: true
+  has_many :assigned_crafter_records, autosave: true
   has_many :notifications
-  belongs_to :craftsman
+  belongs_to :crafter
 
   validates_with DateValidator
   validates_with UrlValidator
@@ -31,7 +31,7 @@ class Applicant < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_nil => true
 
   before_save :nilify_blanks
-  before_save :set_craftsman_data
+  before_save :set_crafter_data
   before_save :archive_if_decision_made
 
   def self.code_schools
@@ -62,34 +62,34 @@ class Applicant < ActiveRecord::Base
     end
   end
 
-  def set_craftsman_data
-    craftsman_name = self.assigned_craftsman
-    if craftsman_name.blank?
-      set_no_craftsman
+  def set_crafter_data
+    crafter_name = self.assigned_crafter
+    if crafter_name.blank?
+      set_no_crafter
     else
-      set_craftsman_by_name(craftsman_name)
+      set_crafter_by_name(crafter_name)
     end
     self
   end
 
-  def set_no_craftsman
-    self.assigned_craftsman = nil
-    self.craftsman_id = nil
+  def set_no_crafter
+    self.assigned_crafter = nil
+    self.crafter_id = nil
     self.has_steward = false
   end
 
-  def set_craftsman_by_name(craftsman_name)
-    craftsman = Footprints::Repository.craftsman.find_by_name(craftsman_name)
-    if craftsman
-      self.craftsman_id = craftsman.id
+  def set_crafter_by_name(crafter_name)
+    crafter = Footprints::Repository.crafter.find_by_name(crafter_name)
+    if crafter
+      self.crafter_id = crafter.id
     else
-      self.craftsman_id = nil
+      self.crafter_id = nil
     end
   end
 
   def outstanding?(how_many)
     first_notification = Notification.where(:applicant_id => self.id,
-                                            :craftsman_id => self.craftsman_id).first
+                                            :crafter_id => self.crafter_id).first
     date = first_notification.try(:created_at) || self.created_at
     !has_steward && (date < how_many.days.ago if date)
   end

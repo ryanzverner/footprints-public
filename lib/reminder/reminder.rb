@@ -2,21 +2,21 @@ module Footprints
   class Reminder
     class << self
 
-      def notify_craftsman_of_outstanding_requests
+      def notify_crafter_of_outstanding_requests
         Applicant.not_archived.each do |applicant|
-          mail_craftsman(applicant) if applicant.outstanding?(1)
+          mail_crafter(applicant) if applicant.outstanding?(1)
           mail_steward(applicant) if steward_needs_notification?(applicant)
         end
       end
 
-      def mail_craftsman(applicant)
-        NotificationMailer.craftsman_reminder(applicant).deliver
-        Notification.create(:applicant => applicant, :craftsman => applicant.craftsman)
+      def mail_crafter(applicant)
+        NotificationMailer.crafter_reminder(applicant).deliver
+        Notification.create(:applicant => applicant, :crafter => applicant.crafter)
       end
 
       def mail_steward(applicant)
         NotificationMailer.steward_reminder(applicant).deliver
-        Notification.create(:applicant => applicant, :craftsman => @steward)
+        Notification.create(:applicant => applicant, :crafter => @steward)
       end
 
       def steward_needs_notification?(applicant)
@@ -24,8 +24,8 @@ module Footprints
       end
 
       def steward_notified?(applicant)
-        @steward = Craftsman.find_by_email(ENV["STEWARD"])
-        Notification.where(:applicant => applicant, :craftsman => @steward).present?
+        @steward = Crafter.find_by_email(ENV["STEWARD"])
+        Notification.where(:applicant => applicant, :crafter => @steward).present?
       end
 
     end

@@ -52,7 +52,7 @@ module MemoryRepository
     end
 
     def get_unassigned_unarchived_applicants
-      records.values.select{|r| r.assigned_craftsman == nil && !r.archived}
+      records.values.select{|r| r.assigned_crafter == nil && !r.archived}
     end
 
     def get_applicants_by_state(state)

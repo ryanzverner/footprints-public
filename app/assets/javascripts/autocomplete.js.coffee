@@ -1,7 +1,7 @@
 jQuery ->
   $('#term').autocomplete
       source: "/search_suggestions"
-  $('#assigned_craftsman').autocomplete
-      source: "/craftsman_suggestions"
+  $('#assigned_crafter').autocomplete
+      source: "/crafter_suggestions"
   $('#mentor').autocomplete
-      source: "/craftsman_suggestions"
+      source: "/crafter_suggestions"

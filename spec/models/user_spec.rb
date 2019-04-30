@@ -29,24 +29,24 @@ describe User do
     user.uid.should == auth_hash['uid']
   end
 
-  it "if user login doesn't match a craftsman email it doesn't assign user id" do
+  it "if user login doesn't match a crafter email it doesn't assign user id" do
     User.stub(:find_by_uid)
     User.find_or_create_by_auth_hash(auth_hash)
-    expect(User.last.craftsman_id).to be_nil
+    expect(User.last.crafter_id).to be_nil
   end
 
-  it "if user login matches craftsman email it assigns user id" do
-    Craftsman.create(:email => auth_hash["info"]["email"], :employment_id => "test")
+  it "if user login matches crafter email it assigns user id" do
+    Crafter.create(:email => auth_hash["info"]["email"], :employment_id => "test")
     User.stub(:find_by_uid)
     User.find_or_create_by_auth_hash(auth_hash)
-    expect(User.last.craftsman_id).not_to be_nil
+    expect(User.last.crafter_id).not_to be_nil
   end
 
-  it "assigns craftsman on method call" do
-    Craftsman.create(:email => auth_hash["info"]["email"], :employment_id => "test")
+  it "assigns crafter on method call" do
+    Crafter.create(:email => auth_hash["info"]["email"], :employment_id => "test")
     User.stub(:find_by_uid)
     user = User.new(:email => auth_hash["info"]["email"])
-    user.associate_craftsman
-    expect(user.craftsman_id).not_to be_nil
+    user.associate_crafter
+    expect(user.crafter_id).not_to be_nil
   end
 end

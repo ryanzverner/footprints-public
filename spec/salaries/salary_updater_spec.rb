@@ -12,7 +12,7 @@ describe SalaryUpdater do
 
   def create_annual_salaries
     ["Chicago", "London"].each do |location|
-      Footprints::Repository.annual_starting_craftsman_salary.create(location: location, amount: 12345.0 )
+      Footprints::Repository.annual_starting_crafter_salary.create(location: location, amount: 12345.0 )
     end
   end
 
@@ -24,7 +24,7 @@ describe SalaryUpdater do
 
   after :each do
     Footprints::Repository.monthly_apprentice_salary.destroy_all
-    Footprints::Repository.annual_starting_craftsman_salary.destroy_all
+    Footprints::Repository.annual_starting_crafter_salary.destroy_all
   end
 
   it "creates a monthly salary" do
@@ -46,8 +46,8 @@ describe SalaryUpdater do
     expect(Footprints::Repository.monthly_apprentice_salary.find_by_duration_at_location(4, "Chicago").amount).to eq(444.0)
     expect(Footprints::Repository.monthly_apprentice_salary.find_by_duration_at_location(5, "London").amount).to eq(555.0)
     expect(Footprints::Repository.monthly_apprentice_salary.find_by_duration_at_location(6, "London").amount).to eq(666.0)
-    expect(Footprints::Repository.annual_starting_craftsman_salary.find_by_location("Chicago").amount).to eq(54321.0)
-    expect(Footprints::Repository.annual_starting_craftsman_salary.find_by_location("London").amount).to eq(98765.0)
+    expect(Footprints::Repository.annual_starting_crafter_salary.find_by_location("Chicago").amount).to eq(54321.0)
+    expect(Footprints::Repository.annual_starting_crafter_salary.find_by_location("London").amount).to eq(98765.0)
   end
 
   it "accepts various non-integer input and sets amounts accordingly" do
@@ -60,8 +60,8 @@ describe SalaryUpdater do
     expect(Footprints::Repository.monthly_apprentice_salary.find_by_duration_at_location(4, "Chicago").amount).to eq(444.0)
     expect(Footprints::Repository.monthly_apprentice_salary.find_by_duration_at_location(5, "London").amount).to eq(5000.0)
     expect(Footprints::Repository.monthly_apprentice_salary.find_by_duration_at_location(6, "London").amount).to eq(666.0)
-    expect(Footprints::Repository.annual_starting_craftsman_salary.find_by_location("Chicago").amount).to eq(54321.0)
-    expect(Footprints::Repository.annual_starting_craftsman_salary.find_by_location("London").amount).to eq(98765.0)
+    expect(Footprints::Repository.annual_starting_crafter_salary.find_by_location("Chicago").amount).to eq(54321.0)
+    expect(Footprints::Repository.annual_starting_crafter_salary.find_by_location("London").amount).to eq(98765.0)
   end
 
   context '#destroy' do

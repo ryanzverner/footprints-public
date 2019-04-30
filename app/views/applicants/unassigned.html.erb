@@ -11,9 +11,9 @@
               <p>Applied <%= pluralize(@applicant_presenter.days_since_last_applied(app.applied_on), "day", "days") %> ago</p>
             </div>
             <span class="applicant-actions">
-              <%= form_for :applicant_to_assign, url: specify_craftsman_path, method: :post do |f| %>
+              <%= form_for :applicant_to_assign, url: specify_crafter_path, method: :post do |f| %>
                 <label class="dropdown-label">Assign to:</label>
-                <%= f.select(:chosen_crafter, options_for_select(@craftsmen.map { |crafter| [crafter['name'], crafter['name']] }.unshift(["Available Crafter","auto"])), {}, class: "dropdown-height dropdown") %>
+                <%= f.select(:chosen_crafter, options_for_select(@crafters.map { |crafter| [crafter['name'], crafter['name']] }.unshift(["Available Crafter","auto"])), {}, class: "dropdown-height dropdown") %>
                  <%= f.submit "Submit", class: "button primary" %>
                  <%= f.hidden_field(:id, :value => app.id) %>
               <% end %>

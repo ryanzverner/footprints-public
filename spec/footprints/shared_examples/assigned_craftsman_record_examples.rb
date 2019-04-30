@@ -1,17 +1,17 @@
-shared_examples "assigned craftsman record repository" do
+shared_examples "assigned crafter record repository" do
   let(:repo) { described_class.new }
   let(:applicant) { Applicant.create(:name => "A Applicant",
                                      :applied_on => Date.current)}
-  let(:craftsman) { Craftsman.create(:name => "A Craftsman",
+  let(:crafter) { Crafter.create(:name => "A Crafter",
                                      :employment_id => "0") }
 
-  let(:assigned_craftsman_record) {{
+  let(:assigned_crafter_record) {{
     :applicant_id => applicant.id,
-    :craftsman_id => craftsman.id
+    :crafter_id => crafter.id
   }}
 
-  def create_assigned_craftsman_record
-    repo.create(assigned_craftsman_record)
+  def create_assigned_crafter_record
+    repo.create(assigned_crafter_record)
   end
 
   before do
@@ -19,12 +19,12 @@ shared_examples "assigned craftsman record repository" do
   end
 
   it "creates" do
-    record = create_assigned_craftsman_record
+    record = create_assigned_crafter_record
     expect(record).not_to be_nil
   end
 
   it "has an id" do
-    record = create_assigned_craftsman_record
+    record = create_assigned_crafter_record
     expect(record.id).not_to be_nil
   end
 end
