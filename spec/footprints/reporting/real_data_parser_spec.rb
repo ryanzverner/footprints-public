@@ -1,7 +1,7 @@
 require 'spec_helper'
 require './lib/reporting/real_data_parser'
 
-describe RealDataParser do 
+describe RealDataParser do
   let(:now)              { Time.now.utc }
   let(:start_date)       { Time.parse("2014-08-01") }
   let(:crafters_mock_data) { [
@@ -26,7 +26,7 @@ describe RealDataParser do
 
         expect(parser.all_crafters).to eq({"Software Crafters"=>[], "UX Crafters"=>[]})
       end
-    
+
       it 'returns only the crafters from the data' do
         parser = RealDataParser.new(crafters_mock_data, [])
         
@@ -63,8 +63,9 @@ describe RealDataParser do
     
       it "returns the number of software apprentices for a given month" do
         parser = RealDataParser.new(crafters_mock_data, apprentice_mock_data)
-
+        
         result = {"Software Apprentices" => 2}
+        
         expect(parser.software_apprentices_for(9, 2018)).to eq(result)
       end
     end
@@ -75,7 +76,7 @@ describe RealDataParser do
 
         expect(parser.all_apprentices).to eq("Software Apprentices" => [], "UX Apprentices" => [] )
       end
-    
+
       it 'returns only the apprentices from the data' do
         parser = RealDataParser.new([], apprentice_mock_data)
 
@@ -91,8 +92,8 @@ describe RealDataParser do
         expect(parser.active_apprentices_for(7, 2018)).to eq(
           {"Software Apprentices" => 0, "UX Apprentices" => 0}
         )
-      end 
-    
+      end
+
       it 'returns hash with the count for active apprentices for a given month' do
 
         parser = RealDataParser.new([], apprentice_mock_data)

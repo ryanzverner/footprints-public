@@ -11,3 +11,7 @@ This program is an applicant tracking tool that allows users to manage the emplo
   docker ps -a # see the container running
   docker exec -it footprints /bin/bash # get into the container
   ```
+
+#### Note
+
+Footprints requires anybody who logs in to also be a crafter. You will have to manually add a person to the system as a crafter in order to log into Footprints.

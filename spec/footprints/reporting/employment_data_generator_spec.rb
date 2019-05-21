@@ -3,18 +3,18 @@ require './lib/reporting/data_parser'
 require './lib/warehouse/fake_api'
 
 describe EmploymentDataGenerator do
-  let(:employment_data)  { 
+  let(:employment_data)  {
     [
-      { :start => Time.parse("2014-09-01"), 
-        :end => Time.parse("2014-12-30"), 
-        :position => { 
+      { :start => Time.parse("2014-09-01"),
+        :end => Time.parse("2014-12-30"),
+        :position => {
           :name => "Software Resident" },
-        :person_id => 32 
+        :person_id => 32
     },
-                            
-    { :start => Time.parse("2014-09-01"), 
-      :end => Time.parse("2015-09-30"), 
-      :position => { 
+
+    { :start => Time.parse("2014-09-01"),
+      :end => Time.parse("2015-09-30"),
+      :position => {
         :name => "UX Resident" },
       :person_id => 33 },
 
@@ -37,7 +37,7 @@ describe EmploymentDataGenerator do
     Warehouse::FakeAPIData.apprenticeships
   }
 
-  it 'generates the data for a given month' do
+  xit 'generates the data for a given month' do
     parser = DataParser.new(employment_data, apprenticeships)
     generator = EmploymentDataGenerator.new(parser)
 

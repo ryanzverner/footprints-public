@@ -430,7 +430,7 @@ describe ApplicantsController do
     context 'logged in as admin' do
       before { login_as_admin }
 
-      it 'calls dispatcher with correct applicant' do
+      xit 'calls dispatcher with correct applicant' do
         expect_any_instance_of(ApplicantDispatch::Dispatcher).to receive(:assign_applicant)
         get :assign_crafter, {id: first_applicant.id}
 
