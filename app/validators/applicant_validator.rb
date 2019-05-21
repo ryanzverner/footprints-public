@@ -1,42 +1,42 @@
 class ApplicantValidator < ActiveModel::Validator
   def validate(record)
     @record = record
-    valid_craftsman
-    craftsman_is_not_being_unassigned
-    mentor_is_valid_craftsman
+    valid_crafter
+    crafter_is_not_being_unassigned
+    mentor_is_valid_crafter
   end
 
   private
 
   attr_reader :record
 
-  def valid_craftsman
-    if record.assigned_craftsman.present? && craftsman_is_nil?
-      record.errors.add(:assigned_craftsman, "Not a Valid Craftsman")
+  def valid_crafter
+    if record.assigned_crafter.present? && crafter_is_nil?
+      record.errors.add(:assigned_crafter, "Not a Valid Crafter")
     end
   end
 
-  def craftsman_is_not_being_unassigned
+  def crafter_is_not_being_unassigned
     if record.has_steward
-      if record.assigned_craftsman_changed? && craftsman_is_nil?
-        record.errors.add(:assigned_craftsman, "Can't un-assign Craftsman")
+      if record.assigned_crafter_changed? && crafter_is_nil?
+        record.errors.add(:assigned_crafter, "Can't un-assign Crafter")
       end
     end
   end
 
-  def mentor_is_valid_craftsman
+  def mentor_is_valid_crafter
     if !record.mentor.nil?
-      if Footprints::Repository.craftsman.find_by_name(record.mentor).nil?
-        record.errors.add(:mentor, "is not a valid craftsman")
+      if Footprints::Repository.crafter.find_by_name(record.mentor).nil?
+        record.errors.add(:mentor, "is not a valid crafter")
       end
     end
   end
 
-  def craftsman_is_nil?
-    craftsman.nil?
+  def crafter_is_nil?
+    crafter.nil?
   end
 
-  def craftsman
-    Footprints::Repository.craftsman.find_by_name(record.assigned_craftsman)
+  def crafter
+    Footprints::Repository.crafter.find_by_name(record.assigned_crafter)
   end
 end

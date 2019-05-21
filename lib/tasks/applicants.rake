@@ -29,33 +29,33 @@ namespace :reminder do
   desc "Sends email reminder if outstanding applicant request"
   task :outstanding_applicant => :environment do
     puts "Sending email for outstanding applicant"
-    Footprints::Reminder.notify_craftsman_of_outstanding_requests
+    Footprints::Reminder.notify_crafter_of_outstanding_requests
   end
 end
 
 namespace :convert do
-  desc "Converts outdated craftsman_ids to current craftsman_ids"
-  task :applicant_craftsman_ids => :environment do
-    puts "Convert craftsman_ids to new craftsman records"
+  desc "Converts outdated crafter_ids to current crafter_ids"
+  task :applicant_crafter_ids => :environment do
+    puts "Convert crafter_ids to new crafter records"
     Applicant.all.each do |applicant|
-      craftsman = Craftsman.find_by_name(applicant.assigned_craftsman)
-      applicant.craftsman_id = craftsman.id rescue nil
+      crafter = Crafter.find_by_name(applicant.assigned_crafter)
+      applicant.crafter_id = crafter.id rescue nil
       applicant.save
     end
   end
 
-  desc "Converts craftsman_notification_time into Notification"
+  desc "Converts crafter_notification_time into Notification"
   task :notifications => :environment do
     Applicant.all.each do |applicant|
-      if applicant.craftsman
-        craftsman_id = applicant.craftsman.id
-        notification_time = applicant.craftsman_notification_time
-        Notification.create(:applicant_id => applicant.id, :craftsman_id => craftsman_id,
+      if applicant.crafter
+        crafter_id = applicant.crafter.id
+        notification_time = applicant.crafter_notification_time
+        Notification.create(:applicant_id => applicant.id, :crafter_id => crafter_id,
                             :created_at => notification_time)
         if applicant.outstanding?(2)
-          steward_id = Craftsman.find_by_email(ENV["STEWARD"]).id
-          Notification.create(:applicant_id => applicant.id, :craftsman_id => steward_id,
-                              :created_at => applicant.craftsman_notification_time)
+          steward_id = Crafter.find_by_email(ENV["STEWARD"]).id
+          Notification.create(:applicant_id => applicant.id, :crafter_id => steward_id,
+                              :created_at => applicant.crafter_notification_time)
         end
       end
     end

@@ -11,21 +11,21 @@ module Warehouse
     def add_resident!(applicant)
       person_id = add_person!(applicant)
       add_resident_employment!(applicant, person_id)
-      add_craftsman!(applicant, person_id)
+      add_crafter!(applicant, person_id)
     end
 
     def add_student!(applicant)
       person_id = add_person!(applicant)
-      craftsman_id = find_craftsman_person_id(applicant.mentor)
-      add_student_apprentice!(applicant, person_id, craftsman_id)
+      crafter_id = find_crafter_person_id(applicant.mentor)
+      add_student_apprentice!(applicant, person_id, crafter_id)
     end
 
     private
 
     attr_reader :warehouse
 
-    def find_craftsman_person_id(mentor)
-      record = Footprints::Repository.craftsman.find_by_name(mentor)
+    def find_crafter_person_id(mentor)
+      record = Footprints::Repository.crafter.find_by_name(mentor)
       employment_id = record[:employment_id]
       person_id = warehouse.find_employment_by_id(employment_id)[:person_id]
     end
@@ -38,7 +38,7 @@ module Warehouse
         :end => applicant.end_date)
     end
 
-    def add_craftsman!(applicant, person_id)
+    def add_crafter!(applicant, person_id)
       warehouse.create_employment!(
         :person_id => person_id,
         :position_name => find_position_name(applicant.discipline, CRAFTSMAN_POSITION_NAMES),

@@ -9,11 +9,11 @@ class EmploymentDataGenerator
   def generate_data_for(month)
     reporting_date = Date.parse(month)
 
-    craftsmen = total_craftsmen(reporting_date)
+    crafters = total_crafters(reporting_date)
     residents = total_residents(reporting_date)
     finishing_residents = total_finishing_residents(reporting_date)
 
-    craftsmen
+    crafters
       .merge(residents)
       .merge(finishing_residents)
       .merge(student_apprentices(reporting_date))
@@ -25,12 +25,12 @@ class EmploymentDataGenerator
     parser.student_apprentices_for(reporting_date.month, reporting_date.year)
   end
 
-  def total_craftsmen(reporting_date)
-    craftsmen = parser.active_craftsmen_for(reporting_date.month, reporting_date.year)
+  def total_crafters(reporting_date)
+    crafters = parser.active_crafters_for(reporting_date.month, reporting_date.year)
 
-    craftsmen["Software Craftsmen"] += @finished_residents.fetch("Software Residents", 0)
-    craftsmen["UX Craftsmen"] += @finished_residents.fetch("UX Residents", 0)
-    craftsmen
+    crafters["Software Crafters"] += @finished_residents.fetch("Software Residents", 0)
+    crafters["UX Crafters"] += @finished_residents.fetch("UX Residents", 0)
+    crafters
   end
 
   def total_residents(reporting_date)

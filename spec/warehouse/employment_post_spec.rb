@@ -13,7 +13,7 @@ describe Warehouse::EmploymentPost do
     Date.parse("February 11 2015")
   }
 
-  it "creates a resident apprentice employment, software craftsman employment, and person in warehouse" do
+  it "creates a resident apprentice employment, software crafter employment, and person in warehouse" do
     expect(warehouse_api).to receive(:create_person!).with({
       :first_name => "Bob", 
       :last_name => "Vance",
@@ -28,7 +28,7 @@ describe Warehouse::EmploymentPost do
 
     expect(warehouse_api).to receive(:create_employment!).with({
       :person_id => "1", 
-      :position_name => "Software Craftsman", 
+      :position_name => "Software Crafter", 
       :start => Date.parse("February 16 2015"),
       :end => nil}) { "1" }
 
@@ -41,7 +41,7 @@ describe Warehouse::EmploymentPost do
       :end_date => end_date}))).to eq("1")
   end
 
-  it "creates a ux apprentice employment, ux craftsman employment, and person in warehouse" do
+  it "creates a ux apprentice employment, ux crafter employment, and person in warehouse" do
     expect(warehouse_api).to receive(:create_person!).with({
       :first_name => "Bob", 
       :last_name => "Vance",
@@ -56,7 +56,7 @@ describe Warehouse::EmploymentPost do
 
     expect(warehouse_api).to receive(:create_employment!).with({
       :person_id => "1", 
-      :position_name => "UX Craftsman", 
+      :position_name => "UX Crafter", 
       :start => Date.parse("February 16 2015"),
       :end => nil}) { "1" }
 
@@ -70,7 +70,7 @@ describe Warehouse::EmploymentPost do
   end
 
   it "creates a student apprentice person in warehouse" do
-    allow_any_instance_of(Warehouse::EmploymentPost).to receive(:find_craftsman_person_id).and_return(1)
+    allow_any_instance_of(Warehouse::EmploymentPost).to receive(:find_crafter_person_id).and_return(1)
     expect(warehouse_api).to receive(:create_person!).with({
       :first_name => "Bob", 
       :last_name => "Vance",

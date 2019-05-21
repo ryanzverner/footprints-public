@@ -4,10 +4,10 @@ require './lib/reporting/real_data_parser'
 describe RealDataParser do
   let(:now)              { Time.now.utc }
   let(:start_date)       { Time.parse("2014-08-01") }
-  let(:craftsmen_mock_data) { [
-      Craftsman.new(id: 1, name: "Tom Johannsen", status: nil, employment_id: 0, uid: nil, email: "tom.johannsen@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 2, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil,unavailable_until: nil),
-      Craftsman.new(id: 2, name: "Douglas Kles", status: nil, employment_id: 1, uid: nil, email: "douglas.kles@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 2, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil,unavailable_until:nil),
-      Craftsman.new(id: 3, name: "Alan Abernathy", status: nil, employment_id: 2, uid: nil, email: "alan.abernathy@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 1, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil, unavailable_until: nil),
+  let(:crafters_mock_data) { [
+      Crafter.new(id: 1, name: "Tom Johannsen", status: nil, employment_id: 0, uid: nil, email: "tom.johannsen@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 2, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil,unavailable_until: nil),
+      Crafter.new(id: 2, name: "Douglas Kles", status: nil, employment_id: 1, uid: nil, email: "douglas.kles@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 2, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil,unavailable_until:nil),
+      Crafter.new(id: 3, name: "Alan Abernathy", status: nil, employment_id: 2, uid: nil, email: "alan.abernathy@abcinc.com", location: "Chicago", archived: false, position: nil, seeking: true, skill: 1, has_apprentice: false, start_date: Date.parse("2018-08-10"), end_date: nil, unavailable_until: nil),
     ]}
 
     let(:apprentice_mock_data) { [
@@ -27,24 +27,24 @@ describe RealDataParser do
         expect(parser.all_crafters).to eq({"Software Crafters"=>[], "UX Crafters"=>[]})
       end
 
-      xit 'returns only the craftsmen from the data' do
-        parser = RealDataParser.new(craftsmen_mock_data, [])
-
+      it 'returns only the crafters from the data' do
+        parser = RealDataParser.new(crafters_mock_data, [])
+        
         expect(parser.all_crafters).to eq(
-          {"Software Crafters" => craftsmen_mock_data[0,2], "UX Crafters" => craftsmen_mock_data[2,1]}
+          {"Software Crafters" => crafters_mock_data[0,2], "UX Crafters" => crafters_mock_data[2,1]}
         )
       end
     end
 
     context '#active_crafters_for(month, year)' do
-      xit 'returns a hash with 0 if there are no active crafters for given month' do
-        parser = RealDataParser.new(craftsmen_mock_data,[])
+      it 'returns a hash with 0 if there are no active crafters for given month' do
+        parser = RealDataParser.new(crafters_mock_data,[])
 
         expect(parser.active_crafters_for(2, 2014)).to eq({"Software Crafters" => 0, "UX Crafters" => 0})
       end
 
-      xit 'returns hash with the counts for currently employed crafters for a given month' do
-        parser = RealDataParser.new(craftsmen_mock_data, [])
+      it 'returns hash with the counts for currently employed crafters for a given month' do
+        parser = RealDataParser.new(crafters_mock_data, [])
 
         expect(parser.active_crafters_for(9, 2018)).to eq({"Software Crafters" => 2, "UX Crafters" => 1})
       end
@@ -53,18 +53,19 @@ describe RealDataParser do
 
   context 'apprentices' do
     context '#software_apprentices_for(month, year)' do
-      xit 'returns 0 when there are no apprentices for the given month' do
-        parser = RealDataParser.new(craftsmen_mock_data, apprentice_mock_data)
+      it 'returns 0 when there are no apprentices for the given month' do
+        parser = RealDataParser.new(crafters_mock_data, apprentice_mock_data)
 
         result = {"Software Apprentices" => 0}
 
         expect(parser.software_apprentices_for(8, 2014)).to eq(result)
       end
-
-      xit "returns the number of software apprentices for a given month" do
-        parser = RealDataParser.new(craftsmen_mock_data, apprentice_mock_data)
-
+    
+      it "returns the number of software apprentices for a given month" do
+        parser = RealDataParser.new(crafters_mock_data, apprentice_mock_data)
+        
         result = {"Software Apprentices" => 2}
+        
         expect(parser.software_apprentices_for(9, 2018)).to eq(result)
       end
     end

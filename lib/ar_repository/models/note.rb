@@ -3,7 +3,7 @@ require './lib/repository'
 class Note < ActiveRecord::Base
 
   belongs_to :applicant
-  belongs_to :craftsman
+  belongs_to :crafter
 
   validates_presence_of :body
 

@@ -15,7 +15,7 @@ class CreateApplicants < ActiveRecord::Migration
       t.string :college_degree
       t.string :cs_degree
       t.string :worked_as_dev
-      t.string :assigned_craftsman
+      t.string :assigned_crafter
       t.string :ttt_repo_link
       t.string :state
       t.text :additional_notes

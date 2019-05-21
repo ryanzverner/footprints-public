@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 module SpecHelpers
-  class CraftsmanFactory
+  class CrafterFactory
     def initialize
       @employment_id = 100
     end
 
     def create(attrs = {})
-      Footprints::Repository.craftsman.create(build_attrs(attrs))
+      Footprints::Repository.crafter.create(build_attrs(attrs))
     end
 
     private

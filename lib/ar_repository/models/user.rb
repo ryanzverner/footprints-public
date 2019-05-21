@@ -3,12 +3,12 @@ require './lib/repository'
 class User < ActiveRecord::Base
   include ActiveModel::Validations
 
-  belongs_to :craftsman
-  before_create :associate_craftsman
+  belongs_to :crafter
+  before_create :associate_crafter
 
-  def associate_craftsman
-    craftsman = Craftsman.find_by_email(self.email)
-    self.craftsman_id = craftsman.employment_id if craftsman
+  def associate_crafter
+    crafter = Crafter.find_by_email(self.email)
+    self.crafter_id = crafter.employment_id if crafter
   end
 
   private

@@ -4,21 +4,21 @@ describe "ApplicantDispatch::Filters::PreviouslyDeniedFilter" do
   subject { ApplicantDispatch::Filters::PreviouslyDeniedFilter }
 
   let(:applicant) { double(:applicant) }
-  let(:craftsman) { double(:craftsman) }
+  let(:crafter) { double(:crafter) }
 
-  it "removes craftsmen that have previously denied the applicant" do
-    allow(craftsman).to receive(:previously_denied_applicant?).with(applicant) { true }
+  it "removes crafters that have previously denied the applicant" do
+    allow(crafter).to receive(:previously_denied_applicant?).with(applicant) { true }
 
-    updated_craftsmen_list = subject.call([craftsman], applicant)
+    updated_crafters_list = subject.call([crafter], applicant)
 
-    expect(updated_craftsmen_list).to eq([])
+    expect(updated_crafters_list).to eq([])
   end
 
-  it "does not zero out the score if a craftsman has not previously denied the applicant" do
-    allow(craftsman).to receive(:previously_denied_applicant?).with(applicant) { false }
+  it "does not zero out the score if a crafter has not previously denied the applicant" do
+    allow(crafter).to receive(:previously_denied_applicant?).with(applicant) { false }
 
-    updated_craftsmen_list = subject.call([craftsman], applicant)
+    updated_crafters_list = subject.call([crafter], applicant)
 
-    expect(updated_craftsmen_list).to eq([craftsman])
+    expect(updated_crafters_list).to eq([crafter])
   end
 end

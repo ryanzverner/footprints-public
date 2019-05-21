@@ -1,4 +1,4 @@
-require './lib/craftsmen/skills'
+require './lib/crafters/skills'
 
 describe Skills do
   it 'converts list of given skills into single key' do

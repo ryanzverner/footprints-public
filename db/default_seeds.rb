@@ -37,16 +37,13 @@ module DefaultSeed
         "Ryan Jerner Jr.",
         "Ryan Jerner"
       ].each do |apprentice|
-        start_date = Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}")
         Footprints::Repository.apprentice.create({
           :name => apprentice,
           :email => "#{apprentice.downcase.gsub(" ", ".")}@abcinc.com",
           :position => ["developer", "designer"].sample,
           :location => ["Chicago", "London", "Los Angeles"].sample,
           :hired => "yes",
-          :applied_on => (1..365).to_a.sample.days.ago,
-          #:start_date => start_date,
-          :end_date => (start_date + 3.month)
+          :applied_on => (1..365).to_a.sample.days.ago
           })
         puts "New apprentice #{apprentice} added to the #{Rails.env} environment"
       end
@@ -88,7 +85,7 @@ module DefaultSeed
         Footprints::Repository.applicant.create({
           :name => applicant,
           :email => "#{applicant.downcase.gsub(" ", ".")}@gmail.com",
-          :skill => ["craftsman", "student", "resident"].sample,
+          :skill => ["crafter", "student", "resident"].sample,
           :discipline => ["developer", "designer"].sample,
           :location => ["Chicago", "London", "Los Angeles"].sample,
           :applied_on => (1..365).to_a.sample.days.ago,
@@ -133,7 +130,6 @@ module DefaultSeed
       end
 
       all_applicants.first(count - 15).each do |applicant|
-        applicant.start_date = Date.current + 1.week
         applicant.end_date = Date.current + 6.months
         applicant.offered_on = Date.current - 3.weeks
         applicant.save
@@ -207,10 +203,10 @@ module DefaultSeed
       puts "------------------------------------------------------------"
     end
 
-    def craftsman
-      Craftsman.destroy_all
+    def crafter
+      Crafter.destroy_all
       puts "------------------------------------------------------------"
-      puts "----------------------Adding Craftsmen----------------------"
+      puts "----------------------Adding Crafters----------------------"
 
       [
         "Tom Johannsen",
@@ -233,13 +229,11 @@ module DefaultSeed
         "Helen Garfield",
         "Colin Gonil",
       ].each_with_index do |name, i|
-        Footprints::Repository.craftsman.create({
+        Footprints::Repository.crafter.create({
           :name           => name,
           :location       => "Chicago",
           :employment_id  => i,
           :email          => "#{name.downcase.gsub(' ', '.')}@abcinc.com",
-          #:start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
-          #:end_date       => nil,
           :seeking        => true,
           :has_apprentice => [true, false].sample,
           :skill          => [1, 2].sample
@@ -248,64 +242,59 @@ module DefaultSeed
         puts "#{name} added to the #{Rails.env} environment"
       end
 
-      new_craftsman = Footprints::Repository.craftsman.create({
+      new_crafter = Footprints::Repository.crafter.create({
         :name           => "Russell Baker (London Director)",
         :location       => "London",
         :employment_id  => 103,
         :email          => ApplicantDispatch::Strategies::DefaultAllLondonApplicants::LONDON_DIRECTOR_EMAIL,
         :seeking        => true,
-        #:start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
-      puts "#{new_craftsman.name} added to the #{Rails.env} environment"
+      puts "#{new_crafter.name} added to the #{Rails.env} environment"
 
-      new_craftsman = Footprints::Repository.craftsman.create({
+      new_crafter = Footprints::Repository.crafter.create({
         :name           => "Clare Heyward (Los Angeles Director)",
         :location       => "Los Angeles",
         :employment_id  => 104,
         :email          => ApplicantDispatch::Strategies::DefaultAllLosAngelesApplicants::LOS_ANGELES_DIRECTOR_EMAIL,
         :seeking        => true,
-        #:start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
-      puts "#{new_craftsman.name} added to the #{Rails.env} environment"
+      puts "#{new_crafter.name} added to the #{Rails.env} environment"
 
-      new_craftsman = Footprints::Repository.craftsman.create({
+      new_crafter = Footprints::Repository.crafter.create({
         :name           => "Paul Goldman (Lead Designer)",
         :location       => "Chicago",
         :employment_id  => 105,
         :email          => ApplicantDispatch::Strategies::DefaultAllDesignApplicants::LEAD_DESIGNER_EMAIL,
         :seeking        => true,
-        #:start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
-      puts "#{new_craftsman.name} added to the #{Rails.env} environment"
+      puts "#{new_crafter.name} added to the #{Rails.env} environment"
 
-      new_craftsman = Footprints::Repository.craftsman.create({
+      new_crafter = Footprints::Repository.crafter.create({
         :name           => "Graham Hain (Steward)",
         :location       => "Chicago",
         :employment_id  => 100,
         :email          => ENV['STEWARD'],
         :seeking        => true,
-        #:start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
 
-      puts "#{new_craftsman.name} added to the #{Rails.env} environment"
+      puts "#{new_crafter.name} added to the #{Rails.env} environment"
 
-      new_craftsman = Footprints::Repository.craftsman.create({
+      new_crafter = Footprints::Repository.crafter.create({
         :name           => "Natalie Snow",
         :location       => "Chicago",
         :employment_id  => 102,
         :email          => "you@abcinc.com",
         :seeking        => true,
-        #:start_date     => Date.parse("2018-#{(1..12).to_a.sample}-#{(1..28).to_a.sample}"),
         :has_apprentice => [true, false].sample,
         :skill          => [1, 2].sample})
-      puts "#{new_craftsman.name} added to the #{Rails.env} environment"
+      puts "#{new_crafter.name} added to the #{Rails.env} environment"
 
       puts "------------------------------------------------------------"
     end
@@ -319,10 +308,10 @@ module DefaultSeed
         :email => ENV['STEWARD']
       })
 
-      puts "New User LINKED TO #{new_user.craftsman.name} FROM CALLBACK"
+      puts "New User LINKED TO #{new_user.crafter.name} FROM CALLBACK"
 
       new_user = Footprints::Repository.user.create({
-        :email => "b.craftsman@gmail.com"
+        :email => "b.crafter@gmail.com"
       })
 
       puts "new user added to the #{Rails.env} environment"
@@ -340,18 +329,18 @@ module DefaultSeed
       puts "------------------------------------------------------------"
     end
 
-    def assign_craftsmen
+    def assign_crafters
       puts "------------------------------------------------------------"
-      puts "--------------------Assigning Craftsmen---------------------"
+      puts "--------------------Assigning Crafters---------------------"
 
       Footprints::Repository.applicant.all.each do |applicant|
-        craftsman_ids = Footprints::Repository.craftsman.all.pluck(:employment_id)
-        craftsman_id = craftsman_ids.sample
-        craftsman = Footprints::Repository.craftsman.find(craftsman_id)
-        applicant.assigned_craftsman = craftsman.name
-        applicant.craftsman_id = craftsman.employment_id
+        crafter_ids = Footprints::Repository.crafter.all.pluck(:employment_id)
+        crafter_id = crafter_ids.sample
+        crafter = Footprints::Repository.crafter.find(crafter_id)
+        applicant.assigned_crafter = crafter.name
+        applicant.crafter_id = crafter.employment_id
         applicant.save
-        puts "#{craftsman.name} has been assigned to #{applicant.name}"
+        puts "#{crafter.name} has been assigned to #{applicant.name}"
       end
 
       puts "------------------------------------------------------------"
@@ -359,7 +348,7 @@ module DefaultSeed
 
     def add_salaries
       MonthlyApprenticeSalary.destroy_all
-      AnnualStartingCraftsmanSalary.destroy_all
+      AnnualStartingCrafterSalary.destroy_all
       puts "------------------------------------------------------------"
       puts "---------------------Adding Salaries------------------------"
 
@@ -378,30 +367,30 @@ module DefaultSeed
         puts "Added monthly apprentice salary for #{los_angeles_monthly.duration} months in #{los_angeles_monthly.location}: #{los_angeles_monthly.amount}"
       end
 
-      chicago_annual_salary = Footprints::Repository.annual_starting_craftsman_salary.create({:location => "Chicago",
+      chicago_annual_salary = Footprints::Repository.annual_starting_crafter_salary.create({:location => "Chicago",
                                                                                               :amount => 100000})
-      puts "Added annual starting craftsman salary for #{chicago_annual_salary.location}: #{chicago_annual_salary.amount}"
+      puts "Added annual starting crafter salary for #{chicago_annual_salary.location}: #{chicago_annual_salary.amount}"
 
-      london_annual_salary = Footprints::Repository.annual_starting_craftsman_salary.create({:location => "London",
+      london_annual_salary = Footprints::Repository.annual_starting_crafter_salary.create({:location => "London",
                                                                                              :amount => 200000})
-      puts "Added annual starting craftsman salary for #{london_annual_salary.location}: #{london_annual_salary.amount}"
+      puts "Added annual starting crafter salary for #{london_annual_salary.location}: #{london_annual_salary.amount}"
 
-      los_angeles_annual_salary = Footprints::Repository.annual_starting_craftsman_salary.create({:location => "Los Angeles",
+      los_angeles_annual_salary = Footprints::Repository.annual_starting_crafter_salary.create({:location => "Los Angeles",
                                                                                              :amount => 200000})
-      puts "Added annual starting craftsman salary for #{los_angeles_annual_salary.location}: #{los_angeles_annual_salary.amount}"
+      puts "Added annual starting crafter salary for #{los_angeles_annual_salary.location}: #{los_angeles_annual_salary.amount}"
       puts "------------------------------------------------------------"
     end
 
     def staging_steward
-      Craftsman.find_by_email(ENV["STEWARD"]).try(:destroy)
-      Craftsman.create_footprints_steward(999)
+      Crafter.find_by_email(ENV["STEWARD"]).try(:destroy)
+      Crafter.create_footprints_steward(999)
     end
   end
 end
 
 
 if Rails.env == "development"
-  DefaultSeed.craftsman
+  DefaultSeed.crafter
   DefaultSeed.user
 elsif Rails.env == "staging"
   DefaultSeed.staging_steward
@@ -409,6 +398,6 @@ end
 
 DefaultSeed.apprentice
 DefaultSeed.applicant
-DefaultSeed.assign_craftsmen
+DefaultSeed.assign_crafters
 DefaultSeed.add_interaction_dates
 DefaultSeed.add_salaries

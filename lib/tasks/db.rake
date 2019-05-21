@@ -7,7 +7,7 @@ namespace :db do
     puts "Destroying Everything"
     Footprints::Repository.applicant.destroy_all
     Footprints::Repository.message.destroy_all
-    Footprints::Repository.craftsman.destroy_all
+    Footprints::Repository.crafter.destroy_all
   end
 
   desc "Archives applicants if they have been neglected for at least three months"
@@ -16,10 +16,10 @@ namespace :db do
     Footprints::ApplicantArchiver.archive_neglected_applicants
   end
 
-  desc "Expires assigned craftsman records after 10 days"
-  task :expire_assigned_craftsman_records => :environment do
-    puts "Expiring assigned craftsman records"
-    Footprints::ApplicantDispatch::RecordManager.expire_assigned_craftsman_records
+  desc "Expires assigned crafter records after 10 days"
+  task :expire_assigned_crafter_records => :environment do
+    puts "Expiring assigned crafter records"
+    Footprints::ApplicantDispatch::RecordManager.expire_assigned_crafter_records
   end
 
   desc "Add default salary records for Chicago, London, Los Angeles"
@@ -30,9 +30,9 @@ namespace :db do
       Footprints::Repository.monthly_apprentice_salary.create({:location => "London", :duration => months, :amount => 0.00})
       Footprints::Repository.monthly_apprentice_salary.create({:location => "Los Angeles", :duration => months, :amount => 0.00})
     end
-    Footprints::Repository.annual_starting_craftsman_salary.create({:location => "Chicago", :amount => 0.00})
-    Footprints::Repository.annual_starting_craftsman_salary.create({:location => "London", :amount => 0.00})
-    Footprints::Repository.annual_starting_craftsman_salary.create({:location => "Los Angeles", :amount => 0.00})
+    Footprints::Repository.annual_starting_crafter_salary.create({:location => "Chicago", :amount => 0.00})
+    Footprints::Repository.annual_starting_crafter_salary.create({:location => "London", :amount => 0.00})
+    Footprints::Repository.annual_starting_crafter_salary.create({:location => "Los Angeles", :amount => 0.00})
   end
 
   desc "Add default salary records for Los Angeles"
@@ -41,6 +41,6 @@ namespace :db do
     (3..12).each do |months|
       Footprints::Repository.monthly_apprentice_salary.create({:location => "Los Angeles", :duration => months, :amount => 0.00})
     end
-    Footprints::Repository.annual_starting_craftsman_salary.create({:location => "Los Angeles", :amount => 0.00})
+    Footprints::Repository.annual_starting_crafter_salary.create({:location => "Los Angeles", :amount => 0.00})
   end
 end

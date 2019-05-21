@@ -11,26 +11,26 @@ module ApplicantDispatch
 
       let(:applicant) { double(:applicant) }
 
-      it "increases a craftsman's score if she is seeking an apprentice" do
-        craftsman = build_craftsman(seeking: true)
+      it "increases a crafter's score if she is seeking an apprentice" do
+        crafter = build_crafter(seeking: true)
 
-        subject.call([craftsman], applicant)
+        subject.call([crafter], applicant)
 
-        expect(craftsman.score).to eq(weight)
+        expect(crafter.score).to eq(weight)
       end
 
-      it "does not increase a craftsman's score if she is not seeking an apprentice" do
-        craftsman = build_craftsman(seeking: false)
+      it "does not increase a crafter's score if she is not seeking an apprentice" do
+        crafter = build_crafter(seeking: false)
 
-        subject.call([craftsman], applicant)
+        subject.call([crafter], applicant)
 
-        expect(craftsman.score).to eq(0)
+        expect(crafter.score).to eq(0)
       end
 
-      def build_craftsman(args = {})
+      def build_crafter(args = {})
         seeking = args.fetch(:seeking)
 
-        ScoreableEntity.new(double(:craftsman, :seeking => seeking))
+        ScoreableEntity.new(double(:crafter, :seeking => seeking))
       end
     end
   end

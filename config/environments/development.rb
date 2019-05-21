@@ -29,8 +29,8 @@ Footprints::Application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-  # Request craftsmen from Warehouse
-  config.prefetch_craftsmen = false
+  # Request crafters from Warehouse
+  config.prefetch_crafters = false
 
   MAILER_CONFIG = YAML.load_file(Rails.root.join("config", "mailer.yml"))
   ENV['FOOTPRINTS_TEAM'] = "footprints@abcinc.com"

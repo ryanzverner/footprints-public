@@ -26,9 +26,9 @@ class ReportingInteractor
   def fetch_crafters_from(location)
     case location
     when 'all'
-      Footprints::Repository.craftsman.all
+      Footprints::Repository.crafter.all
     else
-      Footprints::Repository.craftsman.where("location = '#{location}'", 0)
+      Footprints::Repository.crafter.where("location = '#{location}'", 0)
     end
   end
 

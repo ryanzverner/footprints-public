@@ -43,7 +43,7 @@ class SalaryUpdater
   end
 
   def update_annual_salary(location, amount)
-    salary_record = Footprints::Repository.annual_starting_craftsman_salary.find_by_location(location)
+    salary_record = Footprints::Repository.annual_starting_crafter_salary.find_by_location(location)
     clean_amount = clean_user_input_salary(amount)
     salary_record.update_attribute(:amount, clean_amount)
   end

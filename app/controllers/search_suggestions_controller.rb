@@ -3,8 +3,8 @@ class SearchSuggestionsController < ApplicationController
     render json: get_name_suggestions(params[:term])
   end
 
-  def craftsman_suggestions 
-    render json: get_craftsman_suggestions(params[:term])
+  def crafter_suggestions 
+    render json: get_crafter_suggestions(params[:term])
   end
 
   private
@@ -16,9 +16,9 @@ class SearchSuggestionsController < ApplicationController
     suggestions
   end
 
-  def get_craftsman_suggestions(prefix)
+  def get_crafter_suggestions(prefix)
     suggestions = []
-    results = repo.craftsman.where("name like ?", "%#{prefix}%").limit(10)
+    results = repo.crafter.where("name like ?", "%#{prefix}%").limit(10)
     results.each { |a| suggestions << a.name }
     suggestions
   end

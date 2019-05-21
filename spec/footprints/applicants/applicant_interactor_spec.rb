@@ -2,8 +2,8 @@ require 'spec_helper'
 require './lib/applicants/applicant_interactor.rb'
 
 describe ApplicantInteractor do
-  let!(:craftsman) { Footprints::Repository.craftsman.create(:name => "A Craftsman", :employment_id => "007", :email => "acraftsman@example.com") }
-  let!(:bcraftsman) { Footprints::Repository.craftsman.create(:name => "B Craftsman", :employment_id => "008", :email => "bcraftsman@example.com") }
+  let!(:crafter) { Footprints::Repository.crafter.create(:name => "A Crafter", :employment_id => "007", :email => "acrafter@example.com") }
+  let!(:bcrafter) { Footprints::Repository.crafter.create(:name => "B Crafter", :employment_id => "008", :email => "bcrafter@example.com") }
   let!(:applicant) { Footprints::Repository.applicant.create(:name => "Bob", :applied_on => Date.current, :email => "test@test.com", :location => "Chicago",
                                                              :skill => "student", :discipline => "sofware") }
 
@@ -17,7 +17,7 @@ describe ApplicantInteractor do
 
   describe "#update_applicant_for_hiring" do
     before :each do
-      params = { mentor: "A Craftsman", start_date: Date.today, end_date: Date.today + 10 }
+      params = { mentor: "A Crafter", start_date: Date.today, end_date: Date.today + 10 }
       ApplicantInteractor.new(applicant, params).update_applicant_for_hiring
     end
 
@@ -30,91 +30,91 @@ describe ApplicantInteractor do
     end
   end
 
-  describe "#craftsman_changed?" do
-    context "craftsman has changed" do
-      it "recognizes that assigned craftsman has changed" do
-        applicant.assigned_craftsman = "B Craftsman"
-        interactor = ApplicantInteractor.new(applicant, :assigned_craftsman => "A Craftsman")
-        expect(interactor.craftsman_changed?).to be_true
+  describe "#crafter_changed?" do
+    context "crafter has changed" do
+      it "recognizes that assigned crafter has changed" do
+        applicant.assigned_crafter = "B Crafter"
+        interactor = ApplicantInteractor.new(applicant, :assigned_crafter => "A Crafter")
+        expect(interactor.crafter_changed?).to be_true
       end
     end
 
-    context "craftsman has not changed" do
-      it "returns false if craftsman changes from nil to empty string" do
-        expect(applicant.assigned_craftsman).to be_nil
-        interactor = ApplicantInteractor.new(applicant, :assigned_craftsman => "")
-        expect(interactor.craftsman_changed?).to be_false
+    context "crafter has not changed" do
+      it "returns false if crafter changes from nil to empty string" do
+        expect(applicant.assigned_crafter).to be_nil
+        interactor = ApplicantInteractor.new(applicant, :assigned_crafter => "")
+        expect(interactor.crafter_changed?).to be_false
       end
 
-      it "returns false if craftsman has not changed" do
-        applicant.update_attribute(:assigned_craftsman, "A Craftsman")
-        interactor = ApplicantInteractor.new(applicant, :assigned_craftsman => "A Craftsman")
-        applicant.assigned_craftsman = "A Craftsman"
-        expect(interactor.craftsman_changed?).to be_false
+      it "returns false if crafter has not changed" do
+        applicant.update_attribute(:assigned_crafter, "A Crafter")
+        interactor = ApplicantInteractor.new(applicant, :assigned_crafter => "A Crafter")
+        applicant.assigned_crafter = "A Crafter"
+        expect(interactor.crafter_changed?).to be_false
       end
     end
   end
 
-  describe "#notify_if_craftsman_changed" do
-    context "initial craftsman assigned" do
+  describe "#notify_if_crafter_changed" do
+    context "initial crafter assigned" do
       it "calls send_request_email" do
-        applicant.assigned_craftsman = "A Craftsman"
+        applicant.assigned_crafter = "A Crafter"
         interactor = ApplicantInteractor.new(applicant, {})
         allow(interactor).to receive(:send_request_email)
         allow(interactor).to receive(:send_transfer_email)
-        interactor.notify_if_craftsman_changed
+        interactor.notify_if_crafter_changed
         expect(interactor).to have_received(:send_request_email)
         expect(interactor).to_not have_received(:send_transfer_email)
       end
     end
 
-    context "craftsman has not changed" do
+    context "crafter has not changed" do
       it "doesn't call send request email" do
-        params = {:assigned_craftsman => applicant.assigned_craftsman}
+        params = {:assigned_crafter => applicant.assigned_crafter}
         interactor = ApplicantInteractor.new(applicant, params)
-        interactor.notify_if_craftsman_changed
+        interactor.notify_if_crafter_changed
         expect(interactor).to_not receive(:send_request_email)
       end
     end
 
-    context "applicant transfered to another craftsman" do
+    context "applicant transfered to another crafter" do
       it "calls send_transfer_email" do
-        applicant.update_attributes(:assigned_craftsman => "A Craftsman", :has_steward => true)
-        applicant.assigned_craftsman = "B Craftsman"
-        params = { :assigned_craftsman => "B Craftsman"}
+        applicant.update_attributes(:assigned_crafter => "A Crafter", :has_steward => true)
+        applicant.assigned_crafter = "B Crafter"
+        params = { :assigned_crafter => "B Crafter"}
         interactor = ApplicantInteractor.new(applicant, params)
         allow(interactor).to receive(:send_transfer_emails)
-        interactor.notify_if_craftsman_changed
+        interactor.notify_if_crafter_changed
         expect(interactor).to have_received(:send_transfer_emails)
       end
 
-      it "sends transfer email to correct craftsman" do
+      it "sends transfer email to correct crafter" do
         ActionMailer::Base.deliveries = []
-        applicant.update_attributes(:assigned_craftsman => "A Craftsman", :has_steward => true)
-        params = { :assigned_craftsman => "B Craftsman"}
+        applicant.update_attributes(:assigned_crafter => "A Crafter", :has_steward => true)
+        params = { :assigned_crafter => "B Crafter"}
         interactor = ApplicantInteractor.new(applicant, params)
         interactor.update
         mail = ActionMailer::Base.deliveries
         expect(mail.count).to eq(2)
-        expect(mail.first.to).to eq(["acraftsman@example.com"])
-        expect(mail.last.to).to eq(["bcraftsman@example.com"])
+        expect(mail.first.to).to eq(["acrafter@example.com"])
+        expect(mail.last.to).to eq(["bcrafter@example.com"])
       end
 
     end
 
     context "applicant has not been transfered" do
       it "doesn't call send_transfer_email" do
-        params = {:assigned_craftsman => applicant.assigned_craftsman}
+        params = {:assigned_crafter => applicant.assigned_crafter}
         interactor = ApplicantInteractor.new(applicant, params)
         allow(interactor).to receive(:send_transfer_email)
-        interactor.notify_if_craftsman_changed
+        interactor.notify_if_crafter_changed
         expect(interactor).to_not have_received(:send_transfer_email)
       end
     end
 
     context "invalid update information" do
-      it "doesn't send email to craftsman if update invalid" do
-        params = {:name => "", :assigned_craftsman => "A Craftsman"}
+      it "doesn't send email to crafter if update invalid" do
+        params = {:name => "", :assigned_crafter => "A Crafter"}
         interactor = ApplicantInteractor.new(applicant, params)
         allow(interactor).to receive(:send_request_email)
         applicant.assign_attributes(params)
@@ -144,8 +144,8 @@ describe ApplicantInteractor do
 
   describe "#notify_if_decision_made" do
     let!(:applicant) { Footprints::Repository.applicant.create(:name => "Bill", :applied_on => Date.current,
-                                                               :email => "test@example.com", :craftsman_id => craftsman.id,
-                                                               :assigned_craftsman => "A Craftsman", :has_steward => true,
+                                                               :email => "test@example.com", :crafter_id => crafter.id,
+                                                               :assigned_crafter => "A Crafter", :has_steward => true,
                                                                :discipline => "developer", :skill => "resident", :location => "Chicago") }
 
     before :each do
@@ -154,8 +154,8 @@ describe ApplicantInteractor do
     end
 
     context "applicant hired" do
-      it "notifies craftsman when an applicant is hired" do
-        params = { :decision_made_on => Date.today, :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Craftsman" }
+      it "notifies crafter when an applicant is hired" do
+        params = { :decision_made_on => Date.today, :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Crafter" }
         interactor = ApplicantInteractor.new(applicant, params)
         interactor.update
         mail = ActionMailer::Base.deliveries
@@ -164,8 +164,8 @@ describe ApplicantInteractor do
         expect(mail.first.to).to include ENV["ADMIN_EMAIL"]
       end
 
-      it "doesn't notify craftsman if hired was not set on current update" do
-        applicant.update_attributes(:decision_made_on => Date.today, :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Craftsman")
+      it "doesn't notify crafter if hired was not set on current update" do
+        applicant.update_attributes(:decision_made_on => Date.today, :hired => "yes", :start_date => Date.today, :end_date => Date.tomorrow, :mentor => "A Crafter")
         ActionMailer::Base.deliveries = []
         interactor = ApplicantInteractor.new(applicant, {})
         interactor.update
@@ -175,14 +175,14 @@ describe ApplicantInteractor do
     end
 
     context "applicant not hired" do
-      it "doesn't notify craftsman if decision has not been made" do
+      it "doesn't notify crafter if decision has not been made" do
         interactor = ApplicantInteractor.new(applicant, {})
         interactor.update
         mail = ActionMailer::Base.deliveries
         expect(mail).to be_empty
       end
 
-      it "doesn't notify craftsman if applicant was not hired" do
+      it "doesn't notify crafter if applicant was not hired" do
         params = { :decision_made_on => DateTime.current, :hired => "no" }
         interactor = ApplicantInteractor.new(applicant, params)
         interactor.update
@@ -199,8 +199,8 @@ describe ApplicantInteractor do
         :name => "Bill", 
         :applied_on => Date.current, 
         :email => "test@example.com",
-        :craftsman_id => craftsman.id, 
-        :assigned_craftsman => "A Craftsman",
+        :crafter_id => crafter.id, 
+        :assigned_crafter => "A Crafter",
         :has_steward => true, 
         :discipline => "developer", 
         :skill => "student",
@@ -211,7 +211,7 @@ describe ApplicantInteractor do
                                   :hired => "yes",
                                   :start_date => Date.today,
                                   :end_date => Date.tomorrow,
-                                  :mentor => "A Craftsman",
+                                  :mentor => "A Crafter",
                                   :skill => "resident")
       api = double("warehouse_api").as_null_object
       allow_any_instance_of(ApplicantInteractor).to receive(:setup_warehouse_api) { api }
@@ -225,7 +225,7 @@ describe ApplicantInteractor do
                                   :hired => "yes",
                                   :start_date => Date.today,
                                   :end_date => Date.tomorrow,
-                                  :mentor => "A Craftsman",
+                                  :mentor => "A Crafter",
                                   :skill => "student")
       api = double("warehouse_api").as_null_object
       allow_any_instance_of(ApplicantInteractor).to receive(:setup_warehouse_api) { api }

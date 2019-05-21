@@ -3,42 +3,42 @@ require './lib/applicants/applicant_presenter'
 class NotificationMailer < ActionMailer::Base
   default :from => "noreply@abcinc.com"
 
-  def applicant_request(craftsman, applicant)
-    @craftsman = craftsman
+  def applicant_request(crafter, applicant)
+    @crafter = crafter
     @applicant = applicant
 
-    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : craftsman.email,
+    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : crafter.email,
       :bcc => ENV["FOOTPRINTS_TEAM"], :subject => "[Footprints] You're the steward for #{@applicant.name}"
   end
 
-  def craftsman_reminder(applicant)
-    @craftsman = applicant.craftsman
+  def crafter_reminder(applicant)
+    @crafter = applicant.crafter
     @applicant = applicant
 
-    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : @craftsman.email, :subject => "[Footprints] REMINDER: You're the steward for #{@applicant.name}"
+    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : @crafter.email, :subject => "[Footprints] REMINDER: You're the steward for #{@applicant.name}"
   end
 
   def steward_reminder(applicant)
     @applicant = applicant
-    @craftsman = applicant.craftsman
+    @crafter = applicant.crafter
 
-    mail :to => ENV["FOOTPRINTS_TEAM"], :subject => "[Footprints] REMINDER: #{@craftsman.name} has not responded regarding #{@applicant.name}"
+    mail :to => ENV["FOOTPRINTS_TEAM"], :subject => "[Footprints] REMINDER: #{@crafter.name} has not responded regarding #{@applicant.name}"
   end
 
-  def new_craftsman_transfer(prev_craftsman, new_craftsman, applicant)
+  def new_crafter_transfer(prev_crafter, new_crafter, applicant)
     @applicant = applicant
-    @prev_craftsman = prev_craftsman
-    @new_craftsman = new_craftsman
+    @prev_crafter = prev_crafter
+    @new_crafter = new_crafter
 
-    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : @new_craftsman.email, :subject => "[Footprints] You are now the steward for #{@applicant.name}"
+    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : @new_crafter.email, :subject => "[Footprints] You are now the steward for #{@applicant.name}"
   end
 
-  def prev_craftsman_transfer(prev_craftsman, new_craftsman, applicant)
+  def prev_crafter_transfer(prev_crafter, new_crafter, applicant)
     @applicant = applicant
-    @prev_craftsman = prev_craftsman
-    @new_craftsman = new_craftsman
+    @prev_crafter = prev_crafter
+    @new_crafter = new_crafter
 
-    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : @prev_craftsman.email, :subject => "[Footprints] #{@new_craftsman.name} is now the steward for #{@applicant.name}"
+    mail :to => Rails.env.staging? ? ENV["TEST_EMAIL"] : @prev_crafter.email, :subject => "[Footprints] #{@new_crafter.name} is now the steward for #{@applicant.name}"
   end
 
   def offer_letter_generated(applicant)
@@ -49,9 +49,9 @@ class NotificationMailer < ActionMailer::Base
 
   def applicant_hired(applicant)
     @applicant = applicant
-    craftsman = Craftsman.find_by_name(applicant.assigned_craftsman)
+    crafter = Crafter.find_by_name(applicant.assigned_crafter)
 
-    mail :to => [Rails.env.staging? ? ENV["TEST_EMAIL"] : craftsman.email, ENV["ADMIN_EMAIL"], ENV["CFO_EMAIL"]], :subject => "[Footprints] A decision has been made on applicant #{applicant.name}"
+    mail :to => [Rails.env.staging? ? ENV["TEST_EMAIL"] : crafter.email, ENV["ADMIN_EMAIL"], ENV["CFO_EMAIL"]], :subject => "[Footprints] A decision has been made on applicant #{applicant.name}"
   end
 
   def dispatcher_failed_to_assign_applicant(applicant, error)

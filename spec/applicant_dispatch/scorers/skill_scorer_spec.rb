@@ -11,29 +11,29 @@ module ApplicantDispatch
       let(:applicants_skill) { "Ping Pong" }
       let(:applicant) { double(:applicant, :skill => applicants_skill) }
 
-      it "increases a craftsman's score if she is seeking an apprentice" do
-        craftsman = build_craftsman(is_seeking_for_applicant_skill: true)
+      it "increases a crafter's score if she is seeking an apprentice" do
+        crafter = build_crafter(is_seeking_for_applicant_skill: true)
 
-        subject.call([craftsman], applicant)
+        subject.call([crafter], applicant)
 
-        expect(craftsman.score).to eq(weight)
+        expect(crafter.score).to eq(weight)
       end
 
-      it "does not increase a craftsman's score if she is not seeking an apprentice" do
-        craftsman = build_craftsman(is_seeking_for_applicant_skill: false)
+      it "does not increase a crafter's score if she is not seeking an apprentice" do
+        crafter = build_crafter(is_seeking_for_applicant_skill: false)
 
-        subject.call([craftsman], applicant)
+        subject.call([crafter], applicant)
 
-        expect(craftsman.score).to eq(0)
+        expect(crafter.score).to eq(0)
       end
 
-      def build_craftsman(args = {})
+      def build_crafter(args = {})
         is_seeking_for_applicant_skill = args.fetch(:is_seeking_for_applicant_skill)
 
-        craftsman = double(:craftsman)
-        allow(craftsman).to receive(:is_seeking_for?).with(applicants_skill) { is_seeking_for_applicant_skill }
+        crafter = double(:crafter)
+        allow(crafter).to receive(:is_seeking_for?).with(applicants_skill) { is_seeking_for_applicant_skill }
 
-        ScoreableEntity.new(craftsman)
+        ScoreableEntity.new(crafter)
       end
     end
   end

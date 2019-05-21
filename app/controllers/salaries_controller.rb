@@ -8,7 +8,7 @@ class SalariesController < ApplicationController
 
   def edit
     monthly_salaries = Footprints::Repository.monthly_apprentice_salary.all
-    annual_salaries = Footprints::Repository.annual_starting_craftsman_salary.all
+    annual_salaries = Footprints::Repository.annual_starting_crafter_salary.all
     @salary_presenter = SalaryPresenter.new(monthly_salaries, annual_salaries, params)
     render "salary_update_form"
   end

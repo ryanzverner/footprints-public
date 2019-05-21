@@ -4,8 +4,8 @@
   <div class="card-header">
     <%= link_to app.name, applicant_path(app), :class => "applicant-name" %>
     <div class="card-sub-header">
-      <% if app.assigned_craftsman %>
-        Assigned to <%= app.assigned_craftsman %>
+      <% if app.assigned_crafter %>
+        Assigned to <%= app.assigned_crafter %>
       <% else %>
         Needs Crafter
       <% end %>

@@ -17,10 +17,10 @@ class ApplicantsController < ApplicationController
   include ApplicantsHelper
 
   before_filter :authenticate, :employee?, :except => [:submit]
-  before_filter :require_admin, :only => [:destroy, :new, :create, :hire, :make_decision, :unassigned, :assign_craftsman]
+  before_filter :require_admin, :only => [:destroy, :new, :create, :hire, :make_decision, :unassigned, :assign_crafter]
 
   def index
-    @crafters      = Footprints::Repository.craftsman
+    @crafters      = Footprints::Repository.crafter
     @applicants    = Footprints::ApplicantFinder.new.get_applicants(params).paginate(:page => params[:page], :per_page => 12)
     @presenter     = ApplicantIndexPresenter.new(@applicants)
   end
@@ -146,35 +146,35 @@ class ApplicantsController < ApplicationController
     @applicant_presenter = ApplicantPresenter.new
     applicants = repo.applicant.get_unassigned_unarchived_applicants
     @applicants = @applicant_presenter.sort_by_date(applicants)
-    @craftsmen = Footprints::Repository.craftsman.all
+    @crafters = Footprints::Repository.crafter.all
   end
 
-  def assign_craftsman
+  def assign_crafter
     applicant_id = params[:applicant_to_assign]["id"]
     chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
     applicant = repo.applicant.find_by_id(applicant_id)
-    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+    steward = repo.crafter.find_by_email(ENV['STEWARD'])
 
     if automatically_assigned?
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
     else
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
     end
-    redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}")
+    redirect_to(unassigned_applicants_path, notice: "Assigned #{applicant.name} to #{applicant.assigned_crafter}")
   end
 
-  def assign_craftsman_from_applicant
+  def assign_crafter_from_applicant
     applicant_id = params[:applicant_to_assign]["id"]
     chosen_crafter = params[:applicant_to_assign]["chosen_crafter"]
     applicant = repo.applicant.find_by_id(applicant_id)
-    steward = repo.craftsman.find_by_email(ENV['STEWARD'])
+    steward = repo.crafter.find_by_email(ENV['STEWARD'])
 
     if automatically_assigned?
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant
     else
       ApplicantDispatch::Dispatcher.new(applicant, steward).assign_applicant_specific(chosen_crafter)
     end
-    redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_craftsman}"
+    redirect_to applicant_path(applicant), notice: "Assigned #{applicant.name} to #{applicant.assigned_crafter}"
   end
 
   def offer_letter_form
@@ -260,11 +260,11 @@ class ApplicantsController < ApplicationController
   end
 
   def applicant_params
-    params.require(:applicant).permit(:name, :email, :applied_on, :initial_reply_on, :sent_challenge_on, :completed_challenge_on, :reviewed_on, :resubmitted_challenge_on, :decision_made_on, :assigned_craftsman, :code_submission, :codeschool, :college_degree, :cs_degree, :worked_as_dev, :additional_notes, :url, :craftsman_id, :has_steward, :skill, :discipline, :archived, :hired, :about, :software_interest, :reason, :start_date, :end_date, :location, :offered_on)
+    params.require(:applicant).permit(:name, :email, :applied_on, :initial_reply_on, :sent_challenge_on, :completed_challenge_on, :reviewed_on, :resubmitted_challenge_on, :decision_made_on, :assigned_crafter, :code_submission, :codeschool, :college_degree, :cs_degree, :worked_as_dev, :additional_notes, :url, :crafter_id, :has_steward, :skill, :discipline, :archived, :hired, :about, :software_interest, :reason, :start_date, :end_date, :location, :offered_on)
   end
 
   def applicant_params_for_update
-    params.require(:applicant).permit(:name, :email, :initial_reply_on, :sent_challenge_on, :completed_challenge_on, :reviewed_on, :resubmitted_challenge_on, :decision_made_on, :assigned_craftsman, :code_submission, :codeschool, :college_degree, :cs_degree, :worked_as_dev, :additional_notes, :url, :craftsman_id, :has_steward, :skill, :discipline, :archived, :hired, :about, :software_interest, :reason, :start_date, :end_date, :location, :offered_on)
+    params.require(:applicant).permit(:name, :email, :initial_reply_on, :sent_challenge_on, :completed_challenge_on, :reviewed_on, :resubmitted_challenge_on, :decision_made_on, :assigned_crafter, :code_submission, :codeschool, :college_degree, :cs_degree, :worked_as_dev, :additional_notes, :url, :crafter_id, :has_steward, :skill, :discipline, :archived, :hired, :about, :software_interest, :reason, :start_date, :end_date, :location, :offered_on)
   end
 
   def apprentice_params
@@ -272,7 +272,7 @@ class ApplicantsController < ApplicationController
   end
 
   def determine_redirect_path_for_denial(applicant)
-    if applicant.assigned_craftsman
+    if applicant.assigned_crafter
       root_path
     else
       unassigned_applicants_path

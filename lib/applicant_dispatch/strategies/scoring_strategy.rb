@@ -35,34 +35,34 @@ module ApplicantDispatch
       :matching_skill_level => 5
     }
 
-    HasApprenticeScorer = ->(scoreable_craftsmen, applicant) {
-      scoreable_craftsmen.each do |scoreable_craftsman|
-        if scoreable_craftsman.has_apprentice
-          scoreable_craftsman.score += WEIGHT.fetch(:has_apprentice)
+    HasApprenticeScorer = ->(scoreable_crafters, applicant) {
+      scoreable_crafters.each do |scoreable_crafter|
+        if scoreable_crafter.has_apprentice
+          scoreable_crafter.score += WEIGHT.fetch(:has_apprentice)
         end
       end
     }
 
-    LoadScorer = ->(scoreable_craftsmen, applicant) {
-      scoreable_craftsmen.each do |scoreable_craftsman|
-        score = scoreable_craftsman.number_of_current_assigned_applicants * WEIGHT.fetch(:each_assigned_applicant)
+    LoadScorer = ->(scoreable_crafters, applicant) {
+      scoreable_crafters.each do |scoreable_crafter|
+        score = scoreable_crafter.number_of_current_assigned_applicants * WEIGHT.fetch(:each_assigned_applicant)
 
-        scoreable_craftsman.score += score
+        scoreable_crafter.score += score
       end
     }
 
-    SeekingScorer = ->(scoreable_craftsmen, applicant) {
-      scoreable_craftsmen.each do |scoreable_craftsman|
-        if scoreable_craftsman.seeking
-          scoreable_craftsman.score += WEIGHT.fetch(:seeking_apprentice)
+    SeekingScorer = ->(scoreable_crafters, applicant) {
+      scoreable_crafters.each do |scoreable_crafter|
+        if scoreable_crafter.seeking
+          scoreable_crafter.score += WEIGHT.fetch(:seeking_apprentice)
         end
       end
     }
 
-    SkillScorer = ->(scoreable_craftsmen, applicant) {
-      scoreable_craftsmen.each do |scoreable_craftsman|
-        if scoreable_craftsman.is_seeking_for?(applicant.skill)
-          scoreable_craftsman.score += WEIGHT.fetch(:matching_skill_level)
+    SkillScorer = ->(scoreable_crafters, applicant) {
+      scoreable_crafters.each do |scoreable_crafter|
+        if scoreable_crafter.is_seeking_for?(applicant.skill)
+          scoreable_crafter.score += WEIGHT.fetch(:matching_skill_level)
         end
       end
     }
